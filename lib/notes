@@ -1,0 +1,18 @@
+***General Notes from the Course***
+
+A Widget is an object that describes part of the user interface
+    > Everything visible on the screen is a Widget
+
+Command + click goes to the superclass/documentation for the Flutter class
+
+UI's are always defined decoratively
+
+All UI's can be described with a WidgetTree diagram (See 5.73)
+
+Stateless Widgets are given constant configuration, they are all initialized
+with immutable attributes on build. UI will always be rendered in the same way.
+
+Stateful Widget can be given configuration on build, but can define mutable states
+    > Data might vary and change the display of the UI
+    > Overrides the createState() method
+        > Another State class instance is assigned createState()
