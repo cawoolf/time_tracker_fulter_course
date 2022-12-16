@@ -16,3 +16,5 @@ Stateful Widget can be given configuration on build, but can define mutable stat
     > Data might vary and change the display of the UI
     > Overrides the createState() method
         > Another State class instance is assigned createState()
+
+When data is changed use setState() to rebuild the UI for Stateful Widgets
