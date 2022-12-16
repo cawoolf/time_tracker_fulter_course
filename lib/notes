@@ -18,3 +18,10 @@ Stateful Widget can be given configuration on build, but can define mutable stat
         > Another State class instance is assigned createState()
 
 When data is changed use setState() to rebuild the UI for Stateful Widgets
+
+Best practice to make packages and folders for specific pages of the app
+that contains all widgets and such relevant to that page.
+
+Where you put the , in the dart code determines how its auto formatted
+
+alt+upArrow to increase selection
