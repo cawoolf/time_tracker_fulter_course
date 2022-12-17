@@ -24,4 +24,10 @@ that contains all widgets and such relevant to that page.
 
 Where you put the , in the dart code determines how its auto formatted
 
+Used SizedBox widget to create space between Widgets inside a Container
+
+Disable Buttons by setting onPressed to null
+
+// ***Keyboard shortcuts***
 alt+upArrow to increase selection
+option+CMD+M to extract code to a method
