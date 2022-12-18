@@ -1,3 +1,7 @@
+TODO:
+Fix git! Incorrect user logged in
+
+
 ***General Notes from the Course***
 
 A Widget is an object that describes part of the user interface
@@ -27,6 +31,9 @@ Where you put the , in the dart code determines how its auto formatted
 Used SizedBox widget to create space between Widgets inside a Container
 
 Disable Buttons by setting onPressed to null
+
+Extract common_widgets into their own directory for re-usability
+    > Use Constructors for customization
 
 // ***Keyboard shortcuts***
 alt+upArrow to increase selection

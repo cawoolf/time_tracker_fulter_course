@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:time_tracker_flutter_course/common_widgets/custom_raised_button.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -13,6 +14,7 @@ class SignInPage extends StatelessWidget {
         elevation: 2.0,
       ),
       body: _buildContent(),
+      backgroundColor: Colors.grey[200],
     );
   }
 
@@ -33,7 +35,7 @@ class SignInPage extends StatelessWidget {
         children: <Widget>[
           _signInText(),
           _spaceBetweenWidgets(),
-          _googleSignInButton(),
+          const CustomRaisedButton(),
           _spaceBetweenWidgets(),
         ],
       ), // The child of a Container can be any Widget in Flutter
@@ -55,17 +57,7 @@ class SignInPage extends StatelessWidget {
     return const SizedBox(height: 8.0);
   }
 
-  ElevatedButton _googleSignInButton() {
-    return ElevatedButton(
-        onPressed: () {
-          _signInWithGoogle();
-        },
-        style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-        child: const Text(
-          "Sign in with Google",
-          style: TextStyle(color: Colors.black),
-        ));
-  }
+  // The Buttons can have children
 
   void _signInWithGoogle() {
     print('Google Sign in clicked: Authenticating with Google');
