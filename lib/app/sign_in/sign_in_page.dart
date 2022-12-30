@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter_course/common_widgets/custom_raised_button.dart';
+import 'package:time_tracker_flutter_course/common_widgets/text_widgets_library.dart';
 
 class SignInPage extends StatelessWidget {
+  // Constructor
   const SignInPage({super.key});
 
   @override
@@ -33,16 +36,52 @@ class SignInPage extends StatelessWidget {
         // Essentially Horizontal Alignment
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _signInText(),
+          _signInTitleText(),
+          _spaceBetweenWidgets(height: 48.0),
+          SignInButton(
+              text: "Sign in with Google",
+              color: Colors.white,
+              textColor: Colors.black,
+              onPressed: () {
+                null;
+              }),
           _spaceBetweenWidgets(),
-          const CustomRaisedButton(),
+          SignInButton(
+              text: "Sign in with Facebook",
+              color: const Color(0xFF334D92),
+              textColor: Colors.white,
+              onPressed: () {
+                null;
+              }),
           _spaceBetweenWidgets(),
+          SignInButton(
+              text: "Sign in with Email",
+              color: Colors.teal,
+              textColor: Colors.white,
+              onPressed: () {
+                null;
+              }),
+          _spaceBetweenWidgets(),
+          _orText(),
+          _spaceBetweenWidgets(),
+          SignInButton(
+              text: "Go anonymous",
+              color: Colors.limeAccent,
+              textColor: Colors.black,
+              onPressed: () {
+                null;
+              }),
         ],
       ), // The child of a Container can be any Widget in Flutter
     );
   }
 
-  Text _signInText() {
+  // Returns a sized box with a optional parameter for height, default height of 8.0,
+  SizedBox _spaceBetweenWidgets({double height = 8.0}) {
+    return SizedBox(height: height);
+  }
+
+  Text _signInTitleText() {
     return const Text(
       "Sign in",
       textAlign: TextAlign.center,
@@ -53,11 +92,13 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  SizedBox _spaceBetweenWidgets() {
-    return const SizedBox(height: 8.0);
+  Text _orText() {
+    return const Text(
+      "or",
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 14.0, color: Colors.black87),
+    );
   }
-
-  // The Buttons can have children
 
   void _signInWithGoogle() {
     print('Google Sign in clicked: Authenticating with Google');

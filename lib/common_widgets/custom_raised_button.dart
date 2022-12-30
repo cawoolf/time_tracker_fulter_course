@@ -1,27 +1,35 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CustomRaisedButton extends StatelessWidget{
-  const CustomRaisedButton({super.key});
+class CustomRaisedButton extends StatelessWidget {
+  const CustomRaisedButton(
+      {super.key,
+      required this.child,
+      required this.color,
+      this.borderRadius = 2.0, // Default value for all custom buttons
+      this.height = 50.0,
+      required this.onPressed});
+
+  final Widget child;
+  final Color color;
+  final double borderRadius;
+  final double height;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     // The Buttons can have children
-   return ElevatedButton(
-        onPressed: () {
-          // _signInWithGoogle();
-          null;
-        },
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(6.0)))),
-        child: const Text(
-          "Sign in with Google",
-          style: TextStyle(color: Colors.black87),
-        ));
+    return SizedBox( // Useful for directly adding height to widgets
+      height: height,
+      child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+              backgroundColor: color,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius)))),
+          child: child,
+          ),
+    );
   }
-
-
 }
+
+

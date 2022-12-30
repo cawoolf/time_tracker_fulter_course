@@ -1,6 +1,3 @@
-TODO:
-Fix git! Incorrect user logged in
-
 
 ***General Notes from the Course***
 
@@ -35,11 +32,13 @@ Disable Buttons by setting onPressed to null
 Extract common_widgets into their own directory for re-usability
     > Use Constructors for customization
 
-Git Test
+Use wrap with widget command for SizedBoxed
 
 // ***Keyboard shortcuts***
-alt+upArrow to increase selection
-option+CMD+M to extract code to a method
+alt + upArrow to increase selection
+option+ CMD + M to extract code to a method
+alt + enter + Wrap with widget
+CMD + downArrow to view the documentation of a class
 
 // ***Flutter Commands***
 flutter doctor
