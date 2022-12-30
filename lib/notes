@@ -40,3 +40,9 @@ Git Test
 // ***Keyboard shortcuts***
 alt+upArrow to increase selection
 option+CMD+M to extract code to a method
+
+// ***Flutter Commands***
+flutter doctor
+flutter create
+open -a Simulator
+cd project_name -> flutter run
