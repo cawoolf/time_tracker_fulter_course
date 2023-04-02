@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
+import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
 import 'package:time_tracker_flutter_course/common_widgets/custom_raised_button.dart';
 import 'package:time_tracker_flutter_course/common_widgets/text_widgets_library.dart';
 
@@ -13,11 +14,11 @@ class SignInPage extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-      title: const Text("Time Tracker"),
-      elevation: 2.0,
-    ),
-    body: _buildContent(),
-    backgroundColor: Colors.grey[200],
+        title: const Text("Time Tracker"),
+        elevation: 2.0,
+      ),
+      body: _buildContent(),
+      backgroundColor: Colors.grey[200],
     );
   }
 
@@ -38,22 +39,31 @@ class SignInPage extends StatelessWidget {
         children: <Widget>[
           _signInTitleText(),
           _spaceBetweenWidgets(height: 48.0),
-          SignInButton(
-              text: "Sign in with Google",
-              color: Colors.white,
-              textColor: Colors.black,
-              onPressed: () {
-                null;
-              }),
+
+          // Google Sign In
+          SocialSignInButton(
+            assetName: 'images/google-logo.png',
+            text: "Sign in with Google",
+            color: Colors.white,
+            textColor: Colors.black,
+            onPressed: () {},
+          ),
+
           _spaceBetweenWidgets(),
-          SignInButton(
+
+          // Facebook Sign In
+          SocialSignInButton(
+              assetName: 'images/facebook-logo.png',
               text: "Sign in with Facebook",
               color: const Color(0xFF334D92),
               textColor: Colors.white,
               onPressed: () {
                 null;
               }),
+
           _spaceBetweenWidgets(),
+
+          // Email Sign In
           SignInButton(
               text: "Sign in with Email",
               color: Colors.teal,
@@ -61,9 +71,12 @@ class SignInPage extends StatelessWidget {
               onPressed: () {
                 null;
               }),
+
           _spaceBetweenWidgets(),
           _orText(),
           _spaceBetweenWidgets(),
+
+          // Anonymous Sign In
           SignInButton(
               text: "Go anonymous",
               color: Colors.limeAccent,
