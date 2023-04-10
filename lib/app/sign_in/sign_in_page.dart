@@ -2,12 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
-import 'package:time_tracker_flutter_course/common_widgets/custom_raised_button.dart';
-import 'package:time_tracker_flutter_course/common_widgets/text_widgets_library.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignInPage extends StatelessWidget {
   // Constructor
-  const SignInPage({super.key});
+  SignInPage({super.key, required this.onSignIn});
+
+  /* onSignIn is a function that is a property of the SignInPage,
+  and is set by the Constructor. Part of a basic CallBack pattern.
+  State is being passed from the SignInPage to the LandingPage */
+  final void Function(User?) onSignIn;
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +85,8 @@ class SignInPage extends StatelessWidget {
               text: "Go anonymous",
               color: Colors.limeAccent,
               textColor: Colors.black,
-              onPressed: () {
-                null;
-              }),
+              onPressed: _signInAnonymously,
+              ),
         ],
       ), // The child of a Container can be any Widget in Flutter
     );
@@ -115,5 +118,16 @@ class SignInPage extends StatelessWidget {
 
   void _signInWithGoogle() {
     print('Google Sign in clicked: Authenticating with Google');
+  }
+
+  Future<void> _signInAnonymously() async {
+
+    try {
+      final userCredentials = await FirebaseAuth.instance.signInAnonymously();
+      // print('${userCredentials.user?.uid}');
+      onSignIn(userCredentials.user);
+    } catch(e) {
+      print(e.toString());
+    }
   }
 }
