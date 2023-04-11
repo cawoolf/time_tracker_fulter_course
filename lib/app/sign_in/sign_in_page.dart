@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:time_tracker_flutter_course/services/auth.dart';
 
 class SignInPage extends StatelessWidget {
   // Constructor
-  SignInPage({super.key, required this.onSignIn});
+  SignInPage({super.key, required this.onSignIn, required this.auth});
+  final AuthBase auth;
 
   /* onSignIn is a function that is a property of the SignInPage,
   and is set by the Constructor. Part of a basic CallBack pattern.
@@ -19,9 +21,9 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInAnonymously() async {
     try {
-      final userCredentials = await FirebaseAuth.instance.signInAnonymously();
+      final user = auth.signInAnonymously();
       // print('${userCredentials.user?.uid}');
-      onSignIn(userCredentials.user);
+      onSignIn(user as User?);
     } catch (e) {
       print(e.toString());
     }
