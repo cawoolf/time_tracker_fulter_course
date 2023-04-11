@@ -13,6 +13,22 @@ class SignInPage extends StatelessWidget {
   State is being passed from the SignInPage to the LandingPage */
   final void Function(User?) onSignIn;
 
+  void _signInWithGoogle() {
+    print('Google Sign in clicked: Authenticating with Google');
+  }
+
+  Future<void> _signInAnonymously() async {
+    try {
+      final userCredentials = await FirebaseAuth.instance.signInAnonymously();
+      // print('${userCredentials.user?.uid}');
+      onSignIn(userCredentials.user);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  // UI Widgets
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -82,11 +98,11 @@ class SignInPage extends StatelessWidget {
 
           // Anonymous Sign In
           SignInButton(
-              text: "Go anonymous",
-              color: Colors.limeAccent,
-              textColor: Colors.black,
-              onPressed: _signInAnonymously,
-              ),
+            text: "Go anonymous",
+            color: Colors.limeAccent,
+            textColor: Colors.black,
+            onPressed: _signInAnonymously,
+          ),
         ],
       ), // The child of a Container can be any Widget in Flutter
     );
@@ -116,18 +132,4 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  void _signInWithGoogle() {
-    print('Google Sign in clicked: Authenticating with Google');
-  }
-
-  Future<void> _signInAnonymously() async {
-
-    try {
-      final userCredentials = await FirebaseAuth.instance.signInAnonymously();
-      // print('${userCredentials.user?.uid}');
-      onSignIn(userCredentials.user);
-    } catch(e) {
-      print(e.toString());
-    }
-  }
 }

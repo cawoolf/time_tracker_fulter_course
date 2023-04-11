@@ -45,8 +45,14 @@ Ctrl+Alt+L to formate code
 Move line or selection up: Shift + Alt + Up Arrow
 Move line or selection down: Shift + Alt + Down Arrow
 
+stful for Stateful Widget code completion
+stless for Stateless Widget code completion
+
+
 // ***Flutter Commands***
 flutter doctor
 flutter create
 open -a Simulator
 cd project_name -> flutter run
+
+
