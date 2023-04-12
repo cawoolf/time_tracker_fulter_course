@@ -15,13 +15,20 @@ class SignInPage extends StatelessWidget {
   State is being passed from the SignInPage to the LandingPage */
   // final void Function(User?) onSignIn;
 
-  void _signInWithGoogle() {
-    print('Google Sign in clicked: Authenticating with Google');
-  }
-
   Future<void> _signInAnonymously() async {
     try {
       final user = await auth.signInAnonymously();
+      // print('${userCredentials.user?.uid}');
+      // onSignIn(user as User?);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      final user = await auth.signInWithGoogle();
+      print('Google Sign in clicked: Authenticating with Google');
       // print('${userCredentials.user?.uid}');
       // onSignIn(user as User?);
     } catch (e) {
@@ -68,7 +75,7 @@ class SignInPage extends StatelessWidget {
             text: "Sign in with Google",
             color: Colors.white,
             textColor: Colors.black,
-            onPressed: () {},
+            onPressed: _signInWithGoogle,
           ),
 
           _spaceBetweenWidgets(),
