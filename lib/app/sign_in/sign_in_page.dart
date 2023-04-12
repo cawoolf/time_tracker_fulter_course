@@ -7,13 +7,13 @@ import 'package:time_tracker_flutter_course/services/auth.dart';
 
 class SignInPage extends StatelessWidget {
   // Constructor
-  SignInPage({super.key, required this.onSignIn, required this.auth});
+  SignInPage({super.key, /*required this.onSignIn, */ required this.auth});
   final AuthBase auth;
 
   /* onSignIn is a function that is a property of the SignInPage,
   and is set by the Constructor. Part of a basic CallBack pattern.
   State is being passed from the SignInPage to the LandingPage */
-  final void Function(User?) onSignIn;
+  // final void Function(User?) onSignIn;
 
   void _signInWithGoogle() {
     print('Google Sign in clicked: Authenticating with Google');
@@ -23,7 +23,7 @@ class SignInPage extends StatelessWidget {
     try {
       final user = await auth.signInAnonymously();
       // print('${userCredentials.user?.uid}');
-      onSignIn(user as User?);
+      // onSignIn(user as User?);
     } catch (e) {
       print(e.toString());
     }
