@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
