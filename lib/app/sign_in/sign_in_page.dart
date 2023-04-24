@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
+import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart';
+import 'package:google_sign_in_web/google_sign_in_web.dart' as web;
 
 class SignInPage extends StatelessWidget {
   // Constructor
@@ -54,6 +56,18 @@ class SignInPage extends StatelessWidget {
   // the _methodName is convention for making the method private
   // only accessible at the file level
   Widget _buildContent() {
+
+    Widget googleSignInWidget;
+
+    // if(kIsWeb) {
+    //   googleSignInWidget = _googleWebSignIn();
+    // }
+    // else {
+    //   googleSignInWidget = _googleMobileSignIn();
+    // }
+    //
+    googleSignInWidget = _googleMobileSignIn();
+
     return Padding(
       //Container with Padding with no background
       // color: Colors.yellow,
@@ -70,13 +84,14 @@ class SignInPage extends StatelessWidget {
           _spaceBetweenWidgets(height: 48.0),
 
           // Google Sign In
-          SocialSignInButton(
-            assetName: 'images/google-logo.png',
-            text: "Sign in with Google",
-            color: Colors.white,
-            textColor: Colors.black,
-            onPressed: _signInWithGoogle,
-          ),
+          //     SocialSignInButton(
+          //       assetName: 'images/google-logo.png',
+          //       text: "Sign in with Google",
+          //       color: Colors.white,
+          //       textColor: Colors.black,
+          //       onPressed: _signInWithGoogle,
+          //     ),
+          googleSignInWidget,
 
           _spaceBetweenWidgets(),
 
@@ -141,4 +156,20 @@ class SignInPage extends StatelessWidget {
     );
   }
 
+  SocialSignInButton _googleMobileSignIn(){
+  // Google Sign In
+  return SocialSignInButton(
+  assetName: 'images/google-logo.png',
+  text: "Sign in with Google",
+  color: Colors.white,
+  textColor: Colors.black,
+  onPressed: _signInWithGoogle
+    );
+  }
+
+  Widget _googleWebSignIn(){
+    // Google Sign In
+    return (GoogleSignInPlatform.instance as web.GoogleSignInPlugin)
+        .renderButton();
+  }
 }
