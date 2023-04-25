@@ -13,6 +13,8 @@ abstract class AuthBase {
 
   Future<User?> signInWithGoogle();
 
+  Future<User?> signInWithGoogleWeb();
+
 }
 
 class Auth extends AuthBase {
@@ -33,6 +35,7 @@ class Auth extends AuthBase {
 
   @override
   Future<User?> signInWithGoogle() async {
+
     final googleClientID = '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
     final googleSignIn = GoogleSignIn(clientId: googleClientID);
 
@@ -59,42 +62,30 @@ class Auth extends AuthBase {
   }
 
 
-  // ChatGPT Code
-  // @override
-  // Future<User?> signInWithGoogle() async {
-  //   final googleClientID =
-  //       '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
-  //   final googleSignIn = GoogleSignIn(clientId: googleClientID);
-  //
-  //   try {
-  //     final googleUser = await googleSignIn.signInSilently();
-  //     if (googleUser == null) {
-  //       throw FirebaseAuthException(
-  //           code: 'ERROR ABORTED BY USER', message: 'Sign in aborted by User');
-  //     }
-  //
-  //     final googleAuth = await googleUser.authentication;
-  //     if (googleAuth.idToken == null) {
-  //       throw FirebaseAuthException(
-  //           code: 'ERROR MISSING GOOGLE ID TOKEN',
-  //           message: 'Missing Google ID Token');
-  //     }
-  //
-  //     final userCredential = await _firebaseAuth.signInWithCredential(
-  //         GoogleAuthProvider.credential(
-  //             idToken: googleAuth.idToken,
-  //             accessToken: googleAuth.accessToken));
-  //     return userCredential.user;
-  //   } catch (e) {
-  //     print('Error signing in with Google: $e');
-  //     rethrow;
-  //   }
-  // }
+  // I don't really understand why this works.. TBH.
+  // Where is the clientID and why don't I need it for the web signIn
+  @override
+  Future<User?> signInWithGoogleWeb() async {
 
+    if (kIsWeb) {
+      GoogleAuthProvider authProvider = GoogleAuthProvider();
+
+      try {
+        final UserCredential userCredential =
+        await _firebaseAuth.signInWithPopup(authProvider);
+
+        return userCredential.user;
+      } catch (e) {
+        print(e);
+      }
+  }
+
+}
 
   @override
-  Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+  Future<void> signOut() {
+    // TODO: implement signOut
+    throw UnimplementedError();
   }
 }
 

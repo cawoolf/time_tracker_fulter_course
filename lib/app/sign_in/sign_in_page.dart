@@ -28,13 +28,23 @@ class SignInPage extends StatelessWidget {
   }
 
   Future<void> _signInWithGoogle() async {
-    try {
-      final user = await auth.signInWithGoogle();
-      print('Google Sign in clicked: Authenticating with Google');
-      // print('${userCredentials.user?.uid}');
-      // onSignIn(user as User?);
-    } catch (e) {
-      print(e.toString());
+    if(kIsWeb) {
+      try {
+        print("Google web sign in");
+        await auth.signInWithGoogleWeb();
+      } catch(e) {
+        print(e.toString());
+      }
+    }
+    else {
+      try {
+        await auth.signInWithGoogle();
+        print('Google Sign in clicked: Authenticating with Google');
+        // print('${userCredentials.user?.uid}');
+        // onSignIn(user as User?);
+      } catch (e) {
+        print(e.toString());
+      }
     }
   }
 
