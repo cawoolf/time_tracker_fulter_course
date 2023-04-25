@@ -85,7 +85,9 @@ class Auth extends AuthBase {
   @override
   Future<void> signOut() async {
 
-    final googleSignIn = GoogleSignIn();
+    final googleClientID = '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
+    print("Sign Out Clicked");
+    final googleSignIn = GoogleSignIn(clientId: googleClientID);
     await googleSignIn.signOut();
     await _firebaseAuth.signOut();
   }
