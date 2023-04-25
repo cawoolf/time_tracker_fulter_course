@@ -83,9 +83,11 @@ class Auth extends AuthBase {
 }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<void> signOut() async {
+
+    final googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+    await _firebaseAuth.signOut();
   }
 }
 
