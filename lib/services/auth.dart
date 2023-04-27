@@ -20,6 +20,8 @@ abstract class AuthBase {
 class Auth extends AuthBase {
   final _firebaseAuth = FirebaseAuth.instance;
 
+  final _googleClientId = '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
+
   // Notifies about changes to the User's signIn state
   @override
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
@@ -36,8 +38,8 @@ class Auth extends AuthBase {
   @override
   Future<User?> signInWithGoogle() async {
 
-    final googleClientID = '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
-    final googleSignIn = GoogleSignIn(clientId: googleClientID);
+
+    final googleSignIn = GoogleSignIn(clientId: _googleClientId);
 
     final googleUser = await googleSignIn.signIn();
 
@@ -79,15 +81,15 @@ class Auth extends AuthBase {
         print(e);
       }
   }
+    return null;
 
 }
 
   @override
   Future<void> signOut() async {
 
-    final googleClientID = '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
     print("Sign Out Clicked");
-    final googleSignIn = GoogleSignIn(clientId: googleClientID);
+    final googleSignIn = GoogleSignIn(clientId: _googleClientId);
     await googleSignIn.signOut();
     await _firebaseAuth.signOut();
   }

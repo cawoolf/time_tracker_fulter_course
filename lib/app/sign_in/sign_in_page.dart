@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_page.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
@@ -10,12 +11,25 @@ import 'package:google_sign_in_web/google_sign_in_web.dart' as web;
 class SignInPage extends StatelessWidget {
   // Constructor
   SignInPage({super.key, /*required this.onSignIn, */ required this.auth});
+
   final AuthBase auth;
 
   /* onSignIn is a function that is a property of the SignInPage,
   and is set by the Constructor. Part of a basic CallBack pattern.
   State is being passed from the SignInPage to the LandingPage */
   // final void Function(User?) onSignIn;
+
+  void _signInWithEmail(BuildContext context) {
+    // Uses a Navigator Widget the pushes and pops pages off the
+    // Navigation Stack
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        // False slides in from left, true slides in from bottom. Specific to IOS
+        fullscreenDialog: true,
+        builder: (context) => const EmailSignInPage(),
+      ),
+    );
+  }
 
   Future<void> _signInAnonymously() async {
     try {
@@ -28,15 +42,14 @@ class SignInPage extends StatelessWidget {
   }
 
   Future<void> _signInWithGoogle() async {
-    if(kIsWeb) {
+    if (kIsWeb) {
       try {
         print("Google web sign in");
         await auth.signInWithGoogleWeb();
-      } catch(e) {
+      } catch (e) {
         print(e.toString());
       }
-    }
-    else {
+    } else {
       try {
         await auth.signInWithGoogle();
         print('Google Sign in clicked: Authenticating with Google');
@@ -58,25 +71,14 @@ class SignInPage extends StatelessWidget {
         title: const Text("Time Tracker"),
         elevation: 2.0,
       ),
-      body: _buildContent(),
+      body: _buildContent(context),
       backgroundColor: Colors.grey[200],
     );
   }
 
   // the _methodName is convention for making the method private
   // only accessible at the file level
-  Widget _buildContent() {
-
-    Widget googleSignInWidget;
-
-    // if(kIsWeb) {
-    //   googleSignInWidget = _googleWebSignIn();
-    // }
-    // else {
-    //   googleSignInWidget = _googleMobileSignIn();
-    // }
-    //
-    googleSignInWidget = _googleMobileSignIn();
+  Widget _buildContent(BuildContext context) {
 
     return Padding(
       //Container with Padding with no background
@@ -94,14 +96,13 @@ class SignInPage extends StatelessWidget {
           _spaceBetweenWidgets(height: 48.0),
 
           // Google Sign In
-          //     SocialSignInButton(
-          //       assetName: 'images/google-logo.png',
-          //       text: "Sign in with Google",
-          //       color: Colors.white,
-          //       textColor: Colors.black,
-          //       onPressed: _signInWithGoogle,
-          //     ),
-          googleSignInWidget,
+              SocialSignInButton(
+                assetName: 'images/google-logo.png',
+                text: "Sign in with Google",
+                color: Colors.white,
+                textColor: Colors.black,
+                onPressed: _signInWithGoogle,
+              ),
 
           _spaceBetweenWidgets(),
 
@@ -122,9 +123,7 @@ class SignInPage extends StatelessWidget {
               text: "Sign in with Email",
               color: Colors.teal,
               textColor: Colors.white,
-              onPressed: () {
-                null;
-              }),
+              onPressed: () => _signInWithEmail(context)),
 
           _spaceBetweenWidgets(),
           _orText(),
@@ -166,18 +165,7 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  SocialSignInButton _googleMobileSignIn(){
-  // Google Sign In
-  return SocialSignInButton(
-  assetName: 'images/google-logo.png',
-  text: "Sign in with Google",
-  color: Colors.white,
-  textColor: Colors.black,
-  onPressed: _signInWithGoogle
-    );
-  }
-
-  Widget _googleWebSignIn(){
+  Widget _googleWebSignIn() {
     // Google Sign In
     return (GoogleSignInPlatform.instance as web.GoogleSignInPlugin)
         .renderButton();
