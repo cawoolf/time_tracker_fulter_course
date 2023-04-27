@@ -61,6 +61,11 @@ class SignInPage extends StatelessWidget {
     }
   }
 
+  Future<void> _signInWithFaceBook() async {
+    // TODO: Implement Facebook SignIn
+    // Holding off on this for now..
+  }
+
   // UI Widgets
 
   @override
