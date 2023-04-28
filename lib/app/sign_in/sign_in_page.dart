@@ -170,9 +170,4 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Widget _googleWebSignIn() {
-    // Google Sign In
-    return (GoogleSignInPlatform.instance as web.GoogleSignInPlugin)
-        .renderButton();
-  }
 }

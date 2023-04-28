@@ -42,7 +42,7 @@ option+ CMD + M to extract code to a method
 alt + enter  Wrap with widget, Does work
 CMD + downArrow to view the documentation of a class
 Ctl + Click on Windows to open documentation
-Ctrl+Alt+L to formate code
+Ctrl+Alt+L to format code
 
 Move line or selection up: Shift + Alt + Up Arrow
 Move line or selection down: Shift + Alt + Down Arrow
