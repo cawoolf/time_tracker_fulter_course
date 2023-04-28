@@ -39,7 +39,7 @@ Callbacks are used to pass states from children to parent Widgets
 // ***Keyboard shortcuts***
 alt + upArrow to increase selection
 option+ CMD + M to extract code to a method
-alt + enter + Wrap with widget
+alt + enter  Wrap with widget, Does work
 CMD + downArrow to view the documentation of a class
 Ctl + Click on Windows to open documentation
 Ctrl+Alt+L to formate code
