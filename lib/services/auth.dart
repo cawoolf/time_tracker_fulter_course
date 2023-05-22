@@ -26,7 +26,7 @@ class Auth extends AuthBase {
   final _firebaseAuth = FirebaseAuth.instance;
 
 
-  // Whoops need to hide this.
+  // Whoops need to hide this. Just swap to ingrate a different fire base?
   final _googleClientId = '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
 
   // Notifies about changes to the User's signIn state

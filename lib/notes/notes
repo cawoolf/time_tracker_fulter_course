@@ -39,6 +39,7 @@ Callbacks are used to pass states from children to parent Widgets
 **5/21/23**
 Use TextEditingController to manage text inside TextField Widgets
 
+Project support email in firebase can be changed.
 
 // ***Keyboard shortcuts***
 alt + upArrow to increase selection
