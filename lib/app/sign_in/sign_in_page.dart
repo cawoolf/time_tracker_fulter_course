@@ -26,7 +26,7 @@ class SignInPage extends StatelessWidget {
       MaterialPageRoute<void>(
         // False slides in from left, true slides in from bottom. Specific to IOS
         fullscreenDialog: true,
-        builder: (context) => const EmailSignInPage(),
+        builder: (context) => EmailSignInPage(auth: auth,),
       ),
     );
   }

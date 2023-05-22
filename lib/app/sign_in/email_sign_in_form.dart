@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/common_widgets/form_submit_button.dart';
 
+import '../../services/auth.dart';
+
 enum EmailSignInFormType{ signIn, register}
 
 class EmailSignInForm extends StatefulWidget {
-  const EmailSignInForm({Key? key}) : super(key: key);
+  const EmailSignInForm({Key? key, required this.auth}) : super(key: key);
+  final AuthBase auth;
+
   @override
   State<EmailSignInForm> createState() => _EmailSignInFormState();
 }
@@ -14,6 +18,9 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  String get _email => _emailController.text;
+  String get _password => _passwordController.text;
+
  EmailSignInFormType _formType = EmailSignInFormType.signIn;
 
   void _toggleFormType() {
@@ -22,11 +29,25 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
           ? EmailSignInFormType.register
           : EmailSignInFormType.signIn;
     });
+    _emailController.clear();
+    _passwordController.clear();
   }
 
-  void _submit() {
-    print(
-        'email: ${_emailController.text} password:${_passwordController.text}');
+  void _submit() async {
+    // print(
+    //     'email: ${_emailController.text} password:${_passwordController.text}');
+    try {
+      if (_formType == EmailSignInFormType.signIn) {
+        await widget.auth.signInWithEmailAndPassword(_email, _password);
+      }
+      else {
+        await widget.auth.createUserWithEmailAndPassword(_email, _password);
+      }
+      Navigator.of(context).pop(); // Dismiss the screen and navigates to the last widget on the stack.
+    } catch(e) {
+      print(e.toString());
+    }
+
   }
 
 // New convention, all methods related to the front-end go after the

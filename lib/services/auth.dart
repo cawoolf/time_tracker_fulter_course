@@ -15,11 +15,18 @@ abstract class AuthBase {
 
   Future<User?> signInWithGoogleWeb();
 
+  Future<User?> signInWithEmailAndPassword(String email, String password);
+
+  Future<User?> createUserWithEmailAndPassword(String email, String password);
+
+
 }
 
 class Auth extends AuthBase {
   final _firebaseAuth = FirebaseAuth.instance;
 
+
+  // Whoops need to hide this.
   final _googleClientId = '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
 
   // Notifies about changes to the User's signIn state
@@ -33,6 +40,20 @@ class Auth extends AuthBase {
   Future<User?> signInAnonymously() async {
     final userCredential = await _firebaseAuth.signInAnonymously();
     return userCredential.user;
+  }
+
+  @override
+  Future<User?> signInWithEmailAndPassword(String email, String password) async {
+    final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+    return userCredential.user;
+
+  }
+
+  @override
+  Future<User?> createUserWithEmailAndPassword(String email, String password) async {
+    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    return userCredential.user;
+
   }
 
   @override
