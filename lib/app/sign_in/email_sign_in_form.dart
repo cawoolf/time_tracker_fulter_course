@@ -14,29 +14,21 @@ class EmailSignInForm extends StatefulWidget {
 }
 
 class _EmailSignInFormState extends State<EmailSignInForm> {
-// Used for controlling Text inside TextField
+  // Best practice used for controlling Text inside TextField
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  /*
+  Can be assigned to TextFields (all Widgets?) to manage focus manually.
+  FocusScope can shift focus to a FocusNode attached to a specific Widget.
+   */
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
 
   String get _email => _emailController.text;
 
   String get _password => _passwordController.text;
-
   EmailSignInFormType _formType = EmailSignInFormType.signIn;
-
-  /* When called, sets the EmailSignInForType enum to ether register or signIn,
-     Calls set state to redraw the Widget
-     The Primary and Secondary text are then set in build() based on the enum Value
-   */
-  void _toggleFormType() {
-    setState(() {
-      _formType = _formType == EmailSignInFormType.signIn
-          ? EmailSignInFormType.register
-          : EmailSignInFormType.signIn;
-    });
-    _emailController.clear();
-    _passwordController.clear();
-  }
 
   /*
   Uses the auth Widget passed into the constructor to make a call to Firebase to either
@@ -56,6 +48,29 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  /*
+  Shifts the focus to the password field when the user clicks the 'Next' button
+  on their device
+   */
+  void _emailEditingComplete() {
+    print('emailEditingComplete() called');
+    FocusScope.of(context).requestFocus(_passwordFocusNode);
+  }
+
+  /* When called, sets the EmailSignInForType enum to ether register or signIn,
+     Calls set state to redraw the Widget
+     The Primary and Secondary text are then set in build() based on the enum Value
+   */
+  void _toggleFormType() {
+    setState(() {
+      _formType = _formType == EmailSignInFormType.signIn
+          ? EmailSignInFormType.register
+          : EmailSignInFormType.signIn;
+    });
+    _emailController.clear();
+    _passwordController.clear();
   }
 
   // New convention, all methods related to the front-end go after the
@@ -107,11 +122,13 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   TextField _buildEmailTextField() {
     return TextField(
         controller: _emailController,
+        focusNode: _emailFocusNode,
         decoration:
             InputDecoration(labelText: 'Email', hintText: 'test@test.com'),
         autocorrect: false,
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
+        onEditingComplete: _emailEditingComplete,
         //Gives the keyboard a Next button
         onChanged: (value) {
           print(value);
@@ -120,12 +137,15 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
 
   // User enters Password
   TextField _buildPasswordTextField() {
-    return // User Password
-        TextField(
+    return TextField(
       controller: _passwordController,
+      focusNode: _passwordFocusNode,
       decoration: InputDecoration(labelText: 'Password'),
       obscureText: true,
-      textInputAction: TextInputAction.done, //Gives the keyboard a Done button
+      //Gives the keyboard a Done button
+      textInputAction: TextInputAction.done,
+      // Calls submit when the User clicks the 'Done' button on the keyboard.
+      onEditingComplete: _submit,
     );
   }
 
