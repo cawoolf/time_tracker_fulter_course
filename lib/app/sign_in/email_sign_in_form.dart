@@ -37,6 +37,9 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   void _submit() async {
     // print(
     //     'email: ${_emailController.text} password:${_passwordController.text}');
+    bool submitEnabled = _email.isNotEmpty && _password.isNotEmpty;
+
+
     try {
       if (_formType == EmailSignInFormType.signIn) {
         await widget.auth.signInWithEmailAndPassword(_email, _password);
@@ -120,6 +123,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
 
   // User enters Email Address
   TextField _buildEmailTextField() {
+
     return TextField(
         controller: _emailController,
         focusNode: _emailFocusNode,
@@ -127,11 +131,14 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
             InputDecoration(labelText: 'Email', hintText: 'test@test.com'),
         autocorrect: false,
         keyboardType: TextInputType.emailAddress,
+        //Gives the keyboard a Next button
         textInputAction: TextInputAction.next,
         onEditingComplete: _emailEditingComplete,
-        //Gives the keyboard a Next button
+
+        // Updates the State everytime the TextField changes so that the Submit button knows to be disabled or not
         onChanged: (value) {
           print(value);
+          updateState();
         });
   }
 
@@ -151,13 +158,17 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
 
   // User Submits email and Password. SignIn or Create an Account
   Padding _buildSubmitButton(String primaryText) {
+
+    bool submitEnabled = _email.isNotEmpty && _password.isNotEmpty;
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: FormSubmitButton(
         text: primaryText,
         color: Colors.blue,
         textColor: Colors.white,
-        onPressed: _submit,
+        // Used to disable the button if Email or Password are empty. UI doesn't automatically reflect this.
+        onPressed: submitEnabled ? _submit : (){/* Display error msg */}
       ),
     );
   }
@@ -169,5 +180,14 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       padding: const EdgeInsets.all(0.0),
       child: TextButton(onPressed: _toggleFormType, child: Text(secondaryText)),
     );
+  }
+
+  void updateState() {
+    print('email: $_email password:$_password');
+    setState(() {
+      /* Used to rebuild the State and update the UI everytime to TextField changes
+      * This way the SignIn Button can be disabled while the TextField email and password are empty,
+      * and enabled if a certain validate is met  */
+    });
   }
 }
