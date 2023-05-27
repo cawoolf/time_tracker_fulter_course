@@ -36,11 +36,6 @@ Use wrap with widget command for SizedBoxed
 
 Callbacks are used to pass states from children to parent Widgets
 
-**5/21/23**
-Use TextEditingController to manage text inside TextField Widgets
-
-Project support email in firebase can be changed.
-
 // ***Keyboard shortcuts***
 alt + upArrow to increase selection
 option+ CMD + M to extract code to a method
@@ -56,11 +51,25 @@ Move line or selection down: Shift + Alt + Down Arrow
 stful for Stateful Widget code completion
 stless for Stateless Widget code completion
 
-
 // ***Flutter Commands***
 flutter doctor
 flutter create
 open -a Simulator
 cd project_name -> flutter run
+
+*********************************************Daily Notes*************************************************
+
+**5/27/23** 195, 196
+Can you mixin more than one class? Can password and email validation be performed on the Firebase side?
+
+**5/21/23**
+Use TextEditingController to manage text inside TextField Widgets
+
+Project support email in firebase can be changed.
+
+
+
+
+
 
 

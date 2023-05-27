@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:time_tracker_flutter_course/app/sign_in/validators.dart';
 import 'package:time_tracker_flutter_course/common_widgets/form_submit_button.dart';
 
 import '../../services/auth.dart';
 
 enum EmailSignInFormType { signIn, register }
 
-class EmailSignInForm extends StatefulWidget {
-  const EmailSignInForm({Key? key, required this.auth}) : super(key: key);
+class EmailSignInForm extends StatefulWidget with EmailAndPasswordValidators { //with is a mixin, Extends to functionality of the class.
+  EmailSignInForm({Key? key, required this.auth}) : super(key: key);
   final AuthBase auth;
 
   @override
@@ -35,21 +36,23 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   Create an Account or SignIn, based on the state of the EmailSignInFormType enum.
    */
   void _submit() async {
-    // print(
-    //     'email: ${_emailController.text} password:${_passwordController.text}');
-    bool submitEnabled = _email.isNotEmpty && _password.isNotEmpty;
 
+    bool submitEnabled = widget.emailValidator.isValid(_email) && widget.passwordValidator.isValid(_password);
 
-    try {
-      if (_formType == EmailSignInFormType.signIn) {
-        await widget.auth.signInWithEmailAndPassword(_email, _password);
-      } else {
-        await widget.auth.createUserWithEmailAndPassword(_email, _password);
+    if(submitEnabled) {
+      try {
+        if (_formType == EmailSignInFormType.signIn) {
+          await widget.auth.signInWithEmailAndPassword(_email, _password);
+        } else {
+          await widget.auth.createUserWithEmailAndPassword(_email, _password);
+        }
+        Navigator.of(context)
+            .pop(); // Dismiss the screen and navigates to the last widget on the stack.
+      } catch (e) {
+        print(e.toString());
       }
-      Navigator.of(context)
-          .pop(); // Dismiss the screen and navigates to the last widget on the stack.
-    } catch (e) {
-      print(e.toString());
+    } else {
+      // Display error msg. Email and password aren't valid and the submit button is disabled.
     }
   }
 
