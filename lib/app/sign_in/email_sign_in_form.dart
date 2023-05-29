@@ -126,12 +126,16 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
 
   // User enters Email Address
   TextField _buildEmailTextField() {
+    bool emailValid = widget.emailValidator.isValid(_email);
 
     return TextField(
+
         controller: _emailController,
         focusNode: _emailFocusNode,
         decoration:
-            InputDecoration(labelText: 'Email', hintText: 'test@test.com'),
+            InputDecoration(labelText: 'Email',
+                hintText: 'test@test.com',
+                errorText: emailValid ? null : 'Email cant\,t be empty'),
         autocorrect: false,
         keyboardType: TextInputType.emailAddress,
         //Gives the keyboard a Next button
@@ -147,10 +151,14 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
 
   // User enters Password
   TextField _buildPasswordTextField() {
+
+    bool passwordValid = widget.passwordValidator.isValid(_password);
+
     return TextField(
       controller: _passwordController,
       focusNode: _passwordFocusNode,
-      decoration: InputDecoration(labelText: 'Password'),
+      decoration: InputDecoration(labelText: 'Password',
+      errorText: passwordValid ? null : widget.invalidPasswordErroText ),
       obscureText: true,
       //Gives the keyboard a Done button
       textInputAction: TextInputAction.done,
