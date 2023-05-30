@@ -6,7 +6,8 @@ import '../../services/auth.dart';
 
 enum EmailSignInFormType { signIn, register }
 
-class EmailSignInForm extends StatefulWidget with EmailAndPasswordValidators { //with is a mixin, Extends to functionality of the class.
+class EmailSignInForm extends StatefulWidget with EmailAndPasswordValidators {
+  //'with' mixin, Extends to functionality of the class.
   EmailSignInForm({Key? key, required this.auth}) : super(key: key);
   final AuthBase auth;
 
@@ -20,7 +21,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   final TextEditingController _passwordController = TextEditingController();
 
   /*
-  Can be assigned to TextFields (all Widgets?) to manage focus manually.
+  FocusNode can be assigned to TextFields (all Widgets?) to manage focus manually.
   FocusScope can shift focus to a FocusNode attached to a specific Widget.
    */
   final FocusNode _emailFocusNode = FocusNode();
@@ -29,17 +30,25 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   String get _email => _emailController.text;
 
   String get _password => _passwordController.text;
+
   EmailSignInFormType _formType = EmailSignInFormType.signIn;
+
+  // Used to help managed the emailErrorText and passwordErrorText
+  bool _submitted = false;
 
   /*
   Uses the auth Widget passed into the constructor to make a call to Firebase to either
   Create an Account or SignIn, based on the state of the EmailSignInFormType enum.
    */
   void _submit() async {
+    setState(() {
+      _submitted = true;
+    });
+    // email and password validators come from the EmailAndPasswordValidators mixin
+    bool submitEnabled = widget.emailValidator.isValid(_email) &&
+        widget.passwordValidator.isValid(_password);
 
-    bool submitEnabled = widget.emailValidator.isValid(_email) && widget.passwordValidator.isValid(_password);
-
-    if(submitEnabled) {
+    if (submitEnabled) {
       try {
         if (_formType == EmailSignInFormType.signIn) {
           await widget.auth.signInWithEmailAndPassword(_email, _password);
@@ -71,6 +80,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
    */
   void _toggleFormType() {
     setState(() {
+      _submitted = false;
       _formType = _formType == EmailSignInFormType.signIn
           ? EmailSignInFormType.register
           : EmailSignInFormType.signIn;
@@ -126,61 +136,67 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
 
   // User enters Email Address
   TextField _buildEmailTextField() {
-    bool emailValid = widget.emailValidator.isValid(_email);
+    // email and password validators come from the EmailAndPasswordValidators mixin
+    bool showEmailErrorText =
+        _submitted && !widget.emailValidator.isValid(_email);
 
     return TextField(
+      controller: _emailController,
+      focusNode: _emailFocusNode,
+      decoration: InputDecoration(
+          labelText: 'Email',
+          hintText: 'test@test.com',
+          errorText:
+              showEmailErrorText ? widget.invalidPasswordErrorText : null),
+      autocorrect: false,
+      keyboardType: TextInputType.emailAddress,
+      //Gives the keyboard a Next button
+      textInputAction: TextInputAction.next,
+      onEditingComplete: _emailEditingComplete,
 
-        controller: _emailController,
-        focusNode: _emailFocusNode,
-        decoration:
-            InputDecoration(labelText: 'Email',
-                hintText: 'test@test.com',
-                errorText: emailValid ? null : 'Email cant\,t be empty'),
-        autocorrect: false,
-        keyboardType: TextInputType.emailAddress,
-        //Gives the keyboard a Next button
-        textInputAction: TextInputAction.next,
-        onEditingComplete: _emailEditingComplete,
-
-        // Updates the State everytime the TextField changes so that the Submit button knows to be disabled or not
-        onChanged: (value) {
-          print(value);
-          updateState();
-        });
+      // Updates the State everytime the TextField changes so that the Submit button knows to be disabled or not
+      onChanged: (email) => updateState(),
+    );
   }
 
   // User enters Password
   TextField _buildPasswordTextField() {
-
-    bool passwordValid = widget.passwordValidator.isValid(_password);
+    // email and password validators come from the EmailAndPasswordValidators mixin
+    bool showPasswordErrorText =
+        _submitted && !widget.passwordValidator.isValid(_password);
 
     return TextField(
-      controller: _passwordController,
-      focusNode: _passwordFocusNode,
-      decoration: InputDecoration(labelText: 'Password',
-      errorText: passwordValid ? null : widget.invalidPasswordErroText ),
-      obscureText: true,
-      //Gives the keyboard a Done button
-      textInputAction: TextInputAction.done,
-      // Calls submit when the User clicks the 'Done' button on the keyboard.
-      onEditingComplete: _submit,
-    );
+        controller: _passwordController,
+        focusNode: _passwordFocusNode,
+        decoration: InputDecoration(
+            labelText: 'Password',
+            errorText:
+                showPasswordErrorText ? widget.invalidPasswordErrorText : null),
+        obscureText: true,
+        //Gives the keyboard a Done button
+        textInputAction: TextInputAction.done,
+        // Calls submit when the User clicks the 'Done' button on the keyboard.
+        onEditingComplete: _submit,
+        // Updates the State everytime the TextField changes so that the Submit button knows to be disabled or not
+        onChanged: (password) => updateState());
   }
 
   // User Submits email and Password. SignIn or Create an Account
   Padding _buildSubmitButton(String primaryText) {
-
     bool submitEnabled = _email.isNotEmpty && _password.isNotEmpty;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: FormSubmitButton(
-        text: primaryText,
-        color: Colors.blue,
-        textColor: Colors.white,
-        // Used to disable the button if Email or Password are empty. UI doesn't automatically reflect this.
-        onPressed: submitEnabled ? _submit : (){/* Display error msg */}
-      ),
+          text: primaryText,
+          color: Colors.blue,
+          textColor: Colors.white,
+          // Used to disable the button if Email or Password are empty. UI doesn't automatically reflect this.
+          onPressed: submitEnabled
+              ? _submit
+              : () {
+                  /* Display error msg */
+                }),
     );
   }
 

@@ -2,5 +2,9 @@ TODO:
 
 Replace firebase integration with RayaDev. Don't use destellodev@gmail.com for anything.. Just a puesdoname.
 
+Set up the Firebase CLI
+https://firebase.google.com/docs/cli#mac-linux-auto-script
+
+
 Done:
 Fix git! Incorrect user logged in
