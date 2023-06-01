@@ -59,6 +59,9 @@ cd project_name -> flutter run
 
 *********************************************Daily Notes*************************************************
 
+**5/31/23** 199 -Simulating slow network with a delay
+Best practice to disable signIn forms while an auth request is in progress
+
 **5/30/23** 198
 
 **5/27/23** 195, 196

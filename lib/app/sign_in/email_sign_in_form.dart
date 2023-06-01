@@ -35,20 +35,24 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
 
   // Used to help managed the emailErrorText and passwordErrorText
   bool _submitted = false;
+  bool _isLoading = false;
 
   /*
   Uses the auth Widget passed into the constructor to make a call to Firebase to either
   Create an Account or SignIn, based on the state of the EmailSignInFormType enum.
    */
   void _submit() async {
+    print('submit called');
     setState(() {
       _submitted = true;
+      _isLoading = true;
     });
     // email and password validators come from the EmailAndPasswordValidators mixin
     bool submitEnabled = widget.emailValidator.isValid(_email) &&
         widget.passwordValidator.isValid(_password);
 
     if (submitEnabled) {
+      // await Future.delayed(const Duration(seconds: 3)); // For simulating a slow network.
       try {
         if (_formType == EmailSignInFormType.signIn) {
           await widget.auth.signInWithEmailAndPassword(_email, _password);
@@ -59,6 +63,11 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
             .pop(); // Dismiss the screen and navigates to the last widget on the stack.
       } catch (e) {
         print(e.toString());
+      }
+      finally {
+        setState(() {
+          _isLoading = false;
+        });
       }
     } else {
       // Display error msg. Email and password aren't valid and the submit button is disabled.
@@ -147,7 +156,9 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
           labelText: 'Email',
           hintText: 'test@test.com',
           errorText:
-              showEmailErrorText ? widget.invalidPasswordErrorText : null),
+              showEmailErrorText ? widget.invalidPasswordErrorText : null,
+          // Used to disable the TextField if a auth request is currently is progress.
+          enabled: _isLoading == false),
       autocorrect: false,
       keyboardType: TextInputType.emailAddress,
       //Gives the keyboard a Next button
@@ -171,7 +182,9 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
         decoration: InputDecoration(
             labelText: 'Password',
             errorText:
-                showPasswordErrorText ? widget.invalidPasswordErrorText : null),
+                showPasswordErrorText ? widget.invalidPasswordErrorText : null,
+            // Used to disable the TextField if a auth request is currently is progress.
+            enabled: _isLoading == false),
         obscureText: true,
         //Gives the keyboard a Done button
         textInputAction: TextInputAction.done,
@@ -205,7 +218,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
     return // Secondary Button, 'Need Account?'
         Padding(
       padding: const EdgeInsets.all(0.0),
-      child: TextButton(onPressed: _toggleFormType, child: Text(secondaryText)),
+      child: TextButton(onPressed: !_isLoading ? _toggleFormType : null, child: Text(secondaryText)),
     );
   }
 
