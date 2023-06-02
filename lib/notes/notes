@@ -59,7 +59,17 @@ cd project_name -> flutter run
 
 *********************************************Daily Notes*************************************************
 
-**5/31/23** 199 -Simulating slow network with a delay
+**6/1/23**
+201 - Updating the logic for email focus
+202 - Fixing the vertical scroll on small screens
+203 - Wrap-Up
+
+Introduced SingleChildScrollView and Scrollable widgets for managing small screen sizes.
+
+**5/31/23**
+199 -Simulating slow network with a delay
+200 - Adding a loading state to our form
+
 Best practice to disable signIn forms while an auth request is in progress
 
 **5/30/23** 198

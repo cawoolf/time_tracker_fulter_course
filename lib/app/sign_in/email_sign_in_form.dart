@@ -80,7 +80,8 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
    */
   void _emailEditingComplete() {
     print('emailEditingComplete() called');
-    FocusScope.of(context).requestFocus(_passwordFocusNode);
+    final newFocus = widget.emailValidator.isValid(_email) ? _passwordFocusNode : _emailFocusNode;
+    FocusScope.of(context).requestFocus(newFocus);
   }
 
   /* When called, sets the EmailSignInForType enum to ether register or signIn,
