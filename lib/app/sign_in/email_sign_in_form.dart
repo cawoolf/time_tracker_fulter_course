@@ -20,6 +20,8 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  // Everything below is a State variable, which can change in response to Callbacks.
+
   /*
   FocusNode can be assigned to TextFields (all Widgets?) to manage focus manually.
   FocusScope can shift focus to a FocusNode attached to a specific Widget.
