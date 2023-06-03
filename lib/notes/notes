@@ -66,6 +66,8 @@ cd project_name -> flutter run
 
 Introduced SingleChildScrollView and Scrollable widgets for managing small screen sizes.
 
+Generally speaking, only rebuild the page when needed to increase performance.
+
 **5/31/23**
 199 -Simulating slow network with a delay
 200 - Adding a loading state to our form

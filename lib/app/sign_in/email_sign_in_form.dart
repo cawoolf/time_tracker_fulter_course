@@ -65,8 +65,18 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
             .pop(); // Dismiss the screen and navigates to the last widget on the stack.
       } catch (e) {
         print(e.toString());
-      }
-      finally {
+        // showDialog(
+        //     context: context,
+        //     builder: (context) {
+        //       return AlertDialog(
+        //         title: Text('Sign in failed'),
+        //         content: Text(e.toString()),
+        //         actions: [
+        //           ElevatedButton(onPressed: (){}, child: Text('Ok'))
+        //         ],
+        //       );
+        //     });
+      } finally {
         setState(() {
           _isLoading = false;
         });
@@ -82,7 +92,9 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
    */
   void _emailEditingComplete() {
     print('emailEditingComplete() called');
-    final newFocus = widget.emailValidator.isValid(_email) ? _passwordFocusNode : _emailFocusNode;
+    final newFocus = widget.emailValidator.isValid(_email)
+        ? _passwordFocusNode
+        : _emailFocusNode;
     FocusScope.of(context).requestFocus(newFocus);
   }
 
@@ -221,7 +233,9 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
     return // Secondary Button, 'Need Account?'
         Padding(
       padding: const EdgeInsets.all(0.0),
-      child: TextButton(onPressed: !_isLoading ? _toggleFormType : null, child: Text(secondaryText)),
+      child: TextButton(
+          onPressed: !_isLoading ? _toggleFormType : null,
+          child: Text(secondaryText)),
     );
   }
 
