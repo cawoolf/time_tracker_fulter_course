@@ -65,17 +65,17 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
             .pop(); // Dismiss the screen and navigates to the last widget on the stack.
       } catch (e) {
         print(e.toString());
-        // showDialog(
-        //     context: context,
-        //     builder: (context) {
-        //       return AlertDialog(
-        //         title: Text('Sign in failed'),
-        //         content: Text(e.toString()),
-        //         actions: [
-        //           ElevatedButton(onPressed: (){}, child: Text('Ok'))
-        //         ],
-        //       );
-        //     });
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text('Sign in failed'),
+                content: Text(e.toString()),
+                actions: [
+                  ElevatedButton(onPressed: (){}, child: Text('Ok'))
+                ],
+              );
+            });
       } finally {
         setState(() {
           _isLoading = false;
