@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/validators.dart';
 import 'package:time_tracker_flutter_course/common_widgets/form_submit_button.dart';
+import 'package:time_tracker_flutter_course/common_widgets/show_alert_dialog.dart';
 
 import '../../services/auth.dart';
 
@@ -73,8 +74,11 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
         // } else {
         //   showGenericAlertDialog(e);
         // }
-        showGenericAlertDialog(e);
-
+        // showGenericAlertDialog(e);
+        showAlertDialog(context,
+            title: 'Sign In failed',
+            content: e.toString(),
+            defaultActionText: 'Ok');
       } finally {
         setState(() {
           _isLoading = false;
@@ -262,6 +266,4 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
           );
         });
   }
-
-
 }
