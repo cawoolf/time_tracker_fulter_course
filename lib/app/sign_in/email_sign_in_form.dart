@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/validators.dart';
 import 'package:time_tracker_flutter_course/common_widgets/form_submit_button.dart';
@@ -65,17 +67,14 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
             .pop(); // Dismiss the screen and navigates to the last widget on the stack.
       } catch (e) {
         print(e.toString());
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text('Sign in failed'),
-                content: Text(e.toString()),
-                actions: [
-                  ElevatedButton(onPressed: (){}, child: Text('Ok'))
-                ],
-              );
-            });
+        //
+        // if(Platform.isIOS) {
+        //   print('show CupertinoAlertDialog');
+        // } else {
+        //   showGenericAlertDialog(e);
+        // }
+        showGenericAlertDialog(e);
+
       } finally {
         setState(() {
           _isLoading = false;
@@ -111,6 +110,15 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
     });
     _emailController.clear();
     _passwordController.clear();
+  }
+
+  void updateState() {
+    print('email: $_email password:$_password');
+    setState(() {
+      /* Used to rebuild the State and update the UI everytime to TextField changes
+      * This way the SignIn Button can be disabled while the TextField email and password are empty,
+      * and enabled if a certain validate is met  */
+    });
   }
 
   // New convention, all methods related to the front-end go after the
@@ -239,12 +247,21 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
     );
   }
 
-  void updateState() {
-    print('email: $_email password:$_password');
-    setState(() {
-      /* Used to rebuild the State and update the UI everytime to TextField changes
-      * This way the SignIn Button can be disabled while the TextField email and password are empty,
-      * and enabled if a certain validate is met  */
-    });
+  void showGenericAlertDialog(Object e) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Sign in failed'),
+            content: Text(e.toString()),
+            actions: [
+              ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('Ok'))
+            ],
+          );
+        });
   }
+
+
 }
