@@ -117,7 +117,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   }
 
   void updateState() {
-    print('email: $_email password:$_password');
+    // print('email: $_email password:$_password');
     setState(() {
       /* Used to rebuild the State and update the UI everytime to TextField changes
       * This way the SignIn Button can be disabled while the TextField email and password are empty,
