@@ -64,6 +64,8 @@ Look up how to use named parameters inside methods.
 Navigator.of(context).pop(false) or .pop(true) allows a Dialog to return a bool value
 true, false, or null. Keep that in mind.
 
+Commit format like so. -m "210, 211 Platform aware dialogs - Ch.12"
+
 Android you can dismiss a dialog by clicking anywhere outside it (can customize this), iOS you cannot
 
 **6/1/23**
