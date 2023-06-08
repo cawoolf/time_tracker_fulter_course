@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
+import 'package:time_tracker_flutter_course/services/auth_provider.dart';
 import 'firebase_options.dart';
 
 // Main entry point for the entire Flutter app
@@ -21,18 +22,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // MaterialApp container for the Widget. Pretty standard.
-    return MaterialApp(
-      title: "Time Tracker",
-
-      theme: ThemeData(
-        primarySwatch: Colors.indigo
-      ),
-
-      home: LandingPage(
-        auth: Auth(),),
-
-    );
+    /*
+    MaterialApp is the container for the Parent Widget of the whole app. It's a child
+    of AuthProvider so that other Widgets can navigate up the tree to access Auth.
+     */
+    return AuthProvider(
+        auth: Auth(),
+        child: MaterialApp(
+          title: "Time Tracker",
+          theme: ThemeData(primarySwatch: Colors.indigo),
+          home: LandingPage(
+            auth: Auth(),
+          ),
+        ));
   }
-  
 }
