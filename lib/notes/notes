@@ -58,6 +58,12 @@ open -a Simulator
 cd project_name -> flutter run
 
 *********************************************Daily Notes*************************************************
+Current Section = Section 13: Scoped Access with Inherited Widget Provider
+
+**6/11/23**
+Build Context is always accessible inside a Stateful Widgets
+Context needs to be passed around inside Stateless Widgets
+
 **6/6/23**
 Look up how to use named parameters inside methods.
 

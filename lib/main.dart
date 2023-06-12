@@ -31,9 +31,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: "Time Tracker",
           theme: ThemeData(primarySwatch: Colors.indigo),
-          home: LandingPage(
-            auth: Auth(),
-          ),
+          home: LandingPage(),
         ));
   }
 }

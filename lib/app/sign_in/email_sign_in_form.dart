@@ -6,13 +6,13 @@ import 'package:time_tracker_flutter_course/common_widgets/form_submit_button.da
 import 'package:time_tracker_flutter_course/common_widgets/show_alert_dialog.dart';
 
 import '../../services/auth.dart';
+import '../../services/auth_provider.dart';
 
 enum EmailSignInFormType { signIn, register }
 
 class EmailSignInForm extends StatefulWidget with EmailAndPasswordValidators {
+
   //'with' mixin, Extends to functionality of the class.
-  EmailSignInForm({Key? key, required this.auth}) : super(key: key);
-  final AuthBase auth;
 
   @override
   State<EmailSignInForm> createState() => _EmailSignInFormState();
@@ -47,6 +47,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   Create an Account or SignIn, based on the state of the EmailSignInFormType enum.
    */
   void _submit() async {
+    final auth = AuthProvider.of(context);
     print('submit called');
     setState(() {
       _submitted = true;
@@ -60,9 +61,9 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       // await Future.delayed(const Duration(seconds: 3)); // For simulating a slow network.
       try {
         if (_formType == EmailSignInFormType.signIn) {
-          await widget.auth.signInWithEmailAndPassword(_email, _password);
+          await auth?.signInWithEmailAndPassword(_email, _password);
         } else {
-          await widget.auth.createUserWithEmailAndPassword(_email, _password);
+          await auth?.createUserWithEmailAndPassword(_email, _password);
         }
         Navigator.of(context)
             .pop(); // Dismiss the screen and navigates to the last widget on the stack.

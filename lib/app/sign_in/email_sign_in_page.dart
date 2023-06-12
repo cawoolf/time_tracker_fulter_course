@@ -1,12 +1,12 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_form.dart';
 
 import '../../services/auth.dart';
+import '../../services/auth_provider.dart';
 
 class EmailSignInPage extends StatelessWidget {
-  const EmailSignInPage({Key? key, required this.auth}) : super(key: key);
-  final AuthBase auth;
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -27,6 +27,7 @@ class EmailSignInPage extends StatelessWidget {
 
 
   _buildContent() {
-    return EmailSignInForm(auth: auth);
+    // final auth = AuthProvider.of(context as BuildContext);
+    return EmailSignInForm();
   }
 }

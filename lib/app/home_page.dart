@@ -1,18 +1,19 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
+import 'package:time_tracker_flutter_course/services/auth_provider.dart';
 
 import '../common_widgets/show_alert_dialog.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key, required this.auth, /*required this.onSignOut*/
-  }) : super(key: key);
+  const HomePage({super.key});
 
-  // final void Function() onSignOut;
-  final AuthBase auth;
 
-  Future<void> _signOut() async {
+  Future<void> _signOut(BuildContext context) async {
     try {
-      await auth.signOut();
+      final auth = AuthProvider.of(context);
+      await auth?.signOut();
       print('Logged out');
       // onSignOut();
     } catch (e) {
@@ -30,7 +31,7 @@ class HomePage extends StatelessWidget {
         cancelActionText: 'Cancel',
         defaultActionText: 'Logout');
     if(didRequestSignOut == true) {
-      _signOut();
+      _signOut(context);
     }
   }
 
