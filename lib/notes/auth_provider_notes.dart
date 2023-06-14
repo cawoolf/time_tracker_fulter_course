@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/diagnostics.dart';
-import 'auth.dart';
+import '../services/auth.dart';
 
-class AuthProvider extends InheritedWidget {
-  const AuthProvider({super.key, required this.auth, required super.child});
+
+class AuthProviderNotes extends InheritedWidget {
+  const AuthProviderNotes({super.key, required this.auth, required super.child});
 
   final AuthBase auth;
 
@@ -16,8 +16,9 @@ class AuthProvider extends InheritedWidget {
 
   // Static methods can be directly called with out creating an Object of the parent class.
   // Used to define class members of variables.
+  // Traverses up the widget tree to find a the Provider
   static AuthBase? of(BuildContext context) {
-    final AuthProvider? provider = context.dependOnInheritedWidgetOfExactType<AuthProvider>();
+    final AuthProviderNotes? provider = context.dependOnInheritedWidgetOfExactType<AuthProviderNotes>();
     return provider?.auth;
   }
 // final auth = AuthProvider.of(context)

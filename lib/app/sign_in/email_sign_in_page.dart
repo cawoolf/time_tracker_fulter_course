@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_form.dart';
 
 import '../../services/auth.dart';
-import '../../services/auth_provider.dart';
+
 
 class EmailSignInPage extends StatelessWidget {
   @override

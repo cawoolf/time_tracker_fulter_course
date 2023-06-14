@@ -58,7 +58,15 @@ open -a Simulator
 cd project_name -> flutter run
 
 *********************************************Daily Notes*************************************************
-Current Section = Section 13: Scoped Access with Inherited Widget Provider
+Current Section = (Lesson #) Section 13: Scoped Access with Inherited Widget Provider
+
+216,217,218 Section 13: Scoped Access with Inherited Widget Provider
+
+**6/13/23**
+Provider is a wrapper class around InheritedWidget that makes it easy to provide objects
+> Provider is a generic type, and you must specify with <Class> what it's providing
+This is called Scoped Access (InheritedWidget/Provider), which is different from Dependency Injection (via constructor)
+Provider allows for state management techniques
 
 **6/11/23**
 Build Context is always accessible inside a Stateful Widgets
@@ -75,23 +83,16 @@ Commit format like so. -m "210, 211 Platform aware dialogs - Ch.12"
 Android you can dismiss a dialog by clicking anywhere outside it (can customize this), iOS you cannot
 
 **6/1/23**
-201 - Updating the logic for email focus
-202 - Fixing the vertical scroll on small screens
-203 - Wrap-Up
-
 Introduced SingleChildScrollView and Scrollable widgets for managing small screen sizes.
 
 Generally speaking, only rebuild the page when needed to increase performance.
 
 **5/31/23**
-199 -Simulating slow network with a delay
-200 - Adding a loading state to our form
-
 Best practice to disable signIn forms while an auth request is in progress
 
-**5/30/23** 198
+**5/30/23**
 
-**5/27/23** 195, 196
+**5/27/23**
 Can you mixin more than one class? Can password and email validation be performed on the Firebase side?
 
 **5/21/23**

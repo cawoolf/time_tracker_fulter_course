@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
-import 'package:time_tracker_flutter_course/services/auth_provider.dart';
+
 
 import 'home_page.dart';
 
@@ -15,14 +16,15 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // Finds the AuthProvider ancestor in the Widget Tree
-    final auth = AuthProvider.of(context);
+    final auth = Provider.of<AuthBase>(context, listen: false);
     // Useful widget for manging Streams
     return StreamBuilder<User?>(
 
       // Stream coming from Firebase that emits the User state
-      stream: auth?.authStateChanges(),
+      stream: auth.authStateChanges(),
 
-      // Snapshot is the data being emited from the Stream
+      // Snapshot is the data being emitted from the Stream
+      // Checks to see if the User is actually logged in
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final User? user = snapshot.data;

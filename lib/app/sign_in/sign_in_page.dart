@@ -3,14 +3,13 @@ import 'dart:js';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_page.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart';
 import 'package:google_sign_in_web/google_sign_in_web.dart' as web;
-
-import '../../services/auth_provider.dart';
 
 class SignInPage extends StatelessWidget {
   // Constructor
@@ -21,7 +20,7 @@ class SignInPage extends StatelessWidget {
   // final void Function(User?) onSignIn;
 
   void _signInWithEmail(BuildContext context) {
-    final auth = AuthProvider.of(context);
+    final auth = Provider.of<AuthBase>(context);
 
     // Uses a Navigator Widget the pushes and pops pages off the
     // Navigation Stack
@@ -35,9 +34,9 @@ class SignInPage extends StatelessWidget {
   }
 
   Future<void> _signInAnonymously(BuildContext context) async {
-    final auth = AuthProvider.of(context);
+    final auth = Provider.of<AuthBase>(context, listen: false);
     try {
-      final user = await auth?.signInAnonymously();
+      final user = await auth.signInAnonymously();
       // print('${userCredentials.user?.uid}');
       // onSignIn(user as User?);
     } catch (e) {
@@ -46,11 +45,11 @@ class SignInPage extends StatelessWidget {
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
-    final auth = AuthProvider.of(context);
+    final auth = Provider.of<AuthBase>(context, listen: false);
     if (kIsWeb) {
       try {
         print("Google web sign in");
-        await auth?.signInWithGoogleWeb();
+        await auth.signInWithGoogleWeb();
       } catch (e) {
         print(e.toString());
       }

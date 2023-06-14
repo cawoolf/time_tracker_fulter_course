@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/validators.dart';
 import 'package:time_tracker_flutter_course/common_widgets/form_submit_button.dart';
 import 'package:time_tracker_flutter_course/common_widgets/show_alert_dialog.dart';
-
 import '../../services/auth.dart';
-import '../../services/auth_provider.dart';
+
 
 enum EmailSignInFormType { signIn, register }
 
@@ -47,7 +47,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   Create an Account or SignIn, based on the state of the EmailSignInFormType enum.
    */
   void _submit() async {
-    final auth = AuthProvider.of(context);
+    final auth = Provider.of<AuthBase>(context, listen: false);
     print('submit called');
     setState(() {
       _submitted = true;
