@@ -20,7 +20,7 @@ class SignInPage extends StatelessWidget {
   // final void Function(User?) onSignIn;
 
   void _signInWithEmail(BuildContext context) {
-    final auth = Provider.of<AuthBase>(context);
+    // final auth = Provider.of<AuthBase>(context);
 
     // Uses a Navigator Widget the pushes and pops pages off the
     // Navigation Stack
@@ -36,7 +36,7 @@ class SignInPage extends StatelessWidget {
   Future<void> _signInAnonymously(BuildContext context) async {
     final auth = Provider.of<AuthBase>(context, listen: false);
     try {
-      final user = await auth.signInAnonymously();
+      await auth.signInAnonymously();
       // print('${userCredentials.user?.uid}');
       // onSignIn(user as User?);
     } catch (e) {

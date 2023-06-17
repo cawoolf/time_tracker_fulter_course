@@ -58,9 +58,10 @@ open -a Simulator
 cd project_name -> flutter run
 
 *********************************************Daily Notes*************************************************
-Current Section = (Lesson #) Section 13: Scoped Access with Inherited Widget Provider
+Current Section = (Lesson #) Section 14: Polishing the Authentication Flows
 
-216,217,218 Section 13: Scoped Access with Inherited Widget Provider
+
+221, Section 14: Polishing the Authentication Flows
 
 **6/13/23**
 Provider is a wrapper class around InheritedWidget that makes it easy to provide objects
