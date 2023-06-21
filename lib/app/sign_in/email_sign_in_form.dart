@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/validators.dart';
 import 'package:time_tracker_flutter_course/common_widgets/form_submit_button.dart';
 import 'package:time_tracker_flutter_course/common_widgets/show_alert_dialog.dart';
+import '../../common_widgets/show_exception_alert_dialog.dart';
 import '../../services/auth.dart';
 
 
@@ -68,19 +69,10 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
         }
         Navigator.of(context)
             .pop(); // Dismiss the screen and navigates to the last widget on the stack.
-      }on FirebaseAuthException catch (e) { // Catch certain types of Exceptions
-        print(e.toString());
-        //
-        // if(Platform.isIOS) {
-        //   print('show CupertinoAlertDialog');
-        // } else {
-        //   showGenericAlertDialog(e);
-        // }
-        // showGenericAlertDialog(e);
-        showAlertDialog(context,
+      }on FirebaseAuthException catch (e) { // Catch certain types of Exceptions. Currently getting an UnknownError
+        showExceptionAlertDialog(context,
             title: 'Sign In failed',
-            content: e.message.toString(),
-            defaultActionText: 'Ok');
+            exception: e);
       } finally {
         setState(() {
           _isLoading = false;

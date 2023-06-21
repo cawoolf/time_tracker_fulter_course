@@ -61,7 +61,7 @@ cd project_name -> flutter run
 Current Section = (Lesson #) Section 14: Polishing the Authentication Flows
 
 
-221, Section 14: Polishing the Authentication Flows
+222, 223 Section 14: Polishing the Authentication Flows
 
 **6/13/23**
 Provider is a wrapper class around InheritedWidget that makes it easy to provide objects

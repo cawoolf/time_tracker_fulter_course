@@ -1,5 +1,7 @@
+import 'dart:html';
 import 'dart:js';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,17 +9,20 @@ import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_page.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
+import 'package:time_tracker_flutter_course/common_widgets/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart';
 import 'package:google_sign_in_web/google_sign_in_web.dart' as web;
 
 class SignInPage extends StatelessWidget {
-  // Constructor
 
-  /* onSignIn is a function that is a property of the SignInPage,
-  and is set by the Constructor. Part of a basic CallBack pattern.
-  State is being passed from the SignInPage to the LandingPage */
-  // final void Function(User?) onSignIn;
+  void _showSignInError(BuildContext context, Exception exception) {
+    // The exception.code is declared in auth.dart
+    // if(exception is FirebaseException && exception.code == 'ERROR_ABORTED_BY_USER'){
+    //   return;
+    // }
+    showExceptionAlertDialog(context, title: 'Sign in failed', exception: exception);
+  }
 
   void _signInWithEmail(BuildContext context) {
     // final auth = Provider.of<AuthBase>(context);
@@ -39,8 +44,8 @@ class SignInPage extends StatelessWidget {
       await auth.signInAnonymously();
       // print('${userCredentials.user?.uid}');
       // onSignIn(user as User?);
-    } catch (e) {
-      print(e.toString());
+    } on Exception catch (e) {
+      _showSignInError(context, e);
     }
   }
 
@@ -59,8 +64,8 @@ class SignInPage extends StatelessWidget {
         print('Google Sign in clicked: Authenticating with Google');
         // print('${userCredentials.user?.uid}');
         // onSignIn(user as User?);
-      } catch (e) {
-        print(e.toString());
+      } on Exception  catch (e) {
+        _showSignInError(context, e);
       }
     }
   }
