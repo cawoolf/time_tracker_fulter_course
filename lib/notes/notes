@@ -38,18 +38,21 @@ Callbacks are used to pass states from children to parent Widgets
 
 // ***Keyboard shortcuts***
 alt + upArrow to increase selection
-option+ CMD + M to extract code to a method / Ctrl + Alt + M for Windows
-alt + enter  Wrap with widget, Does work
-CMD + downArrow to view the documentation of a class
-Ctl + Click on Windows to open documentation
-Ctrl+Alt+L to format code
-Ctrl+Alt+M to extract code to method
+Shift + Atl + Arrow => Move code up and down a line
+option+ CMD + M => extract code to a method / Ctrl + Alt + M for Windows
+alt + enter  => Wrap with widget, Does work
+CMD + downArrow => view the documentation of a class
+Ctl + Click => Windows to open documentation
+Ctrl+Alt+L => format code
+Ctrl+Alt+M => extract code to method
 
 Move line or selection up: Shift + Alt + Up Arrow
 Move line or selection down: Shift + Alt + Down Arrow
 
 stful for Stateful Widget code completion
 stless for Stateless Widget code completion
+
+Alt + Enter => Convert to Stateful Widget
 
 // ***Flutter Commands***
 flutter doctor
@@ -61,7 +64,15 @@ cd project_name -> flutter run
 Current Section = (Lesson #) Section 14: Polishing the Authentication Flows
 
 
-222, 223 Section 14: Polishing the Authentication Flows
+225,226,227 Section 14: Polishing the Authentication Flows
+
+**6/21/23**
+Use SizedBox() to set the dimensions of the child Widget
+How do you use Padding() in Flutter?
+
+Whats going on with this CustomRaisedButton()? How to make the buttons look disabled?
+
+TextEditingController and FocusNodes must be disposed. Call dispose()
 
 **6/13/23**
 Provider is a wrapper class around InheritedWidget that makes it easy to provide objects

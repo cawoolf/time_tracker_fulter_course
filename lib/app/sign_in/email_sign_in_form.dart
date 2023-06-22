@@ -44,6 +44,21 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   bool _submitted = false;
   bool _isLoading = false;
 
+
+  /*
+  Called whenever a Widget is removed from the WidgetTree
+   */
+  @override
+  void dispose() {
+    print('Dispose called');
+    // Must dispose of Controllers and FocusNodes. Objects that we no longer need when the page is closed.
+    _emailController.dispose();
+    _passwordController.dispose();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
+
   /*
   Uses the auth Widget passed into the constructor to make a call to Firebase to either
   Create an Account or SignIn, based on the state of the EmailSignInFormType enum.

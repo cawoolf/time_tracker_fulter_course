@@ -14,19 +14,27 @@ import 'package:time_tracker_flutter_course/services/auth.dart';
 import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart';
 import 'package:google_sign_in_web/google_sign_in_web.dart' as web;
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  bool _isLoading = false;
 
   void _showSignInError(BuildContext context, Exception exception) {
-    // The exception.code is declared in auth.dart
-    // if(exception is FirebaseException && exception.code == 'ERROR_ABORTED_BY_USER'){
-    //   return;
-    // }
-    showExceptionAlertDialog(context, title: 'Sign in failed', exception: exception);
+    /*The exception.code is declared in auth.dart
+    Code so that the user is not shown an error when they cancel a SignIn
+    if(exception is FirebaseException && exception.code == 'ERROR_ABORTED_BY_USER'){
+       return;
+     }
+    */
+
+    showExceptionAlertDialog(context,
+        title: 'Sign in failed', exception: exception);
   }
 
   void _signInWithEmail(BuildContext context) {
-    // final auth = Provider.of<AuthBase>(context);
-
     // Uses a Navigator Widget the pushes and pops pages off the
     // Navigation Stack
     Navigator.of(context).push(
@@ -41,32 +49,52 @@ class SignInPage extends StatelessWidget {
   Future<void> _signInAnonymously(BuildContext context) async {
     final auth = Provider.of<AuthBase>(context, listen: false);
     try {
+      setState(() => _isLoading = true);
       await auth.signInAnonymously();
       // print('${userCredentials.user?.uid}');
       // onSignIn(user as User?);
     } on Exception catch (e) {
       _showSignInError(context, e);
     }
+    finally {
+      setState(() => _isLoading = false);
+    }
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     final auth = Provider.of<AuthBase>(context, listen: false);
     if (kIsWeb) {
-      try {
-        print("Google web sign in");
-        await auth.signInWithGoogleWeb();
-      } catch (e) {
-        print(e.toString());
-      }
+      await _googleWebSignIn(auth, context);
     } else {
+      await _googleMobileSignIn(auth, context);
+    }
+  }
+
+  Future<void> _googleMobileSignIn(AuthBase auth, BuildContext context) async {
+     try {
+      setState(() => _isLoading = true);
+      await auth?.signInWithGoogle();
+      print('Google Sign in clicked: Authenticating with Google');
+      // print('${userCredentials.user?.uid}');
+      // onSignIn(user as User?);
+    } on Exception catch (e) {
+      _showSignInError(context, e);
+    }
+    finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _googleWebSignIn(AuthBase auth, BuildContext context) async {
       try {
-        await auth?.signInWithGoogle();
-        print('Google Sign in clicked: Authenticating with Google');
-        // print('${userCredentials.user?.uid}');
-        // onSignIn(user as User?);
-      } on Exception  catch (e) {
-        _showSignInError(context, e);
-      }
+      setState(() => _isLoading = true);
+      print("Google web sign in");
+      await auth.signInWithGoogleWeb();
+    } on Exception catch (e) {
+      _showSignInError(context, e);
+    }
+    finally {
+      setState(() => _isLoading = false);
     }
   }
 
@@ -76,7 +104,6 @@ class SignInPage extends StatelessWidget {
   }
 
   // UI Widgets
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -91,9 +118,7 @@ class SignInPage extends StatelessWidget {
   }
 
   // the _methodName is convention for making the method private
-  // only accessible at the file level
   Widget _buildContent(BuildContext context) {
-
     return Padding(
       //Container with Padding with no background
       // color: Colors.yellow,
@@ -106,21 +131,24 @@ class SignInPage extends StatelessWidget {
         // Essentially Horizontal Alignment
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _signInTitleText(),
+
+          //SizedBox is used to ensure that the child Widget always takes up 50.0 pixels vertically
+          SizedBox(height:50.0, child: _buildHeader(),),
+
           _spaceBetweenWidgets(height: 48.0),
 
           // Google Sign In
-              SocialSignInButton(
-                assetName: 'images/google-logo.png',
-                text: "Sign in with Google",
-                color: Colors.white,
-                textColor: Colors.black,
-                onPressed: () => _signInWithGoogle(context),
-              ),
+          SocialSignInButton(
+            assetName: 'images/google-logo.png',
+            text: "Sign in with Google",
+            color: Colors.white,
+            textColor: Colors.black,
+            onPressed: () => _isLoading ? null : _signInWithGoogle(context),
+          ),
 
           _spaceBetweenWidgets(),
 
-          // Facebook Sign In
+          // Facebook Sign In Not Implemented
           SocialSignInButton(
               assetName: 'images/facebook-logo.png',
               text: "Sign in with Facebook",
@@ -137,7 +165,7 @@ class SignInPage extends StatelessWidget {
               text: "Sign in with Email",
               color: Colors.teal,
               textColor: Colors.white,
-              onPressed: () => _signInWithEmail(context)),
+              onPressed: () => _isLoading ? null : _signInWithEmail(context)),
 
           _spaceBetweenWidgets(),
           _orText(),
@@ -148,7 +176,7 @@ class SignInPage extends StatelessWidget {
             text: "Go anonymous",
             color: Colors.limeAccent,
             textColor: Colors.black,
-            onPressed: ()=> _signInAnonymously(context),
+            onPressed: () => _isLoading ? null : _signInAnonymously(context),
           ),
         ],
       ), // The child of a Container can be any Widget in Flutter
@@ -179,4 +207,14 @@ class SignInPage extends StatelessWidget {
     );
   }
 
+  Widget _buildHeader() {
+    if(_isLoading) {
+      return Center(
+          child: CircularProgressIndicator());
+    }
+    // Just do nothing. There's no Loading indicator to show.
+   else {
+     return _signInTitleText();
+    }
+  }
 }
