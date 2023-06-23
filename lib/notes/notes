@@ -61,10 +61,20 @@ open -a Simulator
 cd project_name -> flutter run
 
 *********************************************Daily Notes*************************************************
-Current Section = (Lesson #) Section 14: Polishing the Authentication Flows
+Current Section = (Lesson #) Section 15: BLoCs
 
+228 - 233, Section 15: BLoCs
 
-225,226,227 Section 14: Polishing the Authentication Flows
+***6/22/23***
+
+State management supports your code base as it grows
+All state management techniques have trade offs
+All apps are different, and may need different techniques
+
+BLoC = Business Logic Component
+Business Logic - defines how we manipulate the data in our application. Code that is not UI specific.
+BLoC moves the BL into a separate class
+
 
 **6/21/23**
 Use SizedBox() to set the dimensions of the child Widget

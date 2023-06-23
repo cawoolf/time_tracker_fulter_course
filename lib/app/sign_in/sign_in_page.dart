@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_page.dart';
+import 'package:time_tracker_flutter_course/app/sign_in/sign_in_bloc.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
 import 'package:time_tracker_flutter_course/common_widgets/show_exception_alert_dialog.dart';
@@ -15,6 +16,15 @@ import 'package:google_sign_in_platform_interface/google_sign_in_platform_interf
 import 'package:google_sign_in_web/google_sign_in_web.dart' as web;
 
 class SignInPage extends StatefulWidget {
+
+  // Creates an instance of the SignInPage with a Provider and SignInBloc
+  static Widget create(BuildContext context) {
+    return Provider<SignInBloc>(
+      create: (_) => SignInBloc(), //_ for arguments that are not needed
+      child: SignInPage(),
+    );
+  }
+
   @override
   State<SignInPage> createState() => _SignInPageState();
 }
