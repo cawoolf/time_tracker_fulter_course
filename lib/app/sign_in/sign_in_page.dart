@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:html';
 import 'dart:js';
 
@@ -15,7 +16,7 @@ import 'package:time_tracker_flutter_course/services/auth.dart';
 import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart';
 import 'package:google_sign_in_web/google_sign_in_web.dart' as web;
 
-class SignInPage extends StatefulWidget {
+class SignInPage extends StatelessWidget {
 
   // Creates an instance of the SignInPage with a Provider and SignInBloc
   static Widget create(BuildContext context) {
@@ -24,14 +25,7 @@ class SignInPage extends StatefulWidget {
       child: SignInPage(),
     );
   }
-
-  @override
-  State<SignInPage> createState() => _SignInPageState();
-}
-
-class _SignInPageState extends State<SignInPage> {
-  bool _isLoading = false;
-
+  
   void _showSignInError(BuildContext context, Exception exception) {
     /*The exception.code is declared in auth.dart
     Code so that the user is not shown an error when they cancel a SignIn
@@ -58,8 +52,9 @@ class _SignInPageState extends State<SignInPage> {
 
   Future<void> _signInAnonymously(BuildContext context) async {
     final auth = Provider.of<AuthBase>(context, listen: false);
+    final bloc = Provider.of<SignInBloc>(context, listen: false);
     try {
-      setState(() => _isLoading = true);
+      bloc.setIsLoading(true);
       await auth.signInAnonymously();
       // print('${userCredentials.user?.uid}');
       // onSignIn(user as User?);
@@ -67,7 +62,7 @@ class _SignInPageState extends State<SignInPage> {
       _showSignInError(context, e);
     }
     finally {
-      setState(() => _isLoading = false);
+      bloc.setIsLoading(false);
     }
   }
 
@@ -81,8 +76,9 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Future<void> _googleMobileSignIn(AuthBase auth, BuildContext context) async {
+    final bloc = Provider.of<SignInBloc>(context, listen: false);
      try {
-      setState(() => _isLoading = true);
+       bloc.setIsLoading(true);
       await auth?.signInWithGoogle();
       print('Google Sign in clicked: Authenticating with Google');
       // print('${userCredentials.user?.uid}');
@@ -91,20 +87,21 @@ class _SignInPageState extends State<SignInPage> {
       _showSignInError(context, e);
     }
     finally {
-      setState(() => _isLoading = false);
+      bloc.setIsLoading(true);
     }
   }
 
   Future<void> _googleWebSignIn(AuthBase auth, BuildContext context) async {
+    final bloc = Provider.of<SignInBloc>(context, listen: false);
       try {
-      setState(() => _isLoading = true);
+        bloc.setIsLoading(true);
       print("Google web sign in");
       await auth.signInWithGoogleWeb();
     } on Exception catch (e) {
       _showSignInError(context, e);
     }
     finally {
-      setState(() => _isLoading = false);
+      bloc.setIsLoading(true);
     }
   }
 
@@ -137,6 +134,8 @@ class _SignInPageState extends State<SignInPage> {
 
   // the _methodName is convention for making the method private
   Widget _buildContent(BuildContext context, bool? isLoading) {
+
+
     return Padding(
       //Container with Padding with no background
       // color: Colors.yellow,
@@ -151,7 +150,7 @@ class _SignInPageState extends State<SignInPage> {
         children: <Widget>[
 
           //SizedBox is used to ensure that the child Widget always takes up 50.0 pixels vertically
-          SizedBox(height:50.0, child: _buildHeader(),),
+          SizedBox(height:50.0, child: _buildHeader(isLoading),),
 
           _spaceBetweenWidgets(height: 48.0),
 
@@ -161,7 +160,7 @@ class _SignInPageState extends State<SignInPage> {
             text: "Sign in with Google",
             color: Colors.white,
             textColor: Colors.black,
-            onPressed: () => _isLoading ? null : _signInWithGoogle(context),
+            onPressed: () => isLoading != null && !isLoading ? null : _signInWithGoogle(context),
           ),
 
           _spaceBetweenWidgets(),
@@ -183,7 +182,7 @@ class _SignInPageState extends State<SignInPage> {
               text: "Sign in with Email",
               color: Colors.teal,
               textColor: Colors.white,
-              onPressed: () => _isLoading ? null : _signInWithEmail(context)),
+              onPressed: () => isLoading != null && !isLoading ? null : _signInWithEmail(context)),
 
           _spaceBetweenWidgets(),
           _orText(),
@@ -194,7 +193,7 @@ class _SignInPageState extends State<SignInPage> {
             text: "Go anonymous",
             color: Colors.limeAccent,
             textColor: Colors.black,
-            onPressed: () => _isLoading ? null : _signInAnonymously(context),
+            onPressed: () => isLoading != null && isLoading ? null : _signInAnonymously(context),
           ),
         ],
       ), // The child of a Container can be any Widget in Flutter
@@ -225,8 +224,8 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  Widget _buildHeader() {
-    if(_isLoading) {
+  Widget _buildHeader(bool? isLoading) {
+    if(isLoading != null && !isLoading) {
       return Center(
           child: CircularProgressIndicator());
     }
