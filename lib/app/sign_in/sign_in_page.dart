@@ -116,19 +116,27 @@ class _SignInPageState extends State<SignInPage> {
   // UI Widgets
   @override
   Widget build(BuildContext context) {
+    //Provider.of<SignInBloc> is the parent of this Widget class
+    final bloc = Provider.of<SignInBloc>(context, listen: false);
+
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: const Text("Time Tracker"),
         elevation: 2.0,
       ),
-      body: _buildContent(context),
+      body: StreamBuilder<bool>(
+        stream: bloc.isLoadingStream,
+          initialData: false,
+          builder: (context, snapshot){
+            return _buildContent(context, snapshot.data);
+          }),
       backgroundColor: Colors.grey[200],
     );
   }
 
   // the _methodName is convention for making the method private
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent(BuildContext context, bool? isLoading) {
     return Padding(
       //Container with Padding with no background
       // color: Colors.yellow,
