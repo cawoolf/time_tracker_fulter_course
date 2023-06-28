@@ -19,6 +19,7 @@ class SignInPage extends StatelessWidget {
   static Widget create(BuildContext context) {
     return Provider<SignInBloc>(
       create: (_) => SignInBloc(), //_ for arguments that are not needed
+      dispose: (_, bloc) => bloc.dispose(), // Always dispose of your blocs
       child: Consumer<SignInBloc>(
         builder: (_,bloc,__) => SignInPage(bloc: bloc),
       ),
