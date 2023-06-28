@@ -85,12 +85,12 @@ class SignInPage extends StatelessWidget {
       _showSignInError(context, e);
     }
     finally {
-      bloc.setIsLoading(true);
+      bloc.setIsLoading(false);
     }
   }
 
   Future<void> _googleWebSignIn(AuthBase auth, BuildContext context) async {
-    final bloc = Provider.of<SignInBloc>(context, listen: false);
+    // final bloc = Provider.of<SignInBloc>(context, listen: false);
       try {
         bloc.setIsLoading(true);
       print("Google web sign in");
@@ -99,7 +99,7 @@ class SignInPage extends StatelessWidget {
       _showSignInError(context, e);
     }
     finally {
-      bloc.setIsLoading(true);
+      bloc.setIsLoading(false);
     }
   }
 
@@ -132,8 +132,7 @@ class SignInPage extends StatelessWidget {
 
   // the _methodName is convention for making the method private
   Widget _buildContent(BuildContext context, bool? isLoading) {
-
-
+    \
     return Padding(
       //Container with Padding with no background
       // color: Colors.yellow,
@@ -158,9 +157,8 @@ class SignInPage extends StatelessWidget {
             text: "Sign in with Google",
             color: Colors.white,
             textColor: Colors.black,
-            onPressed: () => isLoading != null && !isLoading ? null : _signInWithGoogle(context),
+            onPressed: () => isLoading != null && isLoading ? null : _signInWithGoogle(context),
           ),
-
           _spaceBetweenWidgets(),
 
           // Facebook Sign In Not Implemented
@@ -180,7 +178,7 @@ class SignInPage extends StatelessWidget {
               text: "Sign in with Email",
               color: Colors.teal,
               textColor: Colors.white,
-              onPressed: () => isLoading != null && !isLoading ? null : _signInWithEmail(context)),
+              onPressed: () => isLoading != null && isLoading ? null : _signInWithEmail(context)),
 
           _spaceBetweenWidgets(),
           _orText(),
@@ -223,7 +221,7 @@ class SignInPage extends StatelessWidget {
   }
 
   Widget _buildHeader(bool? isLoading) {
-    if(isLoading != null && !isLoading) {
+    if(isLoading != null && isLoading) {
       return Center(
           child: CircularProgressIndicator());
     }
