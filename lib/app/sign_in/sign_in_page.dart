@@ -17,8 +17,9 @@ class SignInPage extends StatelessWidget {
 
   // Creates an instance of the SignInPage with a Provider and SignInBloc
   static Widget create(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context, listen: false);
     return Provider<SignInBloc>(
-      create: (_) => SignInBloc(), //_ for arguments that are not needed
+      create: (_) => SignInBloc(auth: auth), //_ for arguments that are not needed
       dispose: (_, bloc) => bloc.dispose(), // Always dispose of your blocs
       child: Consumer<SignInBloc>(
         builder: (_,bloc,__) => SignInPage(bloc: bloc),
@@ -51,57 +52,27 @@ class SignInPage extends StatelessWidget {
   }
 
   Future<void> _signInAnonymously(BuildContext context) async {
-    final auth = Provider.of<AuthBase>(context, listen: false);
     try {
-      bloc.setIsLoading(true);
-      await auth.signInAnonymously();
+      await bloc.signInAnonymously();
+      // await auth.signInAnonymously();
       // print('${userCredentials.user?.uid}');
       // onSignIn(user as User?);
     } on Exception catch (e) {
       _showSignInError(context, e);
     }
-    finally {
-      bloc.setIsLoading(false);
-    }
+
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
-    final auth = Provider.of<AuthBase>(context, listen: false);
+
     if (kIsWeb) {
-      await _googleWebSignIn(auth, context);
+      await bloc.signInWithGoogleWeb();
     } else {
-      await _googleMobileSignIn(auth, context);
+      await bloc.signInWithGoogle();
     }
   }
 
-  Future<void> _googleMobileSignIn(AuthBase auth, BuildContext context) async {
-     try {
-       bloc.setIsLoading(true);
-      await auth?.signInWithGoogle();
-      print('Google Sign in clicked: Authenticating with Google');
-      // print('${userCredentials.user?.uid}');
-      // onSignIn(user as User?);
-    } on Exception catch (e) {
-      _showSignInError(context, e);
-    }
-    finally {
-      bloc.setIsLoading(false);
-    }
-  }
 
-  Future<void> _googleWebSignIn(AuthBase auth, BuildContext context) async {
-    // final bloc = Provider.of<SignInBloc>(context, listen: false);
-      try {
-        bloc.setIsLoading(true);
-      print("Google web sign in");
-      await auth.signInWithGoogleWeb();
-    } on Exception catch (e) {
-      _showSignInError(context, e);
-    }
-    finally {
-      bloc.setIsLoading(false);
-    }
-  }
 
   Future<void> _signInWithFaceBook() async {
     // TODO: Implement Facebook SignIn
@@ -132,7 +103,6 @@ class SignInPage extends StatelessWidget {
 
   // the _methodName is convention for making the method private
   Widget _buildContent(BuildContext context, bool? isLoading) {
-    \
     return Padding(
       //Container with Padding with no background
       // color: Colors.yellow,
