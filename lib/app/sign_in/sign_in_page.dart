@@ -1,8 +1,3 @@
-import 'dart:ffi';
-import 'dart:html';
-import 'dart:js';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,19 +8,23 @@ import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
 import 'package:time_tracker_flutter_course/common_widgets/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
-import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart';
-import 'package:google_sign_in_web/google_sign_in_web.dart' as web;
 
 class SignInPage extends StatelessWidget {
+  const SignInPage({super.key, required this.bloc});
+  final SignInBloc bloc;
+  // final bloc = Provider.of<SignInBloc>(context, listen: false); Note what assigning bloc looks like
+
 
   // Creates an instance of the SignInPage with a Provider and SignInBloc
   static Widget create(BuildContext context) {
     return Provider<SignInBloc>(
       create: (_) => SignInBloc(), //_ for arguments that are not needed
-      child: SignInPage(),
+      child: Consumer<SignInBloc>(
+        builder: (_,bloc,__) => SignInPage(bloc: bloc),
+      ),
     );
   }
-  
+
   void _showSignInError(BuildContext context, Exception exception) {
     /*The exception.code is declared in auth.dart
     Code so that the user is not shown an error when they cancel a SignIn
@@ -52,7 +51,6 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInAnonymously(BuildContext context) async {
     final auth = Provider.of<AuthBase>(context, listen: false);
-    final bloc = Provider.of<SignInBloc>(context, listen: false);
     try {
       bloc.setIsLoading(true);
       await auth.signInAnonymously();
@@ -76,7 +74,6 @@ class SignInPage extends StatelessWidget {
   }
 
   Future<void> _googleMobileSignIn(AuthBase auth, BuildContext context) async {
-    final bloc = Provider.of<SignInBloc>(context, listen: false);
      try {
        bloc.setIsLoading(true);
       await auth?.signInWithGoogle();
