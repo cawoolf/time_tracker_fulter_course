@@ -36,11 +36,11 @@ class SignInBloc {
     try {
       _setIsLoading(true);
       return await signInMethod();
+
     } catch (e) {
-      rethrow; // Toss the exception back to the calling method
-    }
-    finally {
-      _setIsLoading(false);
+     // rethrow; // Toss the exception back to the calling method
+      // We don't actually need to call _setIsLoading if signIn succeeds, We're rebuilding the page anyway.
+      _setIsLoading(false);// Line added here to fix Android bug Section 15.240
     }
   }
 
