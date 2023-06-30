@@ -8,19 +8,17 @@ import 'package:time_tracker_flutter_course/common_widgets/form_submit_button.da
 import 'package:time_tracker_flutter_course/common_widgets/show_alert_dialog.dart';
 import '../../common_widgets/show_exception_alert_dialog.dart';
 import '../../services/auth.dart';
+import 'email_sign_in_model.dart';
 
-
-enum EmailSignInFormType { signIn, register }
-
-class EmailSignInForm extends StatefulWidget with EmailAndPasswordValidators {
+class EmailSignInFormStateful extends StatefulWidget with EmailAndPasswordValidators {
 
   //'with' mixin, Extends to functionality of the class.
 
   @override
-  State<EmailSignInForm> createState() => _EmailSignInFormState();
+  State<EmailSignInFormStateful> createState() => _EmailSignInFormStatefulState();
 }
 
-class _EmailSignInFormState extends State<EmailSignInForm> {
+class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
   // Best practice used for controlling Text inside TextField
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();

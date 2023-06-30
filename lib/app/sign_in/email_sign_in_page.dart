@@ -1,10 +1,5 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
-import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_form.dart';
-
-import '../../services/auth.dart';
-
+import 'email_sign_in_form_stateful.dart';
 
 class EmailSignInPage extends StatelessWidget {
   @override
@@ -28,6 +23,6 @@ class EmailSignInPage extends StatelessWidget {
 
   _buildContent() {
     // final auth = AuthProvider.of(context as BuildContext);
-    return EmailSignInForm();
+    return EmailSignInFormStateful();
   }
 }
