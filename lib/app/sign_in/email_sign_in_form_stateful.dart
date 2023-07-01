@@ -61,7 +61,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
   Uses the auth Widget passed into the constructor to make a call to Firebase to either
   Create an Account or SignIn, based on the state of the EmailSignInFormType enum.
    */
-  void _submit() async {
+  Future<void> _submit() async {
     final auth = Provider.of<AuthBase>(context, listen: false);
     print('submit called');
     setState(() {
