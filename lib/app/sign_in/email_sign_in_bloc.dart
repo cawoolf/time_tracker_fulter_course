@@ -21,6 +21,23 @@ class EmailSignInBloc {
     _modelController.close();
   }
 
+  void toggleFormType() {
+    final formType = _model!.formType == EmailSignInFormType.signIn
+        ? EmailSignInFormType.register : EmailSignInFormType.signIn;
+    updateWith(
+      email: '',
+      password: '',
+      formType: formType,
+      isLoading: false,
+      submitted: false,
+    );
+
+  }
+
+  // Convience methods for just updating password or email
+  void updatePassword(String password) => updateWith(password: password);
+  void updateEmail(String email) => updateWith(email: email);
+
   /*
   Creates a copy of the model, and then adds it to the stream
   This causes the SignInForm to rebuild with the new data

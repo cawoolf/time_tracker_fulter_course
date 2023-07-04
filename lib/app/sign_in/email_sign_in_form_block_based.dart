@@ -92,14 +92,7 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
      The Primary and Secondary text are then set in build() based on the enum Value
    */
   void _toggleFormType() {
-   widget.bloc.updateWith(
-     email: '',
-     password: '',
-     formType: model!.formType == EmailSignInFormType.signIn
-       ? EmailSignInFormType.register : EmailSignInFormType.signIn,
-     isLoading: false,
-     submitted: false,
-   );
+    widget.bloc.toggleFormType();
    _emailController.clear();
    _passwordController.clear();
   }
@@ -179,7 +172,7 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
       onEditingComplete: _emailEditingComplete,
 
       // Updates the State everytime the TextField changes so that the Submit button knows to be disabled or not
-      onChanged: (email) => widget.bloc.updateWith(email: email),
+      onChanged: widget.bloc.updateEmail, // Parameters passed in implicitly
     );
   }
 
@@ -204,7 +197,7 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
         // Calls submit when the User clicks the 'Done' button on the keyboard.
         onEditingComplete: _submit,
         // Updates the State everytime the TextField changes so that the Submit button knows to be disabled or not
-        onChanged: (password) => widget.bloc.updateWith(password: password));
+        onChanged: widget.bloc.updatePassword);
   }
 
   // User Submits email and Password. SignIn or Create an Account
