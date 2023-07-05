@@ -63,7 +63,12 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 Current Section = (Lesson #) Section 15: BLoCs
 
-249 Section 15: BLoCs
+250 Section 15: BLoCs
+
+
+***7/4/23***
+Decouple the business logic from the UI Widget.
+Accomplishing this with BloCs and Models.
 
 ***6/22/23***
 

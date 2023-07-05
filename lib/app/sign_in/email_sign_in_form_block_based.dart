@@ -12,8 +12,7 @@ import '../../services/auth.dart';
 import 'email_sign_in_model.dart';
 
 //'with' mixin, Extends to functionality of the class.
-class EmailSignInFormBlocBased extends StatefulWidget
-    with EmailAndPasswordValidators {
+class EmailSignInFormBlocBased extends StatefulWidget {
   EmailSignInFormBlocBased({super.key, required this.bloc});
 
   final EmailSignInBloc bloc;
@@ -81,7 +80,7 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
    */
   void _emailEditingComplete() {
     print('emailEditingComplete() called');
-    final newFocus = widget.emailValidator.isValid(model!.email)
+    final newFocus = model!.emailValidator.isValid(model!.email)
         ? _passwordFocusNode
         : _emailFocusNode;
     FocusScope.of(context).requestFocus(newFocus);
@@ -119,12 +118,7 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
   }
 
   List<Widget> _buildChildren(EmailSignInModel? model) {
-    final primaryText = model?.formType == EmailSignInFormType.signIn
-        ? 'SignIn'
-        : 'Create an account';
-    final secondaryText = model?.formType == EmailSignInFormType.signIn
-        ? 'Need an account? Register'
-        : 'Have an account? SignIn';
+
 
     return [
       /*
@@ -139,10 +133,10 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
       _buildPasswordTextField(),
 
       // Submit Button
-      _buildSubmitButton(primaryText),
+      _buildSubmitButton(model!.primaryButtonText, model!.canSubmit),
 
       // Secondary Button, 'Need Account?'
-      _buildSecondaryButton(secondaryText)
+      _buildSecondaryButton(model!.secondaryButtonText)
     ];
   }
 
@@ -152,8 +146,6 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
   // User enters Email Address
   TextField _buildEmailTextField() {
     // email and password validators come from the EmailAndPasswordValidators mixin
-    bool showEmailErrorText =
-        model!.submitted && !widget.emailValidator.isValid(model!.email);
 
     return TextField(
       controller: _emailController,
@@ -161,8 +153,7 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
       decoration: InputDecoration(
           labelText: 'Email',
           hintText: 'test@test.com',
-          errorText:
-              showEmailErrorText ? widget.invalidPasswordErrorText : null,
+          errorText: model!.emailErrorText!,
           // Used to disable the TextField if a auth request is currently is progress.
           enabled: model?.isLoading == false),
       autocorrect: false,
@@ -179,18 +170,15 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
   // User enters Password
   TextField _buildPasswordTextField() {
     // email and password validators come from the EmailAndPasswordValidators mixin
-    bool showPasswordErrorText =
-        model!.submitted && !widget.passwordValidator.isValid(model!.password);
 
     return TextField(
         controller: _passwordController,
         focusNode: _passwordFocusNode,
         decoration: InputDecoration(
             labelText: 'Password',
-            errorText:
-                showPasswordErrorText ? widget.invalidPasswordErrorText : null,
+            errorText: model!.passwordErrorText,
             // Used to disable the TextField if a auth request is currently is progress.
-            enabled: model?.isLoading == false),
+            enabled: model!.isLoading == false),
         obscureText: true,
         //Gives the keyboard a Done button
         textInputAction: TextInputAction.done,
@@ -201,10 +189,8 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
   }
 
   // User Submits email and Password. SignIn or Create an Account
-  Padding _buildSubmitButton(String primaryText) {
-    bool submitEnabled = widget.emailValidator.isValid(model!.email) &&
-        widget.passwordValidator.isValid(model!.password) &&
-        !model!.isLoading;
+  Padding _buildSubmitButton(String primaryText, bool submitEnabled) {
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: FormSubmitButton(
