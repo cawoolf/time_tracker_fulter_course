@@ -45,6 +45,8 @@ CMD + downArrow => view the documentation of a class
 Ctl + Click => Windows to open documentation
 Ctrl+Alt+L => format code
 Ctrl+Alt+M => extract code to method
+Window+Shift+S Screen shot shortcut
+Windows+V Opens clipboard
 
 Move line or selection up: Shift + Alt + Up Arrow
 Move line or selection down: Shift + Alt + Down Arrow
@@ -63,8 +65,13 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 Current Section = (Lesson #) Section 15: BLoCs
 
-250 Section 15: BLoCs
+254 Section 15: BLoCs
 
+***7/5/23***
+As long as the appearance and positioning of Widgets on screen, then Flutter does not need to
+render the whole parent Widget when build() is called during some kind of StreamBuilder callback.
+
+Always draw out and diagram Widget trees for your app!
 
 ***7/4/23***
 Decouple the business logic from the UI Widget.

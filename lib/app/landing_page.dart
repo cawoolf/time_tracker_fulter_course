@@ -14,6 +14,7 @@ class LandingPage extends StatelessWidget {
 
   // Builds the child of the LandingPage as either the SignInPage or the HomePage
   // Depending on if the User is logged in or not.
+  @override
   Widget build(BuildContext context) {
 
     // Finds the AuthProvider ancestor in the Widget Tree

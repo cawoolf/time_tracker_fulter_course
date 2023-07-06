@@ -105,7 +105,9 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
         stream: widget.bloc.modelStream,
         initialData: EmailSignInModel(),
         builder: (context, snapshot) {
-          model = snapshot.data;
+          model = snapshot.data; // This is where the global model gets assigned for the first time.
+          // Form is rebuilt everytime the state changes. IE a new character is typed.
+          print('email: ${model!.email} password: ${model!.password}');
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -155,7 +157,7 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
           hintText: 'test@test.com',
           errorText: model!.emailErrorText!,
           // Used to disable the TextField if a auth request is currently is progress.
-          enabled: model?.isLoading == false),
+          enabled: model!.isLoading == false),
       autocorrect: false,
       keyboardType: TextInputType.emailAddress,
       //Gives the keyboard a Next button
