@@ -1,46 +1,39 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_page.dart';
-import 'package:time_tracker_flutter_course/app/sign_in/sign_in_bloc.dart';
-import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
-import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
-import 'package:time_tracker_flutter_course/common_widgets/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
 
 class SignInBloc {
-  SignInBloc({required this.auth});
+  SignInBloc({required this.auth, required this.isLoading});
   final AuthBase auth;
+  final ValueNotifier<bool> isLoading;
 
-  final StreamController<bool> _isLoadingController =
-      StreamController<bool>(); // Constructor with type <Type>, Only takes boolean values into the Stream? Correct
-
-  Stream<bool> get isLoadingStream =>
-      _isLoadingController.stream; // Public getter Accessed by the SignInPage
-
-  void dispose() {
-    _isLoadingController.close();
-  }
-
-  // adds the isLoading var to the Sink of the Controller
-  // Only takes boolean values into the Stream. Other types give an error;
-  void _setIsLoading(bool isLoading) => _isLoadingController.add(isLoading);
+  // Converting to from StreamController to Value Notifier
+  // final StreamController<bool> _isLoadingController =
+  //     StreamController<bool>(); // Constructor with type <Type>, Only takes boolean values into the Stream? Correct
+  //
+  // Stream<bool> get isLoadingStream =>
+  //     _isLoadingController.stream; // Public getter Accessed by the SignInPage
+  //
+  // void dispose() {
+  //   _isLoadingController.close();
+  // }
+  //
+  // // adds the isLoading var to the Sink of the Controller
+  // // Only takes boolean values into the Stream. Other types give an error;
+  // void _setIsLoading(bool isLoading) => _isLoadingController.add(isLoading);
 
 
   // method that takes another method as an argument
   Future<User?> _signIn(Future<User?> Function() signInMethod) async {
     try {
-      _setIsLoading(true);
+      isLoading.value = true;
       return await signInMethod();
 
     } catch (e) {
-     // rethrow; // Toss the exception back to the calling method
-      // We don't actually need to call _setIsLoading if signIn succeeds, We're rebuilding the page anyway.
-      _setIsLoading(false);// Line added here to fix Android bug Section 15.240
+      isLoading.value = false;
+      rethrow;
     }
   }
 

@@ -63,9 +63,9 @@ open -a Simulator
 cd project_name -> flutter run
 
 *********************************************Daily Notes*************************************************
-Current Section = (Lesson #) Section 15: BLoCs
+Current Section = (Lesson #) Section 16: State Management with Provider
 
-254 Section 15: BLoCs
+258 Section 16: State Management with Provider
 
 ***7/5/23***
 As long as the appearance and positioning of Widgets on screen, then Flutter does not need to

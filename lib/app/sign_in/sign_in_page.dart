@@ -10,19 +10,26 @@ import 'package:time_tracker_flutter_course/common_widgets/show_exception_alert_
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({super.key, required this.bloc});
-  final SignInBloc bloc;
-  // final bloc = Provider.of<SignInBloc>(context, listen: false); Note what assigning bloc looks like
+  const SignInPage({super.key, required this.bloc, required this.isLoading});
 
+  final SignInBloc bloc;
+  final bool isLoading;
+
+  // final bloc = Provider.of<SignInBloc>(context, listen: false); Note what assigning bloc looks like
 
   // Creates an instance of the SignInPage with a Provider and SignInBloc
   static Widget create(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);
-    return Provider<SignInBloc>(
-      create: (_) => SignInBloc(auth: auth), //_ for arguments that are not needed
-      dispose: (_, bloc) => bloc.dispose(), // Always dispose of your blocs
-      child: Consumer<SignInBloc>(
-        builder: (_,bloc,__) => SignInPage(bloc: bloc),
+    return ChangeNotifierProvider<ValueNotifier<bool>>(
+      create: (_) => ValueNotifier<bool>(false),
+      child: Consumer<ValueNotifier<bool>>(
+        // Everytime isLoading (coming from the ValueNotifier) changes, the builder is called, and updates (rebuilds) the SignInPage
+        builder: (_, isLoading, __) => Provider<SignInBloc>(
+          create: (_) => SignInBloc(auth: auth, isLoading: isLoading),
+          child: Consumer<SignInBloc>(
+            builder: (_, bloc, __) => SignInPage(bloc: bloc, isLoading: isLoading.value),
+          ),
+        ),
       ),
     );
   }
@@ -46,7 +53,8 @@ class SignInPage extends StatelessWidget {
       MaterialPageRoute<void>(
         // False slides in from left, true slides in from bottom. Specific to IOS
         fullscreenDialog: true,
-        builder: (context) => EmailSignInPage(), //EmailSignInPage is built right here
+        builder: (context) =>
+            EmailSignInPage(), //EmailSignInPage is built right here
       ),
     );
   }
@@ -60,19 +68,15 @@ class SignInPage extends StatelessWidget {
     } on Exception catch (e) {
       _showSignInError(context, e);
     }
-
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
-
     if (kIsWeb) {
       await bloc.signInWithGoogleWeb();
     } else {
       await bloc.signInWithGoogle();
     }
   }
-
-
 
   Future<void> _signInWithFaceBook() async {
     // TODO: Implement Facebook SignIn
@@ -82,27 +86,19 @@ class SignInPage extends StatelessWidget {
   // UI Widgets
   @override
   Widget build(BuildContext context) {
-    //Provider.of<SignInBloc> is the parent of this Widget class
-    final bloc = Provider.of<SignInBloc>(context, listen: false);
 
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: const Text("Time Tracker"),
         elevation: 2.0,
       ),
-      body: StreamBuilder<bool>(
-        stream: bloc.isLoadingStream,
-          initialData: false,
-          builder: (context, snapshot){
-            return _buildContent(context, snapshot.data);
-          }),
+      body: _buildContent(context),
       backgroundColor: Colors.grey[200],
     );
   }
 
   // the _methodName is convention for making the method private
-  Widget _buildContent(BuildContext context, bool? isLoading) {
+  Widget _buildContent(BuildContext context) {
     return Padding(
       //Container with Padding with no background
       // color: Colors.yellow,
@@ -115,9 +111,11 @@ class SignInPage extends StatelessWidget {
         // Essentially Horizontal Alignment
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-
           //SizedBox is used to ensure that the child Widget always takes up 50.0 pixels vertically
-          SizedBox(height:50.0, child: _buildHeader(isLoading),),
+          SizedBox(
+            height: 50.0,
+            child: _buildHeader(),
+          ),
 
           _spaceBetweenWidgets(height: 48.0),
 
@@ -127,7 +125,9 @@ class SignInPage extends StatelessWidget {
             text: "Sign in with Google",
             color: Colors.white,
             textColor: Colors.black,
-            onPressed: () => isLoading != null && isLoading ? null : _signInWithGoogle(context),
+            onPressed: () => isLoading != null && isLoading
+                ? null
+                : _signInWithGoogle(context),
           ),
           _spaceBetweenWidgets(),
 
@@ -148,7 +148,9 @@ class SignInPage extends StatelessWidget {
               text: "Sign in with Email",
               color: Colors.teal,
               textColor: Colors.white,
-              onPressed: () => isLoading != null && isLoading ? null : _signInWithEmail(context)),
+              onPressed: () => isLoading != null && isLoading
+                  ? null
+                  : _signInWithEmail(context)),
 
           _spaceBetweenWidgets(),
           _orText(),
@@ -159,7 +161,9 @@ class SignInPage extends StatelessWidget {
             text: "Go anonymous",
             color: Colors.limeAccent,
             textColor: Colors.black,
-            onPressed: () => isLoading != null && isLoading ? null : _signInAnonymously(context),
+            onPressed: () => isLoading != null && isLoading
+                ? null
+                : _signInAnonymously(context),
           ),
         ],
       ), // The child of a Container can be any Widget in Flutter
@@ -190,14 +194,13 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(bool? isLoading) {
-    if(isLoading != null && isLoading) {
-      return Center(
-          child: CircularProgressIndicator());
+  Widget _buildHeader() {
+    if (isLoading != null && isLoading) {
+      return Center(child: CircularProgressIndicator());
     }
     // Just do nothing. There's no Loading indicator to show.
-   else {
-     return _signInTitleText();
+    else {
+      return _signInTitleText();
     }
   }
 }
