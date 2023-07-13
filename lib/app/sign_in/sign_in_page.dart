@@ -3,16 +3,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_page.dart';
-import 'package:time_tracker_flutter_course/app/sign_in/sign_in_bloc.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_button.dart';
+import 'package:time_tracker_flutter_course/app/sign_in/sign_in_manager.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
 import 'package:time_tracker_flutter_course/common_widgets/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({super.key, required this.bloc, required this.isLoading});
+  const SignInPage({super.key, required this.manager, required this.isLoading});
 
-  final SignInBloc bloc;
+  final SignInManager manager;
   final bool isLoading;
 
   // final bloc = Provider.of<SignInBloc>(context, listen: false); Note what assigning bloc looks like
@@ -24,10 +24,10 @@ class SignInPage extends StatelessWidget {
       create: (_) => ValueNotifier<bool>(false),
       child: Consumer<ValueNotifier<bool>>(
         // Everytime isLoading (coming from the ValueNotifier) changes, the builder is called, and updates (rebuilds) the SignInPage
-        builder: (_, isLoading, __) => Provider<SignInBloc>(
-          create: (_) => SignInBloc(auth: auth, isLoading: isLoading),
-          child: Consumer<SignInBloc>(
-            builder: (_, bloc, __) => SignInPage(bloc: bloc, isLoading: isLoading.value),
+        builder: (_, isLoading, __) => Provider<SignInManager>(
+          create: (_) => SignInManager(auth: auth, isLoading: isLoading),
+          child: Consumer<SignInManager>(
+            builder: (_, bloc, __) => SignInPage(manager: bloc, isLoading: isLoading.value),
           ),
         ),
       ),
@@ -61,7 +61,7 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInAnonymously(BuildContext context) async {
     try {
-      await bloc.signInAnonymously();
+      await manager.signInAnonymously();
       // await auth.signInAnonymously();
       // print('${userCredentials.user?.uid}');
       // onSignIn(user as User?);
@@ -72,9 +72,9 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     if (kIsWeb) {
-      await bloc.signInWithGoogleWeb();
+      await manager.signInWithGoogleWeb();
     } else {
-      await bloc.signInWithGoogle();
+      await manager.signInWithGoogle();
     }
   }
 
