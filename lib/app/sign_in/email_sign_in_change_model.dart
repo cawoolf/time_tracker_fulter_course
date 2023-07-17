@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/validators.dart';
 
+import '../../services/auth.dart';
 import 'email_sign_in_model.dart';
 
 
@@ -8,17 +9,37 @@ import 'email_sign_in_model.dart';
 class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
   // Named parameters with default values
   EmailSignInChangeModel(
-      {this.email = '',
+      {required this.auth,
+        this.email = '',
       this.password = '',
       this.formType = EmailSignInFormType.signIn,
       this.isLoading = false,
       this.submitted = false});
 
+  final AuthBase auth;
   String email;
   String password;
   EmailSignInFormType formType;
   bool isLoading;
   bool submitted;
+
+  Future<void> submit() async {
+    updateWith(submitted: true, isLoading:true);
+    try {
+      if(this.formType == EmailSignInFormType.signIn) {
+        await auth.signInWithEmailAndPassword(email, password);
+      }
+      else {
+        await auth.createUserWithEmailAndPassword(email, password);
+      }
+    }
+    catch (e) {
+      // If the signIn fails, then we catch the exception, set loading to false, and dismiss the page
+      updateWith(isLoading: false);
+      rethrow;
+    }
+
+  }
 
   String get primaryButtonText {
     return formType == EmailSignInFormType.signIn
@@ -49,6 +70,23 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
         submitted && passwordValidator.isValid(password);
     return showPasswordErrorText ? invalidPasswordErrorText : null;
   }
+
+  void toggleFormType() {
+    final formType = this.formType == EmailSignInFormType.signIn
+        ? EmailSignInFormType.register : EmailSignInFormType.signIn;
+    updateWith(
+      email: '',
+      password: '',
+      formType: formType,
+      isLoading: false,
+      submitted: false,
+    );
+
+  }
+
+  // Convience methods for just updating password or email
+  void updatePassword(String password) => updateWith(password: password);
+  void updateEmail(String email) => updateWith(email: email);
 
     void updateWith({
     String? email,

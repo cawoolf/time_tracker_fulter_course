@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_form_block_based.dart';
-import 'email_sign_in_form_stateful.dart';
+import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_form_change_notifier.dart';
 
 class EmailSignInPage extends StatelessWidget {
   @override
@@ -14,7 +13,7 @@ class EmailSignInPage extends StatelessWidget {
       body: SingleChildScrollView( // Wrapping with a ScrollView adds Scrolling for small Screens. A single widget can be Scrolled.
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Card(child: EmailSignInFormBlocBased.create(context)),
+          child: Card(child: EmailSignInFormChangeNotifier.create(context)),
         ),
       ),
       backgroundColor: Colors.grey[200],

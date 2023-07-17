@@ -65,7 +65,36 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 Current Section = (Lesson #) Section 16: State Management with Provider
 
-261 Section 16: State Management with Provider
+267 Section 16: State Management with Provider
+
+ToDo:
+Troubleshoot EmailSignInPage error messages. Not working
+
+
+***7/23/23***
+Where is the Listener assigned for the EmailModelSignInClass?
+
+ValueNotifier is better for simple values
+Change Notifier is better for complex models
+    > Can chose when to notify listeners, and use Provider
+
+State management is all about moving business logic away for the UI
+    > Need to do this to create maintainable code
+
+Use BLoCs when the app needs to be reactive to an outside data source
+    > IE Streaming a users location.
+    > Using FireStore applications
+
+For internal application state, ValueNotifier and ChangeNotifier are
+more convenient.
+
+"Everything should be made as simple as possible, but not simpler"
+ -AB
+
+User Provider (package) + StateManagement techniques
+
+
+
 
 ***7/5/23***
 As long as the appearance and positioning of Widgets on screen, then Flutter does not need to
