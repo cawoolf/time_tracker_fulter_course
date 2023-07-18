@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/common_widgets/form_submit_button.dart';
+import 'package:time_tracker_flutter_course/common_widgets/show_alert_dialog.dart';
 import '../../common_widgets/show_exception_alert_dialog.dart';
 import '../../services/auth.dart';
 import 'email_sign_in_change_model.dart';
@@ -65,7 +66,7 @@ class _EmailSignInFormChangeNotifierState
   Future<void> _submit() async {
     print('_submit() called');
     try {
-      await widget.model.submit();
+      await model.submit();
       Navigator.of(context).pop();
     } on Exception catch (e) {
       print('Sign in failed');
@@ -187,12 +188,13 @@ class _EmailSignInFormChangeNotifierState
           color: Colors.blue,
           textColor: Colors.white,
           // Used to disable the button if Email or Password are empty. UI doesn't automatically reflect this.
-          onPressed: submitEnabled
+          /* However, this is also triggered on bad formatted email and password.
+          Need to fix this. Should show the Firebase error*/
+          onPressed: model.canSubmit
               ? _submit
               : () {
-                  /* Display error msg */
-
-                  print('_buildSubmitButton onPressed: () {} submitEnabled ${submitEnabled.toString()}');
+                  /* Display error msg for handling empty email and password*/
+                  showAlertDialog(context, title: 'Error', content: 'password and email can not be empty, or bad formatting', defaultActionText: 'Okay');
                 }),
     );
   }

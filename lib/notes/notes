@@ -68,7 +68,11 @@ Current Section = (Lesson #) Section 16: State Management with Provider
 267 Section 16: State Management with Provider
 
 ToDo:
-Troubleshoot EmailSignInPage error messages. Not working
+16: Troubleshoot EmailSignInPage error messages.
+    > Found root cause. See line 190 in email_sign_in_form_change_notifier
+    > Also need to fix the secondary text for email and password that attempts to show the error
+      below the textfields
+
 
 
 ***7/23/23***

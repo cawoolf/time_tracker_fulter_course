@@ -32,7 +32,7 @@ class EmailSignInModel with EmailAndPasswordValidators {
   bool get canSubmit {
     return emailValidator.isValid(email) &&
         passwordValidator.isValid(password) &&
-        isLoading;
+        !isLoading;
   }
 
   String? get emailErrorText {

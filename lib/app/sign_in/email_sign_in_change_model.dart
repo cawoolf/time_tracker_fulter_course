@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/validators.dart';
-
 import '../../services/auth.dart';
 import 'email_sign_in_model.dart';
-
-
 
 class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
   // Named parameters with default values
