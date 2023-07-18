@@ -189,7 +189,7 @@ class _EmailSignInFormChangeNotifierState
           textColor: Colors.white,
           // Used to disable the button if Email or Password are empty. UI doesn't automatically reflect this.
           /* However, this is also triggered on bad formatted email and password.
-          Need to fix this. Should show the Firebase error*/
+          Need to fix this. Should show the Firebase error. Setting to true shows errors*/
           onPressed: model.canSubmit
               ? _submit
               : () {
