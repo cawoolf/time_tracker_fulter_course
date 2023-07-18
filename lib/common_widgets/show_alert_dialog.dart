@@ -14,7 +14,7 @@ Future showAlertDialog(
 }) {
   // Returns a regularAlertDialog if the Platform is web or any other OS beside iOS
   if (kIsWeb || !Platform.isIOS) {
-    print('Inside Platform if');
+    print('showAlertDialog');
     return showDialog(
         context: context,
         barrierDismissible: false, // Makes it so you cannot dismiss the dialog by clicking outside it.

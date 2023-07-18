@@ -1,16 +1,11 @@
-import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_bloc.dart';
-import 'package:time_tracker_flutter_course/app/sign_in/validators.dart';
 import 'package:time_tracker_flutter_course/common_widgets/form_submit_button.dart';
-import 'package:time_tracker_flutter_course/common_widgets/show_alert_dialog.dart';
 import '../../common_widgets/show_exception_alert_dialog.dart';
 import '../../services/auth.dart';
 import 'email_sign_in_change_model.dart';
-import 'email_sign_in_model.dart';
 
 //'with' mixin, Extends to functionality of the class.
 class EmailSignInFormChangeNotifier extends StatefulWidget {
@@ -68,10 +63,12 @@ class _EmailSignInFormChangeNotifierState
   Create an Account or SignIn, based on the state of the EmailSignInFormType enum.
    */
   Future<void> _submit() async {
+    print('_submit() called');
     try {
       await widget.model.submit();
       Navigator.of(context).pop();
-    } on FirebaseAuthException catch (e) {
+    } on Exception catch (e) {
+      print('Sign in failed');
       showExceptionAlertDialog(context, title: 'Sign in failed', exception: e);
     }
   }
@@ -81,7 +78,6 @@ class _EmailSignInFormChangeNotifierState
   on their device
    */
   void _emailEditingComplete() {
-    print('emailEditingComplete() called');
     final newFocus = model.emailValidator.isValid(model.email)
         ? _passwordFocusNode
         : _emailFocusNode;
@@ -93,7 +89,8 @@ class _EmailSignInFormChangeNotifierState
      The Primary and Secondary text are then set in build() based on the enum Value
    */
   void _toggleFormType() {
-    widget.model.toggleFormType();
+    print('_toggleFormType');
+      model.toggleFormType();
     _emailController.clear();
     _passwordController.clear();
   }
@@ -156,7 +153,7 @@ class _EmailSignInFormChangeNotifierState
       onEditingComplete: _emailEditingComplete,
 
       // Updates the State everytime the TextField changes so that the Submit button knows to be disabled or not
-      onChanged: widget.model.updateEmail, // Parameters passed in implicitly
+      onChanged: model.updateEmail, // Parameters passed in implicitly
     );
   }
 
@@ -178,7 +175,7 @@ class _EmailSignInFormChangeNotifierState
         // Calls submit when the User clicks the 'Done' button on the keyboard.
         onEditingComplete: _submit,
         // Updates the State everytime the TextField changes so that the Submit button knows to be disabled or not
-        onChanged: widget.model.updatePassword);
+        onChanged: model.updatePassword);
   }
 
   // User Submits email and Password. SignIn or Create an Account
@@ -194,17 +191,20 @@ class _EmailSignInFormChangeNotifierState
               ? _submit
               : () {
                   /* Display error msg */
+
+                  print('_buildSubmitButton onPressed: () {} submitEnabled ${submitEnabled.toString()}');
                 }),
     );
   }
 
   // User toggles between SignIn and Create an Account
   Padding _buildSecondaryButton(String secondaryText) {
+    print('_buildSecondaryButton ${model.isLoading.toString()}');
     return // Secondary Button, 'Need Account?'
         Padding(
       padding: const EdgeInsets.all(0.0),
       child: TextButton(
-          onPressed: model.isLoading ? _toggleFormType : null,
+          onPressed: !model.isLoading ? _toggleFormType : null,
           child: Text(secondaryText)),
     );
   }

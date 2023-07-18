@@ -56,7 +56,7 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
   bool get canSubmit {
     return emailValidator.isValid(email) &&
         passwordValidator.isValid(password) &&
-        isLoading;
+        isLoading == false;
   }
 
   String? get emailErrorText {
