@@ -15,13 +15,16 @@ import 'package:flutter/foundation.dart'
 /// );
 /// ```
 class DefaultFirebaseOptions {
-  static FirebaseOptions get currentPlatform {
+  static FirebaseOptions? get currentPlatform {
     if (kIsWeb) {
       return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for android - '
+              'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.iOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for ios - '
@@ -49,21 +52,15 @@ class DefaultFirebaseOptions {
     }
   }
 
+  //RayaDev
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD9hD3H6WP7ZFb-RmJZGbOXtlNNQjcj_A8',
-    appId: '1:445096508808:web:1b660d42be0d591dc60e3d',
-    messagingSenderId: '445096508808',
-    projectId: 'time-tracker-flutter-6e16e',
-    authDomain: 'time-tracker-flutter-6e16e.firebaseapp.com',
-    storageBucket: 'time-tracker-flutter-6e16e.appspot.com',
-    measurementId: 'G-800RESLH0F',
+      apiKey: "AIzaSyC5FIYYc9eoNFQBu4s_FbI17N2tsnm4EZY",
+      authDomain: "time-tracker-flutter-8dede.firebaseapp.com",
+      projectId: "time-tracker-flutter-8dede",
+      storageBucket: "time-tracker-flutter-8dede.appspot.com",
+      messagingSenderId: "1001299730721",
+      appId: "1:1001299730721:web:75bf3ae535054b76f51e60",
+      measurementId: "G-JBR7XJT5B6",
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCgF7JnVDUXxT44Ti9yjg4f9gFHVIayPLI',
-    appId: '1:445096508808:android:8b27b149cb5c7ebec60e3d',
-    messagingSenderId: '445096508808',
-    projectId: 'time-tracker-flutter-6e16e',
-    storageBucket: 'time-tracker-flutter-6e16e.appspot.com',
-  );
 }

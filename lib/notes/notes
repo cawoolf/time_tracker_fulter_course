@@ -63,11 +63,9 @@ open -a Simulator
 cd project_name -> flutter run
 
 *********************************************Daily Notes*************************************************
-Current Section = (Lesson #) Section 16: State Management with Provider
-
-267 Section 16: State Management with Provider
-
 ToDo:
+
+Current Section = 271 Section 17: Databases and Cloud Firestore
 
 ***7/17/23
 16: Troubleshoot EmailSignInPage error messages.

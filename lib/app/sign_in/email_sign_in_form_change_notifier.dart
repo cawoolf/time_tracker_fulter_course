@@ -193,7 +193,7 @@ class _EmailSignInFormChangeNotifierState
           onPressed: model.canSubmit
               ? _submit
               : () {
-                  /* Display error msg for handling empty email and password*/
+                  /* Display error msg for handling empty email and password or bad formatted*/
                   showAlertDialog(context, title: 'Error', content: 'password and email can not be empty, or bad formatting', defaultActionText: 'Okay');
                 }),
     );
