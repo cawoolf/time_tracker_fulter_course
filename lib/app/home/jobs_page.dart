@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
 
-import '../common_widgets/show_alert_dialog.dart';
+import '../../common_widgets/show_alert_dialog.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class JobsPage extends StatelessWidget {
+  const JobsPage({super.key});
 
 
   Future<void> _signOut(BuildContext context) async {
@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Jobs'),
         actions: <Widget>[
           TextButton(
               onPressed: () => _confirmSignOut(context),

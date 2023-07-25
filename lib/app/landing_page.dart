@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
 
-import 'home_page.dart';
+import 'home/jobs_page.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -32,7 +32,7 @@ class LandingPage extends StatelessWidget {
           if (user == null) {
             return SignInPage.create(context); // Missed this one! Corrected
           }
-          return HomePage(); //Placeholder
+          return const JobsPage(); //Placeholder
 
         }
 
