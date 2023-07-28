@@ -65,7 +65,7 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-Current Section = 277 Section 17: Adding the Database class
+Current Section = 280 Section 17: Writing data to Firestore
 
 ***7/17/23
 16: Troubleshoot EmailSignInPage error messages.
