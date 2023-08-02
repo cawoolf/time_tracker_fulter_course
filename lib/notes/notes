@@ -56,6 +56,8 @@ stless for Stateless Widget code completion
 
 Alt + Enter => Convert to Stateful Widget
 
+git commit --amend => edit the text of the last commit
+
 // ***Flutter Commands***
 flutter doctor
 flutter create
@@ -65,7 +67,7 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-Current Section = 281 Section 17: Writing data to Firestore
+Current Section = 281 Section 17: Defining a strongly typed model class
 
 ***8/1/23
 
