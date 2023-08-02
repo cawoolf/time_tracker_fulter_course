@@ -65,7 +65,11 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-Current Section = 280 Section 17: Writing data to Firestore
+Current Section = 281 Section 17: Writing data to Firestore
+
+***8/1/23
+
+Always use strongly typed models to interact with the database. Safe code and easier to maintain.
 
 ***7/17/23
 16: Troubleshoot EmailSignInPage error messages.
