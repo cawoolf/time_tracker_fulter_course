@@ -67,11 +67,7 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-<<<<<<< HEAD
-Current Section = 281 Section 17: Defining a strongly typed model class
-=======
-Current Section = 281 Section 17: Writing data to Firestore
->>>>>>> 0f1cd6366a855894ef269a428dce12acc7546a30
+Current Section = 283 Section 17: Adding generic setData method
 
 ***8/1/23
 
