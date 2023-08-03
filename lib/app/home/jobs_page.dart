@@ -1,9 +1,10 @@
 import 'dart:js';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_tracker_flutter_course/common_widgets/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
-
 
 import '../../common_widgets/show_alert_dialog.dart';
 import '../../services/database.dart';
@@ -11,7 +12,6 @@ import 'models/job.dart';
 
 class JobsPage extends StatelessWidget {
   const JobsPage({super.key});
-
 
   Future<void> _signOut(BuildContext context) async {
     try {
@@ -29,19 +29,27 @@ class JobsPage extends StatelessWidget {
   Ohh we have to await for the User to interact with the Alert and press a button, which returns a boolean
    */
   Future<void> _confirmSignOut(BuildContext context) async {
-    final didRequestSignOut = await showAlertDialog(context, title: 'Logout',
+    final didRequestSignOut = await showAlertDialog(context,
+        title: 'Logout',
         content: 'Are you sure you want to logout?',
         cancelActionText: 'Cancel',
         defaultActionText: 'Logout');
-    if(didRequestSignOut == true) {
+    if (didRequestSignOut == true) {
       _signOut(context);
     }
   }
 
   void _createJob(BuildContext context) async {
+    try {
+      print('Job created');
       final database = Provider.of<Database>(context, listen: false);
-      await database.createJob(Job(name: 'blogging', ratePerHour: 10));
-
+      await database.createJob(Job(name: 'Blogginggg', ratePerHour: 12));
+    } catch (e) { // Catch FirebaseException
+      print('Firebase Exception: ${e.toString()}');
+      // showExceptionAlertDialog(context, title: 'Operation Failed', exception: e);
+      // For some reason e is just an Object and not an Exception
+      // There's some issue going on between with Web version of Firebase and Flutter?
+    }
   }
 
   @override
@@ -59,9 +67,7 @@ class JobsPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => _createJob(context)),
+          child: const Icon(Icons.add), onPressed: () => _createJob(context)),
     );
   }
-
 }

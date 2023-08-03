@@ -67,7 +67,7 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-Current Section = 283 Section 17: Adding generic setData method
+Current Section = 285 Section 17: Handling Firestore permissions errors
 
 ***8/1/23
 

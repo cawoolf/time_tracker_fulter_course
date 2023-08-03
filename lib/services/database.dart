@@ -15,7 +15,7 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> createJob(Job job) => _setData(
-      path: APIPath.job(uid, 'job_abc'),
+      path: APIPath.job(uid, 'job_abc2'),
       data: job.toMap());
 
   // Defines a single entry point to all FireStore writes. Best practice. Good for debuging
