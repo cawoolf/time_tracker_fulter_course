@@ -46,9 +46,9 @@ class JobsPage extends StatelessWidget {
       await database.createJob(Job(name: 'Blogginggg', ratePerHour: 12));
     } catch (e) { // Catch FirebaseException
       print('Firebase Exception: ${e.toString()}');
-      // showExceptionAlertDialog(context, title: 'Operation Failed', exception: e);
+      showAlertDialog(context, title: 'Firebase Exception', content: e.toString(), defaultActionText: 'Okay');
       // For some reason e is just an Object and not an Exception
-      // There's some issue going on between with Web version of Firebase and Flutter?
+      // There's some issue going on between the Web version of Flutter and Firebase?
     }
   }
 

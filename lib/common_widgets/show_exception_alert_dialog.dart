@@ -14,10 +14,10 @@ Future<void> showExceptionAlertDialog(BuildContext context,
 
 // Longhand and version
 Future<void> showExceptionAlertDialog2(BuildContext context,
-    {required String title, required Exception exception}) async {
+    {required String title, required String errorMessage}) async {
 
   return showAlertDialog(context,
-      title: title, content: exception.toString(), defaultActionText: 'Ok');
+      title: title, content: errorMessage.toString(), defaultActionText: 'Ok');
 }
 
 String? _message(Exception exception) {
