@@ -44,9 +44,13 @@ class JobsPage extends StatelessWidget {
       print('Job created');
       final database = Provider.of<Database>(context, listen: false);
       await database.createJob(Job(name: 'Blogginggg', ratePerHour: 12));
-    } catch (e) { // Catch FirebaseException
+    } catch (e) {
+      // Catch FirebaseException
       print('Firebase Exception: ${e.toString()}');
-      showAlertDialog(context, title: 'Firebase Exception', content: e.toString(), defaultActionText: 'Okay');
+      showAlertDialog(context,
+          title: 'Firebase Exception',
+          content: e.toString(),
+          defaultActionText: 'Okay');
       // For some reason e is just an Object and not an Exception
       // There's some issue going on between the Web version of Flutter and Firebase?
     }
@@ -55,23 +59,41 @@ class JobsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: Temporary code: delete me
-    final database = Provider.of<Database>(context, listen: false);
-    database.readJobs();
+    // final database = Provider.of<Database>(context, listen: false);
+    // database.readJobs();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Jobs'),
+        title: const Text('Jobs'),
         actions: <Widget>[
           TextButton(
               onPressed: () => _confirmSignOut(context),
-              child: Text(
+              child: const Text(
                 'Logout',
                 style: TextStyle(fontSize: 18.0, color: Colors.white),
               ))
         ],
       ),
+      body: _buildContent(context),
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add), onPressed: () => _createJob(context)),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
+    final database = Provider.of<Database>(context, listen: false);
+
+    return StreamBuilder<Iterable<Job?>>(
+      stream: database.jobsStream(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final jobs = snapshot.data;
+          final children = jobs?.map((job) => Text(job!.name)).toList();
+          return ListView(children: List<Widget>.from(children ?? []));
+        } else {
+          return const Center(child: CircularProgressIndicator()); // or any other loading indicator
+        }
+      },
     );
   }
 }

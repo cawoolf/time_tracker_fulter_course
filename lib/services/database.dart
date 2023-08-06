@@ -6,7 +6,7 @@ import '../app/home/models/job.dart';
 abstract class Database {
 
   Future<void> createJob(Job job);
-  void jobsStream();
+  Stream<Iterable<Job?>> jobsStream();
   void readJobs();
 
 }

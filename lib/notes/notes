@@ -67,7 +67,14 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-Current Section = 287 Section 17: Reading and parsing Firestore data streams
+Current Section = 288 Section 17: Adding a StreamBuilder to show a List of jobs
+
+***8/6/23
+ListView allows scrolling
+
+Per ChatGPT:
+The ?? operator is known as the "null-aware coalescing operator" in Dart.
+It provides a concise way to handle nullable values by providing a default value when the original value is null.
 
 ***8/3/23
 The Firebase exception error in the jobs_page.dart is a wierd one. There's some issue going on between
