@@ -6,6 +6,7 @@ import '../app/home/models/job.dart';
 abstract class Database {
 
   Future<void> createJob(Job job);
+  void readJobs();
 
 }
 
@@ -17,6 +18,24 @@ class FirestoreDatabase implements Database {
   Future<void> createJob(Job job) => _setData(
       path: APIPath.job(uid, 'job_abc2'),
       data: job.toMap());
+
+  @override
+  void readJobs() {
+    final path = APIPath.jobs(uid);
+    final reference = FirebaseFirestore.instance.collection(path);
+
+    // snapshots() is a reference that returns a Stream<QuerySnapshot>
+    // a snapshot is an instance of FireStore collection at any given time.
+    final snapshots = reference.snapshots();
+
+    // snapshots are a collection, and snapshot is a document
+    snapshots.listen((snapshots) {
+      for (var snapshot in snapshots.docs) {
+        print(snapshot.data());
+      }
+    });
+
+  }
 
   // Defines a single entry point to all FireStore writes. Best practice. Good for debuging
   Future<void> _setData({required String path, required Map<String, dynamic> data}) async {

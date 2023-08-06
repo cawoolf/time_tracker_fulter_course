@@ -67,7 +67,13 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-Current Section = 285 Section 17: Handling Firestore permissions errors
+Current Section = 286 Section 17: Reading data from Firestore
+
+***8/3/23
+The Firebase exception error in the jobs_page.dart is a wierd one. There's some issue going on between
+the Web Version of Flutter and Firebase.
+
+
 
 ***8/1/23
 
