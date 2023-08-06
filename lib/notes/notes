@@ -67,9 +67,13 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-Current Section = 289 Section 17: Debugging the StreamBuilder code
+Current Section = 290 Section 17: Adding a factory constructor to our Model Class
 
 ***8/6/23
+Stream and StreamBuilder make the database and UI 'Reactive'
+Automatically updates UI with changes to DB
+FireStore is a 'Realtime Database'. UI rebuilds when DB changes.
+
 Common mistake is to convert the Iterable into a List .map() returns an Iterable
 List extends Iterable
 
