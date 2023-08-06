@@ -67,7 +67,7 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-Current Section = 286 Section 17: Reading data from Firestore
+Current Section = 287 Section 17: Reading and parsing Firestore data streams
 
 ***8/3/23
 The Firebase exception error in the jobs_page.dart is a wierd one. There's some issue going on between

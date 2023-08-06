@@ -6,6 +6,7 @@ import '../app/home/models/job.dart';
 abstract class Database {
 
   Future<void> createJob(Job job);
+  void jobsStream();
   void readJobs();
 
 }
@@ -20,21 +21,47 @@ class FirestoreDatabase implements Database {
       data: job.toMap());
 
   @override
+  Stream<Iterable<Job?>> jobsStream() {
+    final path = APIPath.jobs(uid);
+    final reference = FirebaseFirestore.instance.collection(path);
+
+    // snapshots() is a reference that returns a Stream<QuerySnapshot>
+    // a snapshot is an instance of FireStore collection at any given time.
+    final snapshots = reference.snapshots(); //Returns a stream of individual snapshots
+    // The snapshot represents a Firestore Collection. In this case a collection of Jobs.
+    snapshots.listen((snapshots) {
+      for (var snapshot in snapshots.docs) {
+        print(snapshot.data()); //This data is a list of all Jobs
+      }
+    });
+
+    return snapshots.map((snapshot) => snapshot.docs.map(
+            (snapshot){
+              final data = snapshot.data();
+              return data != null ? Job(
+                name: data['name'],
+                ratePerHour: data['ratePerHour'],
+              ) : null;
+            })
+    );
+  }
+
+
+  // Debugging/Troubleshooting method
+  @override
   void readJobs() {
     final path = APIPath.jobs(uid);
     final reference = FirebaseFirestore.instance.collection(path);
 
     // snapshots() is a reference that returns a Stream<QuerySnapshot>
     // a snapshot is an instance of FireStore collection at any given time.
-    final snapshots = reference.snapshots();
-
-    // snapshots are a collection, and snapshot is a document
+    final snapshots = reference.snapshots(); //Returns a stream of individual snapshots
+    // The snapshot represents a Firestore Collection. In this case a collection of Jobs.
     snapshots.listen((snapshots) {
       for (var snapshot in snapshots.docs) {
-        print(snapshot.data());
+        print(snapshot.data()); //This data is a list of all Jobs
       }
     });
-
   }
 
   // Defines a single entry point to all FireStore writes. Best practice. Good for debuging
