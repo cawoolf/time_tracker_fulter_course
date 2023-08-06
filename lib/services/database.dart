@@ -6,7 +6,7 @@ import '../app/home/models/job.dart';
 abstract class Database {
 
   Future<void> createJob(Job job);
-  Stream<Iterable<Job?>> jobsStream();
+  Stream<List<Job?>> jobsStream();
   void readJobs();
 
 }
@@ -21,7 +21,7 @@ class FirestoreDatabase implements Database {
       data: job.toMap());
 
   @override
-  Stream<Iterable<Job?>> jobsStream() {
+  Stream<List<Job?>> jobsStream() {
     final path = APIPath.jobs(uid);
     final reference = FirebaseFirestore.instance.collection(path);
 
@@ -42,7 +42,7 @@ class FirestoreDatabase implements Database {
                 name: data['name'],
                 ratePerHour: data['ratePerHour'],
               ) : null;
-            })
+            }).toList()  // Common mistake is to convert the Iterable into a List .map() returns an Iterable
     );
   }
 

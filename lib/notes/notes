@@ -67,9 +67,14 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-Current Section = 288 Section 17: Adding a StreamBuilder to show a List of jobs
+Current Section = 289 Section 17: Debugging the StreamBuilder code
 
 ***8/6/23
+Common mistake is to convert the Iterable into a List .map() returns an Iterable
+List extends Iterable
+
+Can't seem to hit break points with Flutter chrome project?
+
 ListView allows scrolling
 
 Per ChatGPT:

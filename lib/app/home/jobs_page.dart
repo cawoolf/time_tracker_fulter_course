@@ -83,14 +83,18 @@ class JobsPage extends StatelessWidget {
   Widget _buildContent(BuildContext context) {
     final database = Provider.of<Database>(context, listen: false);
 
-    return StreamBuilder<Iterable<Job?>>(
+    return StreamBuilder<List<Job?>>(
       stream: database.jobsStream(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final jobs = snapshot.data;
           final children = jobs?.map((job) => Text(job!.name)).toList();
-          return ListView(children: List<Widget>.from(children ?? []));
-        } else {
+          return ListView(children: List<Text>.from(children ?? []));
+        }
+        if (snapshot.hasError) {
+          return const Center(child: Text('Some error occured'));
+        }
+        else {
           return const Center(child: CircularProgressIndicator()); // or any other loading indicator
         }
       },
