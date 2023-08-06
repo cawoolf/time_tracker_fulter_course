@@ -67,7 +67,7 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-Current Section = 290 Section 17: Adding a factory constructor to our Model Class
+Current Section = 292 Section 17: Adding a generic method to read FireStore streams
 
 ***8/6/23
 Stream and StreamBuilder make the database and UI 'Reactive'
