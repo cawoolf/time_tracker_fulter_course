@@ -67,7 +67,17 @@ cd project_name -> flutter run
 *********************************************Daily Notes*************************************************
 ToDo:
 
-Current Section = 292 Section 17: Adding a generic method to read FireStore streams
+Current Section = 293 Section 17: Adding a Firestore Service
+***8/8/23
+database.dart in conjunction with firestore_service.dart is a good example of
+scalable, decoupled code.
+
+For example, you could easily change the Service layer and have it interact with AWS, and it wouldn't
+cause any big problems to the Database layer
+
+Sometimes the FirestoreDatabase class would called a Repository. Such as in
+an Android MVVM
+
 
 ***8/6/23
 Stream and StreamBuilder make the database and UI 'Reactive'
