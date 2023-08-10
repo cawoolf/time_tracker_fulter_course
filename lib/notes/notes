@@ -51,8 +51,8 @@ Windows+V Opens clipboard
 Move line or selection up: Shift + Alt + Up Arrow
 Move line or selection down: Shift + Alt + Down Arrow
 
-stful for Stateful Widget code completion
-stless for Stateless Widget code completion
+stful for Stateful Widget code completion on empty file
+stless for Stateless Widget code completion on empty file
 
 Alt + Enter => Convert to Stateful Widget
 
@@ -66,8 +66,10 @@ cd project_name -> flutter run
 
 *********************************************Daily Notes*************************************************
 ToDo:
+Bugs:
+Anonymous login is broken
 
-Current Section = 293 Section 17: Adding a Firestore Service
+Current Section = 297 Section 18: Add a new job page
 ***8/8/23
 database.dart in conjunction with firestore_service.dart is a good example of
 scalable, decoupled code.

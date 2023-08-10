@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
 import '../services/database.dart';
-import 'home/jobs_page.dart';
+import 'home/jobs/jobs_page.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
