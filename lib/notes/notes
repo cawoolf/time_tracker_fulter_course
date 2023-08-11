@@ -69,7 +69,15 @@ ToDo:
 Bugs:
 Anonymous login is broken
 
-Current Section = 297 Section 18: Add a new job page
+Current Section = 298 Section 18: The Placeholder Widget
+
+***8/10/23
+Debug for Chrome is on a local port
+
+Waiting for connection from debug service on Chrome...
+This app is linked to the debug service: ws://127.0.0.1:50259/p54U_AgcHUw=/ws
+Debug service listening on ws://127.0.0.1:50259/p54U_AgcHUw=/ws
+
 ***8/8/23
 database.dart in conjunction with firestore_service.dart is a good example of
 scalable, decoupled code.
