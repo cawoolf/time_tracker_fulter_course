@@ -30,17 +30,40 @@ class _AddJobPageState extends State<AddJobPage> {
   }
 
   Widget _buildContent() {
-    return const SingleChildScrollView( // Essentially wrap_content with a ScrollView
+    return SingleChildScrollView(
       child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Card(
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Placeholder(
-                  color: Colors.amber,
-                  fallbackHeight: 200,
-                ),
-          ))),
+        padding: const EdgeInsets.all(16.0),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: _buildForm()
+          )
+        )
+      )
     );
+  }
+
+  Widget _buildForm() {
+    return Form(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: _buildFormChildren(),
+      ),
+    );
+  }
+
+  List<Widget> _buildFormChildren() {
+      return [
+        TextFormField(
+          decoration: const InputDecoration(labelText: 'Job name'),
+        ),
+        TextFormField(
+          decoration: const InputDecoration(labelText: 'Rate per hour'),
+          keyboardType: const TextInputType.numberWithOptions(
+            signed: false,
+            decimal: false
+          ),
+        )
+      ];
   }
 }
