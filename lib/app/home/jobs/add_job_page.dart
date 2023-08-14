@@ -18,6 +18,8 @@ class AddJobPage extends StatefulWidget {
 
 class _AddJobPageState extends State<AddJobPage> {
   final _formKey = GlobalKey<FormState>();
+  late String _name;
+  late int _ratePerHour;
 
   bool _validateAndSaveForm() {
     final form = _formKey.currentState;
@@ -29,11 +31,12 @@ class _AddJobPageState extends State<AddJobPage> {
   }
 
   void _submit() {
-    // TODO: Validate and save form
+
     if(_validateAndSaveForm()) {
-      print('form saved');
+      print('form saved, name: $_name ratePerHour: $_ratePerHour');
+      //TODO: Submit data to Firestore
     }
-    // TODO: Submit data to Firestore
+
 
   }
 
@@ -80,11 +83,14 @@ class _AddJobPageState extends State<AddJobPage> {
     return [
       TextFormField(
         decoration: const InputDecoration(labelText: 'Job name'),
+        validator: (value) => value!.isNotEmpty ?  null : 'Name cannot be empty',
+        onSaved: (value) => _name = value!,
       ),
       TextFormField(
         decoration: const InputDecoration(labelText: 'Rate per hour'),
         keyboardType: const TextInputType.numberWithOptions(
             signed: false, decimal: false),
+        onSaved: (value) => _ratePerHour = int.tryParse(value!) ?? 0,
       )
     ];
   }
