@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:time_tracker_flutter_course/services/database.dart';
 
 class AddJobPage extends StatefulWidget {
-  const AddJobPage({super.key});
+  const AddJobPage({super.key, required this.database});
+  final Database database; // Gets the database from the JobsPage context
 
-  static Future<void> show(BuildContext context) async {
-    await Navigator.of(context).push(MaterialPageRoute(
+  static Future<void> show(BuildContext context) async { // show() is called from the context of the JobsPage(), and can use the Provider.of<Database>
+    final database = Provider.of<Database>(context, listen: false);
+    await Navigator.of(context).push(MaterialPageRoute( // This creates a new Widget off the MaterialApp Widget, AddJobPage() won't have access to the Database with out constructor, since it's lower on the widget tree.
       // Pushes a new route to the Navigation stack
-      builder: (context) => const AddJobPage(),
+      builder: (context) =>  AddJobPage(database: database),
       fullscreenDialog: true,
     ));
   }
@@ -35,6 +39,13 @@ class _AddJobPageState extends State<AddJobPage> {
     if(_validateAndSaveForm()) {
       print('form saved, name: $_name ratePerHour: $_ratePerHour');
       //TODO: Submit data to Firestore
+
+      //final database = Provider.of<Database>(context, listen: false);
+      // This won't work since the AddJobPage gets it's context from Material App.
+
+
+
+
     }
 
 
