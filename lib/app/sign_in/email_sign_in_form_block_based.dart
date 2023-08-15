@@ -52,7 +52,6 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
    */
   @override
   void dispose() {
-    print('Dispose called');
     // Must dispose of Controllers and FocusNodes. Objects that we no longer need when the page is closed.
     _emailController.dispose();
     _passwordController.dispose();
@@ -79,7 +78,6 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
   on their device
    */
   void _emailEditingComplete() {
-    print('emailEditingComplete() called');
     final newFocus = model!.emailValidator.isValid(model!.email)
         ? _passwordFocusNode
         : _emailFocusNode;

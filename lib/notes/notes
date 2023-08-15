@@ -69,7 +69,7 @@ ToDo:
 Bugs:
 Anonymous login is broken
 
-Current Section = 301 Section 18: Accessing the Database object with the correct BuildContext
+Current Section = 302 Section 18: Saving jobs with a unique document Id
 
 ***8/10/23
 Debug for Chrome is on a local port

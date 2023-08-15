@@ -48,7 +48,6 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
    */
   @override
   void dispose() {
-    print('Dispose called');
     // Must dispose of Controllers and FocusNodes. Objects that we no longer need when the page is closed.
     _emailController.dispose();
     _passwordController.dispose();
@@ -63,7 +62,6 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
    */
   Future<void> _submit() async {
     final auth = Provider.of<AuthBase>(context, listen: false);
-    print('submit called');
     setState(() {
       _submitted = true;
       _isLoading = true;
@@ -101,7 +99,6 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
   on their device
    */
   void _emailEditingComplete() {
-    print('emailEditingComplete() called');
     final newFocus = widget.emailValidator.isValid(_email)
         ? _passwordFocusNode
         : _emailFocusNode;

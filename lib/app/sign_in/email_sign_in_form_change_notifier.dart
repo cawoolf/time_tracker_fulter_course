@@ -50,7 +50,6 @@ class _EmailSignInFormChangeNotifierState
    */
   @override
   void dispose() {
-    print('Dispose called');
     // Must dispose of Controllers and FocusNodes. Objects that we no longer need when the page is closed.
     _emailController.dispose();
     _passwordController.dispose();
@@ -64,7 +63,6 @@ class _EmailSignInFormChangeNotifierState
   Create an Account or SignIn, based on the state of the EmailSignInFormType enum.
    */
   Future<void> _submit() async {
-    print('_submit() called');
     try {
       await model.submit();
       Navigator.of(context).pop();
@@ -90,7 +88,6 @@ class _EmailSignInFormChangeNotifierState
      The Primary and Secondary text are then set in build() based on the enum Value
    */
   void _toggleFormType() {
-    print('_toggleFormType');
       model.toggleFormType();
     _emailController.clear();
     _passwordController.clear();
@@ -201,7 +198,6 @@ class _EmailSignInFormChangeNotifierState
 
   // User toggles between SignIn and Create an Account
   Padding _buildSecondaryButton(String secondaryText) {
-    print('_buildSecondaryButton ${model.isLoading.toString()}');
     return // Secondary Button, 'Need Account?'
         Padding(
       padding: const EdgeInsets.all(0.0),
