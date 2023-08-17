@@ -1,42 +1,7 @@
 
-***General Notes from the Course***
+...~~~*****************Time Tracker Flutter Course*****************~~~...
 
-A Widget is an object that describes part of the user interface
-    > Everything visible on the screen is a Widget
-
-Command + click goes to the superclass/documentation for the Flutter class
-
-UI's are always defined decoratively
-
-All UI's can be described with a WidgetTree diagram (See 5.73)
-
-Stateless Widgets are given constant configuration, they are all initialized
-with immutable attributes on build. UI will always be rendered in the same way.
-
-Stateful Widget can be given configuration on build, but can define mutable states
-    > Data might vary and change the display of the UI
-    > Overrides the createState() method
-        > Another State class instance is assigned createState()
-
-When data is changed use setState() to rebuild the UI for Stateful Widgets
-
-Best practice to make packages and folders for specific pages of the app
-that contains all widgets and such relevant to that page.
-
-Where you put the , in the dart code determines how its auto formatted
-
-Used SizedBox widget to create space between Widgets inside a Container
-
-Disable Buttons by setting onPressed to null
-
-Extract common_widgets into their own directory for re-usability
-    > Use Constructors for customization
-
-Use wrap with widget command for SizedBoxed
-
-Callbacks are used to pass states from children to parent Widgets
-
-// ***Keyboard shortcuts***
+***Keyboard shortcuts***
 alt + upArrow to increase selection
 Shift + Atl + Arrow => Move code up and down a line
 option+ CMD + M => extract code to a method / Ctrl + Alt + M for Windows
@@ -64,12 +29,22 @@ flutter create
 open -a Simulator
 cd project_name -> flutter run
 
-*********************************************Daily Notes*************************************************
+*********************************************Task List*************************************************
 ToDo:
+Add name field to users in Firebase
+Do FocusNode Homework from 18_303
+
+---***&&&***---
 Bugs:
 Anonymous login is broken
 
-Current Section = 302 Section 18: Saving jobs with a unique document Id
+***&&&***
+
+*********************************************Daily Notes********************************************
+Current Section = 303 Section 18: Handling Errors
+
+
+***8/16/23
 
 ***8/10/23
 Debug for Chrome is on a local port
@@ -109,8 +84,6 @@ It provides a concise way to handle nullable values by providing a default value
 The Firebase exception error in the jobs_page.dart is a wierd one. There's some issue going on between
 the Web Version of Flutter and Firebase.
 
-
-
 ***8/1/23
 
 Always use strongly typed models to interact with the database. Safe code and easier to maintain.
@@ -144,9 +117,6 @@ more convenient.
  -AB
 
 User Provider (package) + StateManagement techniques
-
-
-
 
 ***7/5/23***
 As long as the appearance and positioning of Widgets on screen, then Flutter does not need to
@@ -216,7 +186,42 @@ Use TextEditingController to manage text inside TextField Widgets
 Project support email in firebase can be changed.
 
 
+*************************************** General Notes ********************************************
+A Widget is an object that describes part of the user interface
+    > Everything visible on the screen is a Widget
+    > Everything... Besides services really
 
+Command + click goes to the superclass/documentation for the Flutter class
+
+UI's are always defined decoratively
+
+All UI's can be described with a WidgetTree diagram (See 5.73)
+
+Stateless Widgets are given constant configuration, they are all initialized
+with immutable attributes on build. UI will always be rendered in the same way.
+
+Stateful Widget can be given configuration on build, but can define mutable states
+    > Data might vary and change the display of the UI
+    > Overrides the createState() method
+        > Another State class instance is assigned createState()
+
+When data is changed use setState() to rebuild the UI for Stateful Widgets
+
+Best practice to make packages and folders for specific pages of the app
+that contains all widgets and such relevant to that page.
+
+Where you put the , in the dart code determines how its auto formatted
+
+Used SizedBox widget to create space between Widgets inside a Container
+
+Disable Buttons by setting onPressed to null
+
+Extract common_widgets into their own directory for re-usability
+    > Use Constructors for customization
+
+Use wrap with widget command for SizedBoxed
+
+Callbacks are used to pass states from children to parent Widgets
 
 
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/home/models/job.dart';
+import 'package:time_tracker_flutter_course/common_widgets/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter_course/services/database.dart';
 
 class AddJobPage extends StatefulWidget {
@@ -38,12 +39,18 @@ class _AddJobPageState extends State<AddJobPage> {
   Future<void> _submit() async {
 
     if(_validateAndSaveForm()) {
+
+      try{
       //final database = Provider.of<Database>(context, listen: false);
       // This won't work since the AddJobPage gets it's context from Material App.
       print('form saved, name: $_name ratePerHour: $_ratePerHour');
       final job = Job(name: _name, ratePerHour: _ratePerHour);
       await widget.database.createJob(job);
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(); } on Exception catch (e) {
+        showExceptionAlertDialog(context,
+            title: 'Firebase: add_job_page -> _submit() failed',
+            exception: e);
+      }
 
     }
 
