@@ -2,18 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/home/models/job.dart';
+import 'package:time_tracker_flutter_course/common_widgets/show_alert_dialog.dart';
 import 'package:time_tracker_flutter_course/common_widgets/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter_course/services/database.dart';
 
 class AddJobPage extends StatefulWidget {
   const AddJobPage({super.key, required this.database});
-  final Database database; // Gets the database from the JobsPage context, through the show() method
 
-  static Future<void> show(BuildContext context) async { // show() is called from the context of the JobsPage(), and can use the Provider.of<Database>
+  final Database
+      database; // Gets the database from the JobsPage context, through the show() method
+
+  static Future<void> show(BuildContext context) async {
+    // show() is called from the context of the JobsPage(), and can use the Provider.of<Database>
     final database = Provider.of<Database>(context, listen: false);
-    await Navigator.of(context).push(MaterialPageRoute( // This creates a new Widget off the MaterialApp Widget, AddJobPage() won't have access to the Database with out constructor, since it's lower on the widget tree.
+    await Navigator.of(context).push(MaterialPageRoute(
+      // This creates a new Widget off the MaterialApp Widget, AddJobPage() won't have access to the Database with out constructor, since it's lower on the widget tree.
       // Pushes a new route to the Navigation stack
-      builder: (context) =>  AddJobPage(database: database),
+      builder: (context) => AddJobPage(database: database),
       fullscreenDialog: true,
     ));
   }
@@ -29,32 +34,36 @@ class _AddJobPageState extends State<AddJobPage> {
 
   bool _validateAndSaveForm() {
     final form = _formKey.currentState;
-    if(form!.validate()) {
+    if (form!.validate()) {
       form.save();
       return true;
     }
-      return false;
+    return false;
   }
 
   Future<void> _submit() async {
-
-    if(_validateAndSaveForm()) {
-
-      try{
-      //final database = Provider.of<Database>(context, listen: false);
-      // This won't work since the AddJobPage gets it's context from Material App.
-      print('form saved, name: $_name ratePerHour: $_ratePerHour');
-      final job = Job(name: _name, ratePerHour: _ratePerHour);
-      await widget.database.createJob(job);
-      Navigator.of(context).pop(); } on Exception catch (e) {
+    if (_validateAndSaveForm()) {
+      try {
+        print('form saved, name: $_name ratePerHour: $_ratePerHour');
+        final jobs = await widget.database
+            .jobsStream()
+            .first; // Gets the first most up to date value on the stream
+        final allNames = jobs.map((job) => job?.name).toList();
+        if (allNames.contains(_name)) {
+          showAlertDialog(context,
+              title: 'Name already used',
+              content: 'Please choose a diffrent job name',
+              defaultActionText: 'Ok');
+        } else {
+          final job = Job(name: _name, ratePerHour: _ratePerHour);
+          await widget.database.createJob(job);
+          Navigator.of(context).pop();
+        }
+      } on Exception catch (e) {
         showExceptionAlertDialog(context,
-            title: 'Firebase: add_job_page -> _submit() failed',
-            exception: e);
+            title: 'Firebase: add_job_page -> _submit() failed', exception: e);
       }
-
     }
-
-
   }
 
   @override
@@ -100,7 +109,7 @@ class _AddJobPageState extends State<AddJobPage> {
     return [
       TextFormField(
         decoration: const InputDecoration(labelText: 'Job name'),
-        validator: (value) => value!.isNotEmpty ?  null : 'Name cannot be empty',
+        validator: (value) => value!.isNotEmpty ? null : 'Name cannot be empty',
         onSaved: (value) => _name = value!,
       ),
       TextFormField(
@@ -111,5 +120,4 @@ class _AddJobPageState extends State<AddJobPage> {
       )
     ];
   }
-
 }
