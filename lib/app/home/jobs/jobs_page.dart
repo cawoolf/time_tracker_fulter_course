@@ -73,7 +73,7 @@ class JobsPage extends StatelessWidget {
             job: job,
             onTap: () => EditJobPage.show(context, job: job),
           )).toList();
-          return ListView(children: List<Text>.from(children ?? []));
+          return ListView(children: List<JobListTile>.from(children ?? []));
         }
         if (snapshot.hasError) {
           return const Center(child: Text('Some error occured'));

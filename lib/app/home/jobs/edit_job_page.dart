@@ -30,8 +30,10 @@ class EditJobPage extends StatefulWidget {
 
 class _EditJobPageState extends State<EditJobPage> {
   final _formKey = GlobalKey<FormState>();
-  late String _name;
-  late int _ratePerHour;
+
+  // Initial values used when the user wants to create a new Job
+  String _name = '';
+  int _ratePerHour = 0;
 
   @override
   void initState() {
@@ -127,7 +129,7 @@ class _EditJobPageState extends State<EditJobPage> {
       ),
       TextFormField(
         decoration: const InputDecoration(labelText: 'Rate per hour'),
-        initialValue: _ratePerHour != null ? '$_ratePerHour' : null,
+        initialValue: _ratePerHour != 0 ? '$_ratePerHour' : '',
         keyboardType: const TextInputType.numberWithOptions(
             signed: false, decimal: false),
         onSaved: (value) => _ratePerHour = int.tryParse(value!) ?? 0,
