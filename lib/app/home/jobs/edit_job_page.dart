@@ -6,31 +6,43 @@ import 'package:time_tracker_flutter_course/common_widgets/show_alert_dialog.dar
 import 'package:time_tracker_flutter_course/common_widgets/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter_course/services/database.dart';
 
-class AddJobPage extends StatefulWidget {
-  const AddJobPage({super.key, required this.database});
+class EditJobPage extends StatefulWidget {
+  const EditJobPage({super.key, required this.database, this.job});
+  final Job? job;
 
   final Database
       database; // Gets the database from the JobsPage context, through the show() method
 
-  static Future<void> show(BuildContext context) async {
+  static Future<void> show(BuildContext context, {Job? job}) async {
     // show() is called from the context of the JobsPage(), and can use the Provider.of<Database>
     final database = Provider.of<Database>(context, listen: false);
     await Navigator.of(context).push(MaterialPageRoute(
       // This creates a new Widget off the MaterialApp Widget, AddJobPage() won't have access to the Database with out constructor, since it's lower on the widget tree.
       // Pushes a new route to the Navigation stack
-      builder: (context) => AddJobPage(database: database),
+      builder: (context) => EditJobPage(database: database, job: job),
       fullscreenDialog: true,
     ));
   }
 
   @override
-  State<AddJobPage> createState() => _AddJobPageState();
+  State<EditJobPage> createState() => _EditJobPageState();
 }
 
-class _AddJobPageState extends State<AddJobPage> {
+class _EditJobPageState extends State<EditJobPage> {
   final _formKey = GlobalKey<FormState>();
   late String _name;
   late int _ratePerHour;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if(widget.job != null) {
+      _name = widget.job!.name;
+      _ratePerHour = widget.job!.ratePerHour;
+
+    }
+  }
 
   bool _validateAndSaveForm() {
     final form = _formKey.currentState;
@@ -71,7 +83,7 @@ class _AddJobPageState extends State<AddJobPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
-        title: const Text('New Job'),
+        title: Text(widget.job == null ? 'New Job' : 'Edite Job'),
         actions: <Widget>[
           ElevatedButton(
               onPressed: _submit,
@@ -109,11 +121,13 @@ class _AddJobPageState extends State<AddJobPage> {
     return [
       TextFormField(
         decoration: const InputDecoration(labelText: 'Job name'),
+        initialValue: _name,
         validator: (value) => value!.isNotEmpty ? null : 'Name cannot be empty',
         onSaved: (value) => _name = value!,
       ),
       TextFormField(
         decoration: const InputDecoration(labelText: 'Rate per hour'),
+        initialValue: _ratePerHour != null ? '$_ratePerHour' : null,
         keyboardType: const TextInputType.numberWithOptions(
             signed: false, decimal: false),
         onSaved: (value) => _ratePerHour = int.tryParse(value!) ?? 0,
