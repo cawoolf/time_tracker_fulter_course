@@ -63,14 +63,18 @@ class _EditJobPageState extends State<EditJobPage> {
             .jobsStream()
             .first; // Gets the first most up to date value on the stream
         final allNames = jobs.map((job) => job?.name).toList();
+        if(widget.job != null) {
+          allNames.remove(widget.job?.name); // Removes the current name from the list, and allows editing.
+        }
         if (allNames.contains(_name)) {
           showAlertDialog(context,
               title: 'Name already used',
               content: 'Please choose a diffrent job name',
               defaultActionText: 'Ok');
         } else {
-          final job = Job(name: _name, ratePerHour: _ratePerHour);
-          await widget.database.createJob(job);
+          final id = widget.job?.id ?? documentIdFromCurrentDate();  // Creates a new Job and id if widget.job is null, else uses the current document id
+          final job = Job(name: _name, ratePerHour: _ratePerHour, id: id);
+          await widget.database.setJob(job);
           Navigator.of(context).pop();
         }
       } on Exception catch (e) {
