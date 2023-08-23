@@ -21,13 +21,13 @@ class FirestoreService {
   // Generics for handling different types of Collections. Not just Jobs
   Stream<List<T>> collectionStream<T>({
     required String path,
-    required T Function(Map<String, dynamic> data) builder,
+    required T Function(Map<String, dynamic> data, String documentId) builder,
   }) {
     final reference = FirebaseFirestore.instance.collection(path);
     final snapshots = reference.snapshots();
 
     return snapshots.map((snapshot) =>
-        snapshot.docs.map((snapshot) => builder(snapshot.data())).toList()); //data is assigned here
+        snapshot.docs.map((snapshot) => builder(snapshot.data(), snapshot.id)).toList()); //data is assigned here
   }
 }
 
@@ -50,6 +50,6 @@ Stream<List<Job?>> notesJobsStream() {
   });
 
   return snapshots.map((snapshot) => snapshot.docs
-      .map((snapshot) => Job.fromMap(snapshot.data()))
+      .map((snapshot) => Job.fromMap(snapshot.data(),'test'))
       .toList()); // Common mistake is to convert the Iterable into a List .map() returns an Iterable
 }

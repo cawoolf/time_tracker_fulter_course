@@ -30,6 +30,6 @@ class FirestoreDatabase implements Database {
   @override
   Stream<List<Job?>> jobsStream() =>
       _service.collectionStream(
-          path: APIPath.jobs(uid), builder: (data) => Job.fromMap(data));
+          path: APIPath.jobs(uid), builder: (data, documentId) => Job.fromMap(data, documentId));
 
 }
