@@ -41,10 +41,13 @@ Anonymous login is broken
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 314 Section 19: Adding an empty content Widget
+Current Section = 315 Section 19: Adding a reusable list items builder
 
 
-***8/16/23
+***9/3/23
+How do you add default values for variables in a constructor?
+IE for the EmptyContainer()
+No reason to have to type in messages all the time. Need a default case.
 
 ***8/10/23
 Debug for Chrome is on a local port

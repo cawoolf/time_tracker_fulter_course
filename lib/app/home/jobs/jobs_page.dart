@@ -78,7 +78,10 @@ class JobsPage extends StatelessWidget {
                 )).toList();
             return ListView(children: List<JobListTile>.from(children ?? []));
           }
-          return EmptyContent();
+          return const EmptyContent(
+            title: 'Nothing here',
+            message: ' Add a new item to get started.',
+          );
         }
         if (snapshot.hasError) {
           return const Center(child: Text('Some error occured'));
