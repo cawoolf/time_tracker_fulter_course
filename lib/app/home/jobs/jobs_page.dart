@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/home/jobs/edit_job_page.dart';
 import 'package:time_tracker_flutter_course/app/home/jobs/empty_content.dart';
 import 'package:time_tracker_flutter_course/app/home/jobs/job_list_tile.dart';
+import 'package:time_tracker_flutter_course/app/home/jobs/list_item_builder.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
 import '../../../common_widgets/show_alert_dialog.dart';
@@ -68,27 +69,12 @@ class JobsPage extends StatelessWidget {
     return StreamBuilder<List<Job?>>(
       stream: database.jobsStream(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final jobs = snapshot.data;
-          if (jobs!.isNotEmpty) {
-            final children = jobs?.map((job) =>
-                JobListTile(
-                  job: job,
-                  onTap: () => EditJobPage.show(context, job: job),
-                )).toList();
-            return ListView(children: List<JobListTile>.from(children ?? []));
-          }
-          return const EmptyContent(
-            title: 'Nothing here',
-            message: ' Add a new item to get started.',
-          );
-        }
-        if (snapshot.hasError) {
-          return const Center(child: Text('Some error occured'));
-        }
-        else {
-          return const Center(child: CircularProgressIndicator()); // or any other loading indicator
-        }
+        return ListItemsBuilder(
+            snapshot: snapshot,
+            itemBuilder: (context, job) => JobListTile(
+                job: job,
+                onTap: () => EditJobPage.show(context, job: job))
+        );
       },
     );
   }
