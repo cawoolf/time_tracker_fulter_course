@@ -6,6 +6,7 @@ import '../app/home/models/job.dart';
 
 abstract class Database {
   Future<void> setJob(Job job);
+  Future<void> deleteJob(Job job);
   Stream<List<Job?>> jobsStream();
 }
 
@@ -23,6 +24,10 @@ class FirestoreDatabase implements Database {
   @override
   Future<void> setJob(Job job) =>
       _service.setData(path: APIPath.job(uid, job.id), data: job.toMap());
+
+  @override
+  Future<void> deleteJob(Job job) => _service.deleteData(
+      path: APIPath.job(uid, job.id));
 
   /* I don't understand where the data variable is coming from.. Ohhh data isn't being assinged here,
   this is just a parameter for the anonymous function being used inside _collectionStream

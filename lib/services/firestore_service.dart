@@ -18,6 +18,12 @@ class FirestoreService {
     await reference.set(data);
   }
 
+  Future<void> deleteData({required String path}) async {
+      final reference = FirebaseFirestore.instance.doc(path);
+      print('delete: $path');
+      await reference.delete();
+  }
+
   // Generics for handling different types of Collections. Not just Jobs
   Stream<List<T>> collectionStream<T>({
     required String path,
