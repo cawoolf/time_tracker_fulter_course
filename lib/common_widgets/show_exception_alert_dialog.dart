@@ -12,7 +12,8 @@ Future<void> showExceptionAlertDialog(BuildContext context,
         title: title, content: _message(exception).toString(), defaultActionText: 'Okayyzzz');
 
 
-// Longhand and version
+// Longhand and version. Use this becuase we are getting some kind of Firebase Exception issue
+// Can't get the web app to throw Firebase Exceptions. Only generic Objects.
 Future<void> showExceptionAlertDialog2(BuildContext context,
     {required String title, required String errorMessage}) async {
 

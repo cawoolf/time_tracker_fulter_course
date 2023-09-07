@@ -7,6 +7,7 @@ import 'package:time_tracker_flutter_course/app/home/jobs/list_item_builder.dart
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
 import '../../../common_widgets/show_alert_dialog.dart';
+import '../../../common_widgets/show_exception_alert_dialog.dart';
 import '../../../services/database.dart';
 import '../models/job.dart';
 
@@ -36,6 +37,19 @@ class JobsPage extends StatelessWidget {
         defaultActionText: 'Logout');
     if (didRequestSignOut == true) {
       _signOut(context);
+    }
+  }
+
+  Future<void> _delete(BuildContext context, Job job) async {
+    try {
+      final database = Provider.of<Database>(context, listen: false);
+      await database.deleteJob(job);
+    } catch (e) {
+      showExceptionAlertDialog2(
+        context,
+        title: 'Operation Failed',
+        errorMessage: e.toString(),
+      );
     }
   }
 
@@ -71,9 +85,15 @@ class JobsPage extends StatelessWidget {
       builder: (context, snapshot) {
         return ListItemsBuilder(
             snapshot: snapshot,
-            itemBuilder: (context, job) => JobListTile(
-                job: job,
-                onTap: () => EditJobPage.show(context, job: job))
+            itemBuilder: (context, job) => Dismissible(
+              key: Key('job-${job?.id}'),
+              background: Container(color: Colors.red),
+              direction: DismissDirection.endToStart,
+              onDismissed: (direction) {},
+              child: JobListTile(
+                  job: job,
+                  onTap: () => EditJobPage.show(context, job: job)),
+            )
         );
       },
     );
