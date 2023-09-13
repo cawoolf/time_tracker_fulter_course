@@ -41,7 +41,7 @@ Anonymous login is broken
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 323-2 Section 20: Adding the source files to the project
+Current Section = 324 Section 20: Connecting the new code and updating the Firestore rules
 ***9/12/23
 Fixed all the compile errors for the files inserted into the project
 

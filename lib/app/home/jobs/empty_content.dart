@@ -13,13 +13,14 @@ class EmptyContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      // crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(title,
         style: const TextStyle(
           fontSize: 30,
           color: Colors.black,
         )),
-        Text(title,
+        Text(message,
         style: const TextStyle(
           fontSize: 30,
           color: Colors.black
