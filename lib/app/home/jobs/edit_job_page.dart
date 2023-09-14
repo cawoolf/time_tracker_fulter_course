@@ -13,9 +13,8 @@ class EditJobPage extends StatefulWidget {
   final Database
       database; // Gets the database from the JobsPage context, through the show() method
 
-  static Future<void> show(BuildContext context, {Job? job}) async {
+  static Future<void> show(BuildContext context, {required Database database, Job? job}) async {
     // show() is called from the context of the JobsPage(), and can use the Provider.of<Database>
-    final database = Provider.of<Database>(context, listen: false);
     await Navigator.of(context).push(MaterialPageRoute(
       // This creates a new Widget off the MaterialApp Widget, AddJobPage() won't have access to the Database with out constructor, since it's lower on the widget tree.
       // Pushes a new route to the Navigation stack

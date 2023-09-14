@@ -74,7 +74,11 @@ class JobsPage extends StatelessWidget {
       ),
       body: _buildContent(context),
       floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add), onPressed: () => EditJobPage.show(context)),
+          child: const Icon(Icons.add),
+          onPressed: () => EditJobPage.show(
+                context,
+                database: Provider.of<Database>(context, listen: false),
+              )),
     );
   }
 
@@ -87,15 +91,14 @@ class JobsPage extends StatelessWidget {
         return ListItemsBuilder(
             snapshot: snapshot,
             itemBuilder: (context, job) => Dismissible(
-              key: Key('job-${job?.id}'),
-              background: Container(color: Colors.red),
-              direction: DismissDirection.endToStart,
-              onDismissed: (direction) => _delete(context, job!),
-              child: JobListTile(
-                  job: job,
-                  onTap: () => JobEntriesPage.show(context, job!)),
-            )
-        );
+                  key: Key('job-${job?.id}'),
+                  background: Container(color: Colors.red),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (direction) => _delete(context, job!),
+                  child: JobListTile(
+                      job: job,
+                      onTap: () => JobEntriesPage.show(context, job!)),
+                ));
       },
     );
   }
