@@ -23,7 +23,7 @@ class JobEntriesPage extends StatelessWidget {
     final database = Provider.of<Database>(context, listen: false);
     await Navigator.of(context).push(
       MaterialPageRoute(
-        fullscreenDialog: false,
+        fullscreenDialog: false, // Causes slide in from the left on iOS, and a back button
         builder: (context) => JobEntriesPage(database: database, job: job),
       ),
     );

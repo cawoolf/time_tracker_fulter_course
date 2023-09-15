@@ -31,23 +31,32 @@ class FirestoreService {
     Query Function(Query? query)? queryBuilder,
     int Function(T lhs, T rhs)? sort,
   }) {
-    Query query = FirebaseFirestore.instance.collection(path);
+    Query query = FirebaseFirestore.instance.collection(path); // Query is a Firestore class. Superclass of the .collection() reference type.
     if (queryBuilder != null) {
-      query = queryBuilder(query);
+      query = queryBuilder(query); // queryBuilder() Filters all the objects that don't match the query. Which is what? An argument passed to collectionStream
     }
     final snapshots = query.snapshots();
     return snapshots.map((snapshot) {
       final result = snapshot.docs
-          .map((snapshot) => builder(snapshot.data() as Map<String, dynamic>, snapshot.id))
+          .map((snapshot) => builder(snapshot.data() as Map<String, dynamic>, snapshot.id)) // .builder() Converts the query items into the return type that we want
           .where((value) => value != null)
           .toList();
       if (sort != null) {
-        result.sort(sort);
+        result.sort(sort); // Sorts the results if a sort argument was provided to the dart core .sort()
       }
-      return result;
+      return result; // returns the results of the above operations
     });
   }
 }
+
+// Allows us to get a single document as a Stream
+Stream<T> documentStream<T>({required String path,
+required T Function(Map<String, dynamic>? data, String documentId) builder}) {
+  final reference = FirebaseFirestore.instance.doc(path);
+  final snapshots = reference.snapshots();
+  return snapshots.map((snapshot) => builder(snapshot.data(), snapshot.id));
+}
+
 
 
 // Notes methods. Not for use. collectionStream is a refactor of this.

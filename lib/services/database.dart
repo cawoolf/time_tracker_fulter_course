@@ -30,12 +30,28 @@ class FirestoreDatabase implements Database {
       _service.setData(path: APIPath.job(uid, job.id), data: job.toMap());
 
   @override
-  Future<void> deleteJob(Job job) => _service.deleteData(
+  Future<void> deleteJob(Job job) async {
+
+    // Deletes all Entries associated with the Job
+    // We have to do this because we made Entries a separate collection as a design choice
+    final allEntries = await entriesStream(job: job).first;
+    for (Entry entry in allEntries) {
+      if(entry.jobId == job.id) {
+        await deleteEntry(entry);
+      }
+    }
+
+    // Deletes the Job
+    await _service.deleteData(
       path: APIPath.job(uid, job.id));
+  }
 
   /* I don't understand where the data variable is coming from.. Ohhh data isn't being assinged here,
   this is just a parameter for the anonymous function being used inside _collectionStream
   _collectionStream assignees the data
+
+  The data is coming from snapshot.data() line 41 firestore_service, which pass the Job.fromMap() function
+  as the argument for the builder function of the collectionStream
 */
   @override
   Stream<List<Job?>> jobsStream() =>
