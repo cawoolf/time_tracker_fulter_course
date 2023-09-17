@@ -27,6 +27,7 @@ class Auth extends AuthBase {
 
 
   // Whoops need to hide this. Just swap to ingrate a different fire base?
+  // This is a security issue when stored in a public repo. Points to my firebase backend.
   final _googleClientId = '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
 
   // Notifies about changes to the User's signIn state
