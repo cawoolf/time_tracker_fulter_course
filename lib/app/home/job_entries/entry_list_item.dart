@@ -49,7 +49,7 @@ class EntryListItem extends StatelessWidget {
           Text(dayOfWeek, style: TextStyle(fontSize: 18.0, color: Colors.grey)),
           SizedBox(width: 15.0),
           Text(startDate, style: TextStyle(fontSize: 18.0)),
-          if (job.ratePerHour > 0.0) ...<Widget>[
+          if (job.ratePerHour > 0.0) ...<Widget>[ // Collection if ... is the spread operator
             Expanded(child: Container()),
             Text(
               payFormatted,
