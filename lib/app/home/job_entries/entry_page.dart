@@ -68,6 +68,7 @@ class _EntryPageState extends State<EntryPage> {
     );
   }
 
+  // Called when the Create button is pressed
   Future<void> _setEntryAndDismiss(BuildContext context) async {
     try {
       final entry = _entryFromState();
@@ -119,12 +120,12 @@ class _EntryPageState extends State<EntryPage> {
   }
 
   Widget _buildStartDate() {
-    return DateTimePicker(
+    return DateTimePicker( // Custom code. Not part of the Flutter SDK
       labelText: 'Start',
       selectedDate: _startDate,
       selectedTime: _startTime,
-      selectDate: (date) => setState(() => _startDate = date),
-      selectTime: (time) => setState(() => _startTime = time),
+      onSelectedDate: (date) => setState(() => _startDate = date), //onXXX naming convention for callbacks in Flutter
+      onSelectedTime: (time) => setState(() => _startTime = time),
     );
   }
 
@@ -133,8 +134,8 @@ class _EntryPageState extends State<EntryPage> {
       labelText: 'End',
       selectedDate: _endDate,
       selectedTime: _endTime,
-      selectDate: (date) => setState(() => _endDate = date),
-      selectTime: (time) => setState(() => _endTime = time),
+      onSelectedDate: (date) => setState(() => _endDate = date),
+      onSelectedTime: (time) => setState(() => _endTime = time),
     );
   }
 
@@ -165,7 +166,7 @@ class _EntryPageState extends State<EntryPage> {
       ),
       style: TextStyle(fontSize: 20.0, color: Colors.black),
       maxLines: null,
-      onChanged: (comment) => _comment = comment,
+      onChanged: (comment) => _comment = comment, // Updates the comment variable each time a User enters a character
     );
   }
 }
