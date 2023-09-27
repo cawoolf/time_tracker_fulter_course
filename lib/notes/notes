@@ -41,7 +41,7 @@ Anonymous login is broken
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 331 Section 20: Date and time input with a custom UI and DateTimePicker
+Current Section = 333 Section 20: Updating the UI when a Job Changes
 
 ***9/26/23
 Don't forget about Flutter Forms. A built in way to validate Form data

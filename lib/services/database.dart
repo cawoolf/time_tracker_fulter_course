@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/home/models/entry.dart';
 import 'package:time_tracker_flutter_course/services/api_path.dart';
 import 'package:time_tracker_flutter_course/services/firestore_service.dart';
@@ -9,6 +10,7 @@ abstract class Database {
   Future<void> setJob(Job job);
   Future<void> deleteJob(Job job);
   Stream<List<Job?>> jobsStream();
+  Stream<Job> jobStream({required String jobId});
   Future<void> setEntry(Entry entry);
   Future<void> deleteEntry(Entry entry);
   Stream<List<Entry>> entriesStream({required Job job});
@@ -57,6 +59,12 @@ class FirestoreDatabase implements Database {
   Stream<List<Job?>> jobsStream() =>
       _service.collectionStream(
           path: APIPath.jobs(uid), builder: (data, documentId) => Job.fromMap(data, documentId));
+
+  @override
+  Stream<Job> jobStream({required String jobId}) => _service.documentStream(
+      path: APIPath.job(uid, jobId),
+      builder: (data, documentId) => Job.fromMap(data!, documentId)
+  );
 
   @override
   Future<void> setEntry(Entry entry) => _service.setData(
