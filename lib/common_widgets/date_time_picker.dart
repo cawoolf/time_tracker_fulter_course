@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/home/job_entries/format.dart';
-import 'package:time_tracker_flutter_course/app/home/job_entries/input_dropdown.dart';
+import 'package:time_tracker_flutter_course/common_widgets/input_dropdown.dart';
 
 class DateTimePicker extends StatelessWidget {
   const DateTimePicker({
@@ -48,7 +48,7 @@ class DateTimePicker extends StatelessWidget {
       children: <Widget>[
         Expanded(
           flex: 5,
-          child: InputDropdown(
+          child: InputDropdown( // Not part of the Flutter SDK. Comes from the Flutter gallery example app
             labelText: labelText,
             valueText: Format.date(selectedDate),
             valueStyle: valueStyle!,

@@ -41,10 +41,12 @@ Anonymous login is broken
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 331 Section 20: Using date pickers with stateful widgets
+Current Section = 331 Section 20: Date and time input with a custom UI and DateTimePicker
 
 ***9/26/23
 Don't forget about Flutter Forms. A built in way to validate Form data
+
+Also borrow code and look at the Flutter Gallery app. Bundled with the SDK.
 
 ***9/20/23
 Review SigIn Methods
