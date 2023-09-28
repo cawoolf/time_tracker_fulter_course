@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
 import '../services/database.dart';
+import 'home/home_page.dart';
 import 'home/jobs/jobs_page.dart';
 
 class LandingPage extends StatelessWidget {
@@ -32,7 +33,8 @@ class LandingPage extends StatelessWidget {
           }
           return Provider<Database>(
               create: (_) => FirestoreDatabase(uid: user.uid), // user.uid comes from the snapshot
-              child: const JobsPage());
+              child: const HomePage(),
+          );
         }
 
         // Default Widget if the data is still loading from the Stream
