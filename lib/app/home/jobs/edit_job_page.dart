@@ -88,7 +88,7 @@ class _EditJobPageState extends State<EditJobPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
-        title: Text(widget.job == null ? 'New Job' : 'Edite Job'),
+        title: Text(widget.job == null ? 'New Job' : 'Edit Job'),
         actions: <Widget>[
           ElevatedButton(
               onPressed: _submit,

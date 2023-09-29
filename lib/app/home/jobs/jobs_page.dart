@@ -64,6 +64,13 @@ class JobsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Jobs'),
         actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add, color: Colors.white),
+            onPressed: () => EditJobPage.show(
+              context,
+              database: Provider.of<Database>(context, listen: false),
+            ),
+          ),
           TextButton(
               onPressed: () => _confirmSignOut(context),
               child: const Text(
@@ -73,12 +80,12 @@ class JobsPage extends StatelessWidget {
         ],
       ),
       body: _buildContent(context),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () => EditJobPage.show(
-                context,
-                database: Provider.of<Database>(context, listen: false),
-              )),
+      // floatingActionButton: FloatingActionButton(
+      //     child: const Icon(Icons.add),
+      //     onPressed: () => EditJobPage.show(
+      //           context,
+      //           database: Provider.of<Database>(context, listen: false),
+      //         )),
     );
   }
 

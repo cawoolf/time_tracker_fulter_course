@@ -47,29 +47,32 @@ class JobEntriesPage extends StatelessWidget {
     return StreamBuilder<Job>(
       stream: database.jobStream(jobId: job.id),
       builder: (context, snapshot) {
-        final job = snapshot.data;
-        final jobName = job?.name ?? '';
+        final job = snapshot.data as Job;
+        final jobName = job.name ?? '';
         return Scaffold(
           appBar: AppBar(
             elevation: 2.0,
             title: Text(jobName),
+            centerTitle: true,
             actions: <Widget>[
-              ElevatedButton(
-                child: Text(
-                  'Edit',
-                  style: TextStyle(fontSize: 18.0, color: Colors.white),
-                ),
+              IconButton(
+                icon: Icon(Icons.edit, color: Colors.white),
                 onPressed: () =>
                     EditJobPage.show(context, database: database, job: job),
+                ),
+              IconButton(
+                icon: Icon(Icons.add, color: Colors.white),
+                onPressed: () =>
+                    EntryPage.show(context: context, database: database, job: job),
               ),
             ],
           ),
           body: _buildContent(context, job!),
-          floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.add),
-            onPressed: () =>
-                EntryPage.show(context: context, database: database, job: job),
-          ),
+          // floatingActionButton: FloatingActionButton(
+          //   child: Icon(Icons.add),
+          //   onPressed: () =>
+          //       EntryPage.show(context: context, database: database, job: job),
+          // ),
         );},
     );
 
