@@ -2,16 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter_course/app/home/tab_item.dart';
 
+import 'jobs/jobs_page.dart';
+
 // Creates a HomeScaffold that knows about which tab we are on
 // Knows how to show the bottom navigation on screen
 // Allows us to swap out the UI easily if we want
 class CupertinoHomeScaffold extends StatelessWidget {
   const CupertinoHomeScaffold(
-      {Key? key, required this.currentTab, required this.onSelectTab})
+      {Key? key, required this.currentTab, required this.onSelectTab, required this.widgetBuilders})
       : super(key: key);
 
   final TabItem currentTab;
   final ValueChanged<TabItem> onSelectTab; //Callback
+  final Map<TabItem, WidgetBuilder> widgetBuilders;
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -19,14 +23,15 @@ class CupertinoHomeScaffold extends StatelessWidget {
         items: [
           _buildItem(TabItem.jobs),
           _buildItem(TabItem.entries),
-          _buildItem(TabItem.account)],
+          _buildItem(TabItem.account)
+        ],
         onTap: (index) => onSelectTab(TabItem.values[index]),
       ),
       tabBuilder: (BuildContext context, int index) {
+        final item = TabItem.values[index];
         return CupertinoTabView(
-          builder: (context) { // Returns the appropriate Widget for each Tab
-            return Container();
-            },
+          builder: (context) => widgetBuilders[item]!(
+              context), // Returns the appropriate Widget for each Tab. WidgetBuilder needs context?
         );
       },
     );
@@ -36,7 +41,6 @@ class CupertinoHomeScaffold extends StatelessWidget {
     final itemData = TabItemData.allTabs[tabItem];
     final color = currentTab == tabItem ? Colors.indigo : Colors.grey;
     return BottomNavigationBarItem(
-        icon: Icon(itemData?.icon, color: color),
-        label: itemData?.label);
+        icon: Icon(itemData?.icon, color: color), label: itemData?.label);
   }
 }
