@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_tracker_flutter_course/app/home/account/account_page.dart';
 import 'package:time_tracker_flutter_course/app/home/cupertino_home_scaffold.dart';
 import 'package:time_tracker_flutter_course/app/home/tab_item.dart';
 
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
       TabItem.jobs: (_) => const JobsPage(),
       //Takes a context argument, but passing _ since we don't need it.
       TabItem.entries: (_) => Container(),
-      TabItem.account: (_) => Container(),
+      TabItem.account: (_) => const AccountPage(),
     };
   }
 

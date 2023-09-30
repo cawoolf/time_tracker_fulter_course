@@ -41,7 +41,11 @@ Anonymous login is broken
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 342 Section 20: Replacing the FloatingActionButtons
+Current Section = 343 Section 21: Moving the logout button to the AccountPage
+
+***9/28/23
+You can use the Positioned() Widget to manually place the child Widget on the screen, using pixels
+for width and height location.
 
 ***9/26/23
 Don't forget about Flutter Forms. A built in way to validate Form data

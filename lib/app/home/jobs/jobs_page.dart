@@ -15,31 +15,7 @@ import '../models/job.dart';
 class JobsPage extends StatelessWidget {
   const JobsPage({super.key});
 
-  Future<void> _signOut(BuildContext context) async {
-    try {
-      final auth = Provider.of<AuthBase>(context, listen: false);
-      await auth?.signOut();
-      print('Logged out');
-      // onSignOut();
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 
-  // Why is this async?
-  /*
-  Ohh we have to await for the User to interact with the Alert and press a button, which returns a boolean
-   */
-  Future<void> _confirmSignOut(BuildContext context) async {
-    final didRequestSignOut = await showAlertDialog(context,
-        title: 'Logout',
-        content: 'Are you sure you want to logout?',
-        cancelActionText: 'Cancel',
-        defaultActionText: 'Logout');
-    if (didRequestSignOut == true) {
-      _signOut(context);
-    }
-  }
 
   Future<void> _delete(BuildContext context, Job job) async {
     try {
@@ -71,12 +47,6 @@ class JobsPage extends StatelessWidget {
               database: Provider.of<Database>(context, listen: false),
             ),
           ),
-          TextButton(
-              onPressed: () => _confirmSignOut(context),
-              child: const Text(
-                'Logout',
-                style: TextStyle(fontSize: 18.0, color: Colors.white),
-              ))
         ],
       ),
       body: _buildContent(context),
