@@ -15,7 +15,8 @@ class EditJobPage extends StatefulWidget {
 
   static Future<void> show(BuildContext context, {required Database database, Job? job}) async {
     // show() is called from the context of the JobsPage(), and can use the Provider.of<Database>
-    await Navigator.of(context).push(MaterialPageRoute(
+    // rootNavigator: true alows the EditJobPage to be displayed full screen. Doesn't Navigate from the BottomNav.
+    await Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
       // This creates a new Widget off the MaterialApp Widget, AddJobPage() won't have access to the Database with out constructor, since it's lower on the widget tree.
       // Pushes a new route to the Navigation stack
       builder: (context) => EditJobPage(database: database, job: job),

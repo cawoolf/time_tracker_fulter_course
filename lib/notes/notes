@@ -41,7 +41,12 @@ Anonymous login is broken
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 343 Section 21: Moving the logout button to the AccountPage
+Current Section = 344 Section 21: Presenting modal routes with rootnavigator
+
+***9/30/23
+By default, Flutter uses the first Navigator encountered by the build context. Basically, means
+that whatever navigator it is called from. If you want to display a dialogue as full screen. Use rootnavitor: true
+
 
 ***9/28/23
 You can use the Positioned() Widget to manually place the child Widget on the screen, using pixels
