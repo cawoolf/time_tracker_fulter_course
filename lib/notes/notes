@@ -41,7 +41,20 @@ Anonymous login is broken
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 345 Section 21: The CupertinoPageRoute
+Current Section = 346 Section 21: Handling the Android back button with WillPopScope
+
+***10/1/23
+home_page line 39
+ return WillPopScope(
+      onWillPop: () async => !await navigatorKeys[_currentTab].currentState.maybePop()
+
+Used for handling back navigation on Android.
+Pops the stack one at a time unntill it exits the app. On the last pop.
+The expression returns false on the last pop, the ! reverse it to return true to the onWillPop() method
+allowing the last stack the pop off and close the app.
+
+WillPopScope and navigatorKeys are used to control the navigation stack and routes on Android
+Has no effect iOS, which doesn't have a back button?...
 
 ***9/30/23
 By default, Flutter uses the first Navigator encountered by the build context. Basically, means

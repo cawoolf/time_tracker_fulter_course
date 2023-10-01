@@ -9,12 +9,13 @@ import 'jobs/jobs_page.dart';
 // Allows us to swap out the UI easily if we want
 class CupertinoHomeScaffold extends StatelessWidget {
   const CupertinoHomeScaffold(
-      {Key? key, required this.currentTab, required this.onSelectTab, required this.widgetBuilders})
+      {Key? key, required this.currentTab, required this.onSelectTab, required this.widgetBuilders, required this.navigatorKeys})
       : super(key: key);
 
   final TabItem currentTab;
   final ValueChanged<TabItem> onSelectTab; //Callback
   final Map<TabItem, WidgetBuilder> widgetBuilders;
+  final Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,7 @@ class CupertinoHomeScaffold extends StatelessWidget {
       tabBuilder: (BuildContext context, int index) {
         final item = TabItem.values[index];
         return CupertinoTabView(
+          navigatorKey: navigatorKeys[item],
           builder: (context) => widgetBuilders[item]!(
               context), // Returns the appropriate Widget for each Tab. WidgetBuilder needs context?
         );
