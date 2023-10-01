@@ -41,7 +41,7 @@ Anonymous login is broken
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 344 Section 21: Presenting modal routes with rootnavigator
+Current Section = 345 Section 21: The CupertinoPageRoute
 
 ***9/30/23
 By default, Flutter uses the first Navigator encountered by the build context. Basically, means
