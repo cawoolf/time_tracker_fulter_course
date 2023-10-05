@@ -3,6 +3,7 @@ import 'package:time_tracker_flutter_course/app/home/account/account_page.dart';
 import 'package:time_tracker_flutter_course/app/home/cupertino_home_scaffold.dart';
 import 'package:time_tracker_flutter_course/app/home/tab_item.dart';
 
+import 'entries/entries_page.dart';
 import 'jobs/jobs_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     return {
       //Takes a context argument, but passing _ since we don't need it.
       TabItem.jobs: (_) => const JobsPage(),
-      TabItem.entries: (_) => Container(),
+      TabItem.entries: (_) => EntriesPage.create(context),
       TabItem.account: (_) => const AccountPage(),
     };
   }

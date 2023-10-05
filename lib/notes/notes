@@ -41,7 +41,22 @@ Anonymous login is broken
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 351 Section 21: Introduction to RxDart
+Current Section = 351 Section 22: Adding the source code for the new entires page
+
+***10/4/23
+
+Lots of ! null assertions that need to be fixed. Track down from the entries package.
+
+Per chat GPT about ? and ! null operators
+
+Here's a key difference:
+
+The ? operator helps you handle potential null values safely by avoiding errors at runtime.
+The ! operator essentially tells Dart, "I know this could be null, but I'm sure it won't be."
+It's a way to override the null safety checks, but it comes with a risk of runtime errors if you're wrong.
+In general, it's recommended to use the ? operator when dealing
+with potentially nullable values to maintain null safety and prevent runtime errors.
+Use ! only when you are certain that an expression is not null and understand the associated risks.
 
 ***10/1/23
 home_page line 39

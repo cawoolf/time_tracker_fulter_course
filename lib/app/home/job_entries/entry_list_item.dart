@@ -39,7 +39,7 @@ class EntryListItem extends StatelessWidget {
     final endTime = TimeOfDay.fromDateTime(entry.end).format(context);
     final durationFormatted = Format.hours(entry.durationInHours);
 
-    final pay = job.ratePerHour * entry.durationInHours;
+    final pay = job.ratePerHour! * entry.durationInHours;
     final payFormatted = Format.currency(pay);
 
     return Column(
