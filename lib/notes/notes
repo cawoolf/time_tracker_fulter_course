@@ -41,9 +41,15 @@ Anonymous login is broken
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 351 Section 22: Adding the source code for the new entires page
+Current Section = 357 Section 22: Wrap up on Observables
+
+***10/5/23
+It turns out the bug was from some kind of corrupted data in Firestore..
 
 ***10/4/23
+
+Bug starts on entries_page.dart line 34
+And can be traced ack to entries_bloc.dart. The entriesTileModelStream is providing null data.
 
 Lots of ! null assertions that need to be fixed. Track down from the entries package.
 

@@ -28,7 +28,7 @@ class ListItemsBuilder<T> extends StatelessWidget {
 
     // If the there is an Error, return this placeholder
     else if (snapshot.hasError) {
-      print(snapshot.error.toString());
+      print('list_item_builder.dart line 31: ${snapshot.error}');
       return const EmptyContent(
         title: 'Something went wrong',
         message: 'Can\'t load items right now',

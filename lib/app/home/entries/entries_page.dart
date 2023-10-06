@@ -30,7 +30,7 @@ class EntriesPage extends StatelessWidget {
     final bloc = Provider.of<EntriesBloc>(context, listen: false);
     return StreamBuilder<List<EntriesListTileModel>>(
       stream: bloc.entriesTileModelStream,
-      builder: (context, snapshot) {
+      builder: (context, snapshot) { // The snapshot.data property will hold the most recent data emitted by bloc.entriesTileModelStream
         return ListItemsBuilder<EntriesListTileModel>(
           snapshot: snapshot,
           itemBuilder: (context, model) => EntriesListTile(model: model),

@@ -138,7 +138,7 @@ class SignInPage extends StatelessWidget {
               color: const Color(0xFF334D92),
               textColor: Colors.white,
               onPressed: () {
-                null;
+                print('Facebook Sign Clicked');
               }),
 
           _spaceBetweenWidgets(),

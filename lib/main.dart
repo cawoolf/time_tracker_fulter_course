@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
     MaterialApp is the container for the Parent Widget of the whole app. It's a child
     of AuthProvider so that other Widgets can navigate up the tree to access Auth.
      */
+    print('main.dart line 29: App Launched');
     return Provider<AuthBase>(
         create: (context) => Auth(),
         child: MaterialApp(

@@ -13,7 +13,7 @@ abstract class Database {
   Stream<Job> jobStream({required String jobId});
   Future<void> setEntry(Entry entry);
   Future<void> deleteEntry(Entry entry);
-  Stream<List<Entry>> entriesStream({Job job});
+  Stream<List<Entry>> entriesStream({Job? job});
 }
 
 // Used for generating a unique ID for the Job document
@@ -84,20 +84,8 @@ class FirestoreDatabase implements Database {
       path: APIPath.entries(uid),
       queryBuilder: job != null
           ? (query) => query!.where('jobId', isEqualTo: job.id)
-          : null,
+          : null, // No filtering of the data is needed if a Job is not provided. Returns a List of all Entries.
       builder: (data, documentID) => Entry.fromMap(data, documentID),
       sort: (lhs, rhs) => rhs.start.compareTo(lhs.start),
     );
-
-  // @override
-  // Stream<List<Entry>> entriesStream({required Job job}) =>
-  //     _service.collectionStream<Entry>(
-  //       path: APIPath.entries(uid),
-  //       queryBuilder: job != null
-  //           ? (query) => query!.where('jobId', isEqualTo: job.id)
-  //           : null,
-  //       builder: (data, documentID) => Entry.fromMap(data, documentID),
-  //       sort: (lhs, rhs) => rhs.start.compareTo(lhs.start),
-  //     );
-
 }

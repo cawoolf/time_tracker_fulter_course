@@ -13,7 +13,7 @@ class EntriesBloc {
 
   /// combine List<Job>, List<Entry> into List<EntryJob>
   Stream<List<EntryJob>> get _allEntriesStream => Rx.combineLatest2(
-        database.entriesStream(),
+        database.entriesStream(), // How are we actually getting the entiresStream? We need the JobId.
         database.jobsStream(),
         _entriesJobsCombiner,
       );
