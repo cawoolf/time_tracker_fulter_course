@@ -37,11 +37,12 @@ Do FocusNode Homework from 18_303
 ---***&&&***---
 Bugs:
 Anonymous login is broken
+EmailSignInFormType register is not working. Can't create a new account with email.
 
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 360 Section 22: Adding a Behavior Subject to the EmailSignInBloc
+Current Section = 363 Section 22: Completing the time tracker app: overview
 
 ***10/8/23
 

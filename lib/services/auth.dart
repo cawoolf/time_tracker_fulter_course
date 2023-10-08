@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:time_tracker_flutter_course/services/web_config.dart';
 
 abstract class AuthBase {
   User? get currentUser;
@@ -20,19 +20,16 @@ abstract class AuthBase {
   Future<User?> signInWithEmailAndPassword(String email, String password);
 
   Future<User?> createUserWithEmailAndPassword(String email, String password);
-
-
 }
 
 class Auth extends AuthBase {
   final _firebaseAuth = FirebaseAuth.instance;
 
+  // When logging into web apparently you don't' need to pass the googleClientId. I don't fully understand it. But you do need it to SignOut();
+  String? get _googleClientId => kIsWeb
+      ? WebConfig.googleClientId // Grab the googleClientId from a .gitignore config file for web. This should theoretically work for all platforms.
+      : Platform.environment['google_client_id']; // Grab the googleClientId from the system environment variables for mobile
 
-  // Whoops need to hide this. Just swap to ingrate a different fire base?
-  // This is a security issue when stored in a public repo. Points to my firebase backend.
-  // final _googleClientId = '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
-
-  final _googleClientId = Platform.environment['google_client_id'];
   // Notifies about changes to the User's signIn state
   @override
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
@@ -47,23 +44,23 @@ class Auth extends AuthBase {
   }
 
   @override
-  Future<User?> signInWithEmailAndPassword(String email, String password) async {
-    final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+  Future<User?> signInWithEmailAndPassword(
+      String email, String password) async {
+    final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
     return userCredential.user;
-
   }
 
   @override
-  Future<User?> createUserWithEmailAndPassword(String email, String password) async {
-    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+  Future<User?> createUserWithEmailAndPassword(
+      String email, String password) async {
+    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
     return userCredential.user;
-
   }
 
   @override
   Future<User?> signInWithGoogle() async {
-
-
     final googleSignIn = GoogleSignIn(clientId: _googleClientId);
 
     final googleUser = await googleSignIn.signIn();
@@ -88,35 +85,27 @@ class Auth extends AuthBase {
     }
   }
 
-
   // I don't really understand why this works.. TBH.
   // Where is the clientID and why don't I need it for the web signIn
   @override
   Future<User?> signInWithGoogleWeb() async {
+    GoogleAuthProvider authProvider = GoogleAuthProvider();
+    try {
+      final UserCredential userCredential =
+          await _firebaseAuth.signInWithPopup(authProvider);
 
-    if (kIsWeb) {
-      GoogleAuthProvider authProvider = GoogleAuthProvider();
-
-      try {
-        final UserCredential userCredential =
-        await _firebaseAuth.signInWithPopup(authProvider);
-
-        return userCredential.user;
-      } catch (e) {
-        print(e);
-      }
-  }
+      return userCredential.user;
+    } catch (e) {
+      print(e);
+    }
     return null;
-
-}
+  }
 
   @override
   Future<void> signOut() async {
-
     print("Sign Out Clicked");
     final googleSignIn = GoogleSignIn(clientId: _googleClientId);
     await googleSignIn.signOut();
     await _firebaseAuth.signOut();
   }
 }
-

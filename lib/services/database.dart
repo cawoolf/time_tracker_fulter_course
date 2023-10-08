@@ -42,7 +42,7 @@ class FirestoreDatabase implements Database {
         await deleteEntry(entry);
       }
     }
-
+    print('UID: $uid, jobId: ${job.id}');
     // Deletes the Job
     await _service.deleteData(
       path: APIPath.job(uid, job.id));
