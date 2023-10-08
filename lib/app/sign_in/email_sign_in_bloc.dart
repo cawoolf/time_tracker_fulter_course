@@ -3,6 +3,7 @@ import 'dart:js';
 
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../services/auth.dart';
 import 'email_sign_in_model.dart';
@@ -11,15 +12,18 @@ class EmailSignInBloc {
   EmailSignInBloc({required this.auth});
   final AuthBase auth;
 
-  final StreamController<EmailSignInModel> _modelController =
-      StreamController<EmailSignInModel>();
-  EmailSignInModel _model = EmailSignInModel();
+  // StreamController refactored to use BehaviorSubject
+  // final StreamController<EmailSignInModel> _modelController =
+  // StreamController<EmailSignInModel>();
+  // Stream<EmailSignInModel> get modelStream => _modelController.stream;
 
-  Stream<EmailSignInModel> get modelStream => _modelController.stream;
+  final _modelSubject = BehaviorSubject<EmailSignInModel>.seeded(EmailSignInModel()); // Behavior Subject can take an initial value or seed.
+  Stream<EmailSignInModel> get modelStream => _modelSubject.stream;
+  EmailSignInModel get _model => _modelSubject.value;
 
   // Always dispose of the BLoC inside the Provider that creates it
   void dispose() {
-    _modelController.close();
+    _modelSubject.close();
   }
 
   void toggleFormType() {
@@ -50,13 +54,12 @@ class EmailSignInBloc {
     bool? isLoading,
     bool? submitted,
   }) {
-    _model.copyWith(
+    _modelSubject.value =_model.copyWith( //Setting the value is equivalent to using .add() on a StreamController
         email: email,
         password: password,
         formType: formType,
         isLoading: isLoading,
         submitted: submitted);
-    _modelController.add(_model);
   }
 
   /*

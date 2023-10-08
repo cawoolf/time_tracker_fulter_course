@@ -41,7 +41,21 @@ Anonymous login is broken
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 358 Section 22: Single subscription vs broadcast Streams
+Current Section = 360 Section 22: Adding a Behavior Subject to the EmailSignInBloc
+
+***10/8/23
+
+Local State:
+In summary, the relationship between these three components is as follows:
+ChangeNotifier is a base class for creating stateful models that notify listeners when their state changes.
+ChangeNotifierProvider is used to provide instances of ChangeNotifier (or its subclasses) to the widget tree.
+Consumer is used to listen for changes in the provided state and rebuild its child widget when the state changes.
+It's typically used within the widget tree where you want to display or interact with the state.
+
+
+----------------------------------------------------------------------------------------------------
+RxDart Subjects are more specific and user friendly versions of StreamControllers
+Can access value synchronously?
 
 ***10/6/23
 If you want a Stream to have more than one listener. Then you need to create a broadcast() Stream

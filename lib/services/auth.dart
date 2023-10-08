@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -28,8 +30,9 @@ class Auth extends AuthBase {
 
   // Whoops need to hide this. Just swap to ingrate a different fire base?
   // This is a security issue when stored in a public repo. Points to my firebase backend.
-  final _googleClientId = '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
+  // final _googleClientId = '445096508808-94jffvm1fkj3qnnut0cosmcs9trl3n7f.apps.googleusercontent.com';
 
+  final _googleClientId = Platform.environment['google_client_id'];
   // Notifies about changes to the User's signIn state
   @override
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
