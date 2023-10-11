@@ -25,7 +25,7 @@ abstract class AuthBase {
 class Auth extends AuthBase {
   final _firebaseAuth = FirebaseAuth.instance;
 
-  // When logging into web apparently you don't' need to pass the googleClientId. I don't fully understand it. But you do need it to SignOut();
+  // When logging into web apparently you don't' need to pass the googleClientId to FireBaseAuth. I don't fully understand it. But you do need it to SignOut();
   String? get _googleClientId => kIsWeb
       ? WebConfig.googleClientId // Grab the googleClientId from a .gitignore config file for web. This should theoretically work for all platforms.
       : Platform.environment['google_client_id']; // Grab the googleClientId from the system environment variables for mobile

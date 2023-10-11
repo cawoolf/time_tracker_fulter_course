@@ -42,9 +42,17 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 363 Section 22: Completing the time tracker app: overview
+Current Section = 364 Section 23: Accessing the User object in the Account Page
+
+***10/10/23
+364 - account_page.dart/11-12, build()
+Since the landing page is an ancestor of the account page, then we don't need to use another StreamBuilder
+Can access the User directly, and if the user changes, the landing page will rebuild anyway.
+
 
 ***10/8/23
+Cleaned up security issue with exposed _googleClientId. It's still in the git history though.
+
 
 Local State:
 In summary, the relationship between these three components is as follows:

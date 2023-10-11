@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:time_tracker_flutter_course/services/web_config.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -54,13 +55,13 @@ class DefaultFirebaseOptions {
 
   //RayaDev
   static const FirebaseOptions web = FirebaseOptions(
-      apiKey: "AIzaSyC5FIYYc9eoNFQBu4s_FbI17N2tsnm4EZY",
+      apiKey: WebConfig.firebaseAPIKey,
       authDomain: "time-tracker-flutter-8dede.firebaseapp.com",
       projectId: "time-tracker-flutter-8dede",
       storageBucket: "time-tracker-flutter-8dede.appspot.com",
-      messagingSenderId: "1001299730721",
-      appId: "1:1001299730721:web:75bf3ae535054b76f51e60",
-      measurementId: "G-JBR7XJT5B6",
+      messagingSenderId: WebConfig.messagingSenderId,
+      appId: WebConfig.appId,
+      measurementId: WebConfig.measurementId,
   );
 
 }

@@ -9,10 +9,8 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Temporary code: delete me
-    // final database = Provider.of<Database>(context, listen: false);
-    // database.readJobs();
-
+    final auth = Provider.of<AuthBase>(context, listen: false);
+    auth.currentUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Account'),
