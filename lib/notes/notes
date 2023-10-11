@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 364 Section 23: Accessing the User object in the Account Page
+Current Section = 365 Section 23: Adding an Avatar image
 
 ***10/10/23
 364 - account_page.dart/11-12, build()
