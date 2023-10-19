@@ -42,7 +42,11 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 366 Section 23: Finishing the Avatar code
+Current Section = 368 Section 24: Introduction to testing
+
+***10/18/23
+CI stands for continuous integration testing
+Every time you update your code it goes through a test run
 
 ***10/10/23
 364 - account_page.dart/11-12, build()
