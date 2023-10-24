@@ -6,4 +6,9 @@ void main() {
     final validator = NonEmptyStringValidator();
     expect(validator.isValid('test'), true); //Asserting that the value of the first argument matches the value of the second.
   });
+
+  test('empty string', () {
+    final validator = NonEmptyStringValidator();
+    expect(validator.isValid(''),false);
+  });
 }

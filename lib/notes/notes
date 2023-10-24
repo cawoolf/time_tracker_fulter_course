@@ -42,11 +42,14 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 370 Section 24: Writing the first unit test
+Current Section = 372 Section 24: Checking and fixing errors in tests
 
 ***10/18/23
 CI stands for continuous integration testing
 Every time you update your code it goes through a test run
+
+use flutter test command at root of project in terminal to run all tests
+can also run specific tests in the test files directly
 
 ***10/10/23
 364 - account_page.dart/11-12, build()
