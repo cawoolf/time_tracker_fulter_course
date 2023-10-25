@@ -11,4 +11,10 @@ void main() {
     final validator = NonEmptyStringValidator();
     expect(validator.isValid(''),false);
   });
+
+  // Write edge cases to create more robust code. General create a failing test, and then make it pass.
+  test('edge case string', () {
+    final validator = NonEmptyStringValidator();
+    expect(validator.isValid(2.toString()),true);
+  });
 }
