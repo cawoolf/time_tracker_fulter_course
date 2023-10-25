@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 373 Section 24: Testing edge cases by writing and fixing failing tests
+Current Section = 374 Section 24: Grouping tests together
 
 ***10/18/23
 CI stands for continuous integration testing
