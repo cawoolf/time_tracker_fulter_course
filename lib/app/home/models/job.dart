@@ -10,8 +10,8 @@ class Job {
 
   fromMap() and toMap() are common practices*/
   factory Job.fromMap(Map<String, dynamic> data, String documentId) {
-     final String name = data['name'];
-     final int ratePerHour = data['ratePerHour'];
+     String name = data['name'];
+     int ratePerHour = data['ratePerHour'];
      return Job (
        id: documentId,
          name: name,
