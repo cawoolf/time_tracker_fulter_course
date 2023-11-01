@@ -42,4 +42,9 @@ class Job {
         ratePerHour == otherJob.ratePerHour;
 
   }
+
+  @override
+  String toString() {
+    return 'id: $id, name: $name, ratePerHour: $ratePerHour';
+  }
 }
