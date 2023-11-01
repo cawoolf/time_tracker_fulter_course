@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 381 Section 24: Introduction to widget tests
+Current Section = 382 Section 24: Find widget and matcher arguments
 
 ***10/31/23
 A unit test is a type of software testing that focuses on verifying the correctness of individual,
