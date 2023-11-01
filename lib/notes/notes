@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 378 Section 24: Testing model classes
+Current Section = 379 Section 24: hashCode and the == operator
 
 ***10/18/23
 CI stands for continuous integration testing
