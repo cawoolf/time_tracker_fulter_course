@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 383 Section 24: Testing widget callbacks
+Current Section = 385 Section 24: Introduction to test mocks and mockito
 
 ***10/31/23
 A unit test is a type of software testing that focuses on verifying the correctness of individual,
@@ -50,6 +50,9 @@ isolated components or units of code, such as functions, methods, or classes,
 in isolation from the rest of the software system.
 The basic idea of a unit test is to validate that a specific unit of code
 performs as expected and that it produces the correct output for a given input or set of inputs.
+
+Acceptance criteria follows a Given,When,And,Then structure for writing test cases. Transform those
+test cases to unit tests?
 
 ***10/18/23
 CI stands for continuous integration testing
