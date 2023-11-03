@@ -42,7 +42,12 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 387 Section 24: Verifying mock methods
+Current Section = 387 Section 24: Verifying mock methods - Fixed
+
+***11/3/23
+Had to use Mockito null safety to get tests to pass. @GenerateNiceMocks
+https://github.com/dart-lang/mockito/blob/master/NULL_SAFETY_README.md
+
 
 ***10/31/23
 A unit test is a type of software testing that focuses on verifying the correctness of individual,

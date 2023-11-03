@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_form_stateful.dart';
-import 'package:time_tracker_flutter_course/services/auth.dart';
 
-class MockAuth extends Mock implements AuthBase {}
+@GenerateNiceMocks([MockSpec<Auth>()])
+import 'package:time_tracker_flutter_course/services/auth.dart';
+import 'email_sign_in_form_stateful_test.mocks.dart';
+
 
 void main() {
   var mockAuth = MockAuth();
@@ -31,8 +34,6 @@ void main() {
 
         final signInButton = find.text('Sign in');
         await tester.tap(signInButton);
-        // verifyNever(mockAuth.signInWithEmailAndPassword('test', 'test'));
-        verifyNever(mockAuth.mockTest('email', 'password'));
-
+        verifyNever(mockAuth.signInWithEmailAndPassword('', ''));
       });
 }
