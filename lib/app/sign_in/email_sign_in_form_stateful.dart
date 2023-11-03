@@ -145,11 +145,11 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
 
   List<Widget> _buildChildren() {
     final primaryText = _formType == EmailSignInFormType.signIn
-        ? 'SignIn'
+        ? 'Sign in'
         : 'Create an account';
     final secondaryText = _formType == EmailSignInFormType.signIn
         ? 'Need an account? Register'
-        : 'Have an account? SignIn';
+        : 'Have an account? Sign in';
 
     return [
       /*

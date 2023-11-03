@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 386 Section 24: Injecting Mock Objects with Provider
+Current Section = 387 Section 24: Verifying mock methods
 
 ***10/31/23
 A unit test is a type of software testing that focuses on verifying the correctness of individual,

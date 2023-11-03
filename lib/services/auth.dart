@@ -20,6 +20,8 @@ abstract class AuthBase {
   Future<User?> signInWithEmailAndPassword(String email, String password);
 
   Future<User?> createUserWithEmailAndPassword(String email, String password);
+
+  void mockTest(String a, String b);
 }
 
 class Auth extends AuthBase {
@@ -107,5 +109,10 @@ class Auth extends AuthBase {
     final googleSignIn = GoogleSignIn(clientId: _googleClientId);
     await googleSignIn.signOut();
     await _firebaseAuth.signOut();
+  }
+
+  @override
+  void mockTest(String a, String b) {
+    print('mock test called');
   }
 }
