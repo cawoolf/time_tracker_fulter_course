@@ -67,4 +67,20 @@ void main() {
       verify(mockAuth.signInWithEmailAndPassword(email, password)).called(1);
     });
   });
+
+  group('register', () {
+    // Convention to name tests using different Acceptance Criteria for that feature
+    testWidgets(
+        'WHEN user taps on the secondary button '
+        ' THEN form toggles to registration mode',
+            (WidgetTester tester) async {
+          await pumpEmailSignInForm(tester);
+
+          final registerButton = find.text('Need an account? Register');
+          await tester.tap(registerButton);
+          await tester.pump();
+          final createAccountButton = find.text('Create an account');
+          expect(createAccountButton, findsOneWidget);
+        });
+  });
 }
