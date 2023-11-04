@@ -42,11 +42,14 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 387 Section 24: Verifying mock methods - Fixed
+Current Section = 388 Section 24: Working with keys, entering text and the pump() method
 
 ***11/3/23
 Had to use Mockito null safety to get tests to pass. @GenerateNiceMocks
 https://github.com/dart-lang/mockito/blob/master/NULL_SAFETY_README.md
+
+When running tests, the widgets arent automatically rebuilt when setState() is called.
+Must pump() the widget to reset the state
 
 
 ***10/31/23

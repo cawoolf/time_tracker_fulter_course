@@ -9,7 +9,6 @@ import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_form_state
 import 'package:time_tracker_flutter_course/services/auth.dart';
 import 'email_sign_in_form_stateful_test.mocks.dart';
 
-
 void main() {
   var mockAuth = MockAuth();
 
@@ -24,16 +23,48 @@ void main() {
     );
   }
 
-  // Convention to name tests using different Acceptance Criteria for that feature
-  testWidgets(
-      'WHEN user doesn\'t enter the email and password '
-          ' AND user taps on the sign-in button'
-          ' THEN signInWithEmailAndPassword is not called',
-          (WidgetTester tester) async {
-        await pumpEmailSignInForm(tester);
+  group('sign in', () {
+    // Convention to name tests using different Acceptance Criteria for that feature
+    testWidgets(
+        'WHEN user doesn\'t enter the email and password '
+        ' AND user taps on the sign-in button'
+        ' THEN signInWithEmailAndPassword IS NOT called',
+        (WidgetTester tester) async {
+      await pumpEmailSignInForm(tester);
 
-        final signInButton = find.text('Sign in');
-        await tester.tap(signInButton);
-        verifyNever(mockAuth.signInWithEmailAndPassword('', ''));
-      });
+      final signInButton = find.text('Sign in');
+      await tester.tap(signInButton);
+      verifyNever(mockAuth.signInWithEmailAndPassword('', ''));
+    });
+
+    testWidgets(
+        ' WHEN user doesn\'t enter the email and password '
+            ' AND user taps on the sign-in button '
+            ' THEN signInWithEmailAndPassword IS called ',
+        (WidgetTester tester) async {
+      await pumpEmailSignInForm(tester);
+
+      const email = 'email@email.com';
+      const password ='password';
+
+      final emailField = find.byKey(Key('email'));
+      expect(emailField, findsOneWidget);
+      await tester.enterText(emailField, email);
+
+      final passwordField = find.byKey(Key('password'));
+      expect(passwordField, findsOneWidget);
+      await tester.enterText(passwordField, password);
+
+      // When running tests, the widgets arent automatically rebuilt when setState() is called.
+      // Must pump() the widget to reset the state
+      await tester.pump();
+      // await tester.pumpAndSettle(); // Waits for all animations to be finished.
+
+      final signInButton = find.text('Sign in');
+      await tester.tap(signInButton);
+
+      // called() is the number of times we expect the method to be called.
+      verify(mockAuth.signInWithEmailAndPassword(email, password)).called(1);
+    });
+  });
 }

@@ -10,12 +10,13 @@ import '../../common_widgets/show_exception_alert_dialog.dart';
 import '../../services/auth.dart';
 import 'email_sign_in_model.dart';
 
-class EmailSignInFormStateful extends StatefulWidget with EmailAndPasswordValidators {
-
+class EmailSignInFormStateful extends StatefulWidget
+    with EmailAndPasswordValidators {
   //'with' mixin, Extends to functionality of the class.
 
   @override
-  State<EmailSignInFormStateful> createState() => _EmailSignInFormStatefulState();
+  State<EmailSignInFormStateful> createState() =>
+      _EmailSignInFormStatefulState();
 }
 
 class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
@@ -41,7 +42,6 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
   // Used to help managed the emailErrorText and passwordErrorText
   bool _submitted = false;
   bool _isLoading = false;
-
 
   /*
   Called whenever a Widget is removed from the WidgetTree
@@ -80,10 +80,10 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
         }
         Navigator.of(context)
             .pop(); // Dismiss the screen and navigates to the last widget on the stack.
-      }on FirebaseAuthException catch (e) { // Catch certain types of Exceptions. Currently getting an UnknownError
+      } on FirebaseAuthException catch (e) {
+        // Catch certain types of Exceptions. Currently getting an UnknownError
         showExceptionAlertDialog(context,
-            title: 'Sign In failed',
-            exception: e);
+            title: 'Sign In failed', exception: e);
       } finally {
         setState(() {
           _isLoading = false;
@@ -181,6 +181,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
         _submitted && !widget.emailValidator.isValid(_email);
 
     return TextField(
+      key: const Key('email'),
       controller: _emailController,
       focusNode: _emailFocusNode,
       decoration: InputDecoration(
@@ -208,6 +209,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
         _submitted && !widget.passwordValidator.isValid(_password);
 
     return TextField(
+        key: const Key('password'),
         controller: _passwordController,
         focusNode: _passwordFocusNode,
         decoration: InputDecoration(
