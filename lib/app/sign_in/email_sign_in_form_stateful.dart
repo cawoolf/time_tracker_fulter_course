@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/validators.dart';
 import 'package:time_tracker_flutter_course/common_widgets/form_submit_button.dart';
-import 'package:time_tracker_flutter_course/common_widgets/show_alert_dialog.dart';
 import '../../common_widgets/show_exception_alert_dialog.dart';
 import '../../services/auth.dart';
 import 'email_sign_in_model.dart';
@@ -13,8 +10,8 @@ import 'email_sign_in_model.dart';
 class EmailSignInFormStateful extends StatefulWidget
     with EmailAndPasswordValidators {
   //'with' mixin, Extends to functionality of the class.
-  EmailSignInFormStateful({super.key, this.onSignedIn});
-  late final VoidCallback? onSignedIn;
+
+  EmailSignInFormStateful({super.key});
 
   @override
   State<EmailSignInFormStateful> createState() =>
@@ -44,6 +41,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
   // Used to help managed the emailErrorText and passwordErrorText
   bool _submitted = false;
   bool _isLoading = false;
+  bool _signedIn = false;
 
   /*
   Called whenever a Widget is removed from the WidgetTree
@@ -88,11 +86,11 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
         //***Refactor***
         // Parent widget handles callback and calls Navigator.pop()
         // Easier to test.
-        if(widget.onSignedIn != null) {
-          widget.onSignedIn;
-        }
-
-
+        // if(widget.onSignedIn != null) {
+        //     widget.onSignedIn;
+        // }
+        // Bug with the refactor code. Just a quick fix.
+        _onSignedIn();
       } on FirebaseAuthException catch (e) {
         // Catch certain types of Exceptions. Currently getting an UnknownError
         showExceptionAlertDialog(context,
@@ -105,6 +103,11 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
     } else {
       // Display error msg. Email and password aren't valid and the submit button is disabled.
     }
+  }
+
+  void _onSignedIn() {
+    Navigator.of(context).pop();
+    _signedIn = true;
   }
 
   /*

@@ -42,7 +42,10 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 391 Section 24: Replacing Navigator.pop() with a callback
+Current Section = 392 Section 24: Updating the test to handle the form callback
+
+***11/4/23
+Didn't add the code from 392 since it breaks the app.
 
 ***11/3/23
 Had to use Mockito null safety to get tests to pass. @GenerateNiceMocks

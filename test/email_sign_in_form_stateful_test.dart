@@ -40,7 +40,8 @@ void main() {
     testWidgets(
         ' WHEN user doesn\'t enter the email and password '
             ' AND user taps on the sign-in button '
-            ' THEN signInWithEmailAndPassword IS called ',
+            ' THEN signInWithEmailAndPassword IS called '
+            ' AND user is signed in ',
         (WidgetTester tester) async {
       await pumpEmailSignInForm(tester);
 
@@ -65,6 +66,10 @@ void main() {
 
       // called() is the number of times we expect the method to be called.
       verify(mockAuth.signInWithEmailAndPassword(email, password)).called(1);
+
+      await tester.pump();
+
+
     });
   });
 
