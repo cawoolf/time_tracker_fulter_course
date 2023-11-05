@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 389 Section 24: Testing widget updates on state change
+Current Section = 390 Section 24: Completing the email and sign-in tests
 
 ***11/3/23
 Had to use Mockito null safety to get tests to pass. @GenerateNiceMocks

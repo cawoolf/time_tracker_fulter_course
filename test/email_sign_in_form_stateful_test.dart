@@ -82,5 +82,40 @@ void main() {
           final createAccountButton = find.text('Create an account');
           expect(createAccountButton, findsOneWidget);
         });
+
+    testWidgets(
+        'WHEN user taps on the secondary button'
+            ' AND user enters the email and password'
+            ' AND user taps on the register button  '
+            ' THEN createUserWithEmail is called ',
+            (WidgetTester tester) async {
+          await pumpEmailSignInForm(tester);
+
+          const email = 'email@email.com';
+          const password ='password';
+
+          final registerButton = find.text('Need an account? Register');
+          await tester.tap(registerButton);
+
+          await tester.pump();
+
+          final emailField = find.byKey(Key('email'));
+          expect(emailField, findsOneWidget);
+          await tester.enterText(emailField, email);
+
+          final passwordField = find.byKey(Key('password'));
+          expect(passwordField, findsOneWidget);
+          await tester.enterText(passwordField, password);
+
+          await tester.pump();
+
+          final createAccountButton = find.text('Create an account');
+          expect(createAccountButton, findsOneWidget);
+          await tester.tap(createAccountButton);
+
+          // called() is the number of times we expect the method to be called.
+          verify(mockAuth.createUserWithEmailAndPassword(email, password)).called(1);
+
+        });
   });
 }
