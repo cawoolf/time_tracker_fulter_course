@@ -13,6 +13,8 @@ import 'email_sign_in_model.dart';
 class EmailSignInFormStateful extends StatefulWidget
     with EmailAndPasswordValidators {
   //'with' mixin, Extends to functionality of the class.
+  EmailSignInFormStateful({super.key, this.onSignedIn});
+  late final VoidCallback? onSignedIn;
 
   @override
   State<EmailSignInFormStateful> createState() =>
@@ -74,12 +76,23 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
       // await Future.delayed(const Duration(seconds: 3)); // For simulating a slow network.
       try {
         if (_formType == EmailSignInFormType.signIn) {
-          await auth?.signInWithEmailAndPassword(_email, _password);
+          await auth.signInWithEmailAndPassword(_email, _password);
         } else {
-          await auth?.createUserWithEmailAndPassword(_email, _password);
+          await auth.createUserWithEmailAndPassword(_email, _password);
         }
-        Navigator.of(context)
-            .pop(); // Dismiss the screen and navigates to the last widget on the stack.
+
+        //***Original implementation***
+        // Dismiss the screen and navigates to the last widget on the stack.
+        // Navigator.of(context).pop();
+
+        //***Refactor***
+        // Parent widget handles callback and calls Navigator.pop()
+        // Easier to test.
+        if(widget.onSignedIn != null) {
+          widget.onSignedIn;
+        }
+
+
       } on FirebaseAuthException catch (e) {
         // Catch certain types of Exceptions. Currently getting an UnknownError
         showExceptionAlertDialog(context,
