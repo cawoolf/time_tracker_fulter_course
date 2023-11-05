@@ -121,6 +121,7 @@ class SignInPage extends StatelessWidget {
 
           // Google Sign In
           SocialSignInButton(
+            key: const Key('google_sign_in_button'),
             assetName: 'images/google-logo.png',
             text: "Sign in with Google",
             color: Colors.white,
