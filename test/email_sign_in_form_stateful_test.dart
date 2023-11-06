@@ -31,6 +31,8 @@ void main() {
   void stubSignInWithEmailAndPasswordSucceeds() {
     when(mockAuth.signInWithEmailAndPassword(any, any))
         .thenAnswer((_) => Future<User>.value(mockUser));
+
+    expect(mockAuth.signInWithEmailAndPassword(any, any), mockUser);
   }
 
   void stubSignInWithEmailAndPasswordThrows() {
@@ -38,9 +40,14 @@ void main() {
         .thenThrow(FirebaseAuthException(code: 'Login Failed'));
   }
 
-  test('stub',() {
-    stubSignInWithEmailAndPasswordSucceeds();
-    // mockAuth.signInWithEmailAndPassword(any, any);
+  // Stubbbingggg
+  test('stub test',() async {
+    when(mockAuth.signInWithEmailAndPassword(any, any))
+        .thenAnswer((_) => Future<User>.value(mockUser));
+
+    var user = await mockAuth.signInWithEmailAndPassword('email', 'password');
+
+    expect(user, mockUser);
 
   });
 

@@ -11,11 +11,13 @@ import 'package:time_tracker_flutter_course/app/sign_in/sign_in_page.dart';
 import 'email_sign_in_form_stateful_test.mocks.dart'; // Use it for the Auth mock
 import 'sign_in_page_test.mocks.dart';
 
+class MockUser extends Mock implements User{}
 
 void main() {
 
-  var mockSignInManager = MockSignInManager();
-  var mockAuth = MockAuth();
+  final mockSignInManager = MockSignInManager();
+  final mockAuth = MockAuth();
+  final mockUser = MockUser();
 
   Future<void> pumpSignInPage(WidgetTester tester) async {
     await tester.pumpWidget(
@@ -38,15 +40,29 @@ void main() {
 
       if(kIsWeb) {
         verify(mockSignInManager.signInWithGoogleWeb()).called(1);
+        when(mockAuth.signInWithGoogleWeb())
+            .thenAnswer((_) => Future<User>.value(mockUser));
+
+        var user = await mockAuth.signInWithGoogleWeb();
+
+        expect(user, mockUser);
       }
       else {
         verify(mockSignInManager.signInWithGoogle()).called(1);
+        when(mockAuth.signInWithGoogle())
+            .thenAnswer((_) => Future<User>.value(mockUser));
+
+        var user = await mockAuth.signInWithGoogle();
+
+        expect(user, mockUser);
       }
     }
     );
 
     // We know this fails, so we need to test auth directly.
     // We need to know if the manger returns a user or not, not just that the method was called.
+    // Actually.. If we check if the HomePage() is shown, then we know if the signIn was successful or not.
+    // This would also check any config changes in Firebase. This is more of an integration test I guess.
     testWidgets(' GIVEN the user has landed on the SignInPage '
         ' WHEN the user taps the sign_in_anonymously_button '
         ' THEN the user is signed in anonymously',(WidgetTester tester) async {
@@ -58,7 +74,7 @@ void main() {
 
       await tester.tap(anonymousSignInButton);
 
-      verify(mockSignInManager..signInAnonymously()).called(1);
+      verify(mockSignInManager.signInAnonymously()).called(1);
 
     }
     );
