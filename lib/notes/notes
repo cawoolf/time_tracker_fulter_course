@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 392 Section 24: Adding SignInPage mocks and tests-2
+Current Section = 393 Section 24: Stubbing mocks and mock objects
 
 ***11/4/23
 Didn't add the code from 392 since it breaks the app.

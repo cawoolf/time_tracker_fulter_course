@@ -159,6 +159,7 @@ class SignInPage extends StatelessWidget {
 
           // Anonymous Sign In
           SignInButton(
+            key: const Key('anonymous_sign_in_button'),
             text: "Go anonymous",
             color: Colors.limeAccent,
             textColor: Colors.black,

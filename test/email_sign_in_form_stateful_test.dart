@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -9,8 +10,12 @@ import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_form_state
 import 'package:time_tracker_flutter_course/services/auth.dart';
 import 'email_sign_in_form_stateful_test.mocks.dart';
 
+// User constructor is private. Need to use a Mock
+class MockUser extends Mock implements User{}
+
 void main() {
   var mockAuth = MockAuth();
+  var mockUser = MockUser();
 
   Future<void> pumpEmailSignInForm(WidgetTester tester) async {
     await tester.pumpWidget(
@@ -22,6 +27,22 @@ void main() {
       ),
     );
   }
+
+  void stubSignInWithEmailAndPasswordSucceeds() {
+    when(mockAuth.signInWithEmailAndPassword(any, any))
+        .thenAnswer((_) => Future<User>.value(mockUser));
+  }
+
+  void stubSignInWithEmailAndPasswordThrows() {
+    when(mockAuth.signInWithEmailAndPassword(any, any))
+        .thenThrow(FirebaseAuthException(code: 'Login Failed'));
+  }
+
+  test('stub',() {
+    stubSignInWithEmailAndPasswordSucceeds();
+    // mockAuth.signInWithEmailAndPassword(any, any);
+
+  });
 
   group('sign in', () {
     // Convention to name tests using different Acceptance Criteria for that feature
@@ -38,7 +59,7 @@ void main() {
     });
 
     testWidgets(
-        ' WHEN user doesn\'t enter the email and password '
+        ' WHEN user enter the correct email and password '
             ' AND user taps on the sign-in button '
             ' THEN signInWithEmailAndPassword IS called '
             ' AND user is signed in ',
