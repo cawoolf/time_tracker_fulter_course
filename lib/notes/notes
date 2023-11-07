@@ -42,12 +42,14 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 393 Section 24: Stubbing mocks and mock objects -3
+Current Section = 393 Section 24: Stubbing mocks and mock objects -4
 
 ***11/5/23
 You have to rerun
 
 dart run build_runner build
+test --platform chrome // For running googleSignInWeb
+
 
 each time you change the code to generate new mocks. Then tests will pass or fail based on the changes
 made to the mock file.

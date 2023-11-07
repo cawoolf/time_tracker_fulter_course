@@ -46,45 +46,6 @@ void main() {
   group('sign in methods', () {
     testWidgets(
         ' GIVEN the user has landed on the SignInPage '
-            ' WHEN the user taps the google_sign_in_button '
-            ' AND regardless of which platform is being used'
-            ' THEN the user is signed in with google', (
-        WidgetTester tester) async {
-      await pumpSignInPage(tester);
-
-      final googleSignInButton = find.byKey(const Key('google_sign_in_button'));
-      expect(googleSignInButton, findsOneWidget);
-
-      await tester.tap(googleSignInButton);
-
-      if (kIsWeb) {
-        verify(mockSignInManager.signInWithGoogleWeb()).called(1);
-
-        stubSignInWithGoogleWebSucceeds();
-
-        var user = await mockAuth.signInWithGoogleWeb();
-
-        expect(user, mockUser);
-
-        print('kIsWeb: $kIsWeb -> signInWithGoogleWeb() called');
-
-      } else {
-        verify(mockSignInManager.signInWithGoogle()).called(1);
-
-        stubSignInWithGoogleSucceeds();
-
-        var user = await mockAuth.signInWithGoogle();
-
-        expect(user, mockUser);
-
-        print('kIsWeb: $kIsWeb -> signInWithGoogle() called');
-      }
-    });
-
-    // Actually.. If we check if the HomePage() is shown, then we know if the signIn was successful or not.
-    // This would also check any config changes in Firebase. This is more of an integration test I guess.
-    testWidgets(
-        ' GIVEN the user has landed on the SignInPage '
             ' WHEN the user taps the sign_in_anonymously_button '
             ' THEN the user is signed in anonymously', (
         WidgetTester tester) async {
@@ -104,8 +65,6 @@ void main() {
 
       expect(user, mockUser);
     });
-  });
-
   testWidgets(
       ' GIVEN the user has landed on the SignInPage '
           ' WHEN the user taps the google_sign_in_button '
@@ -113,25 +72,34 @@ void main() {
           ' THEN the user is signed in with google', (
       WidgetTester tester) async {
 
-    await pumpSignInPage(tester);
+    if(kIsWeb == false) {
+      await pumpSignInPage(tester);
 
-    final googleSignInButton = find.byKey(const Key('google_sign_in_button'));
-    expect(googleSignInButton, findsOneWidget);
+      final googleSignInButton = find.byKey(const Key('google_sign_in_button'));
+      expect(googleSignInButton, findsOneWidget);
 
-    await tester.tap(googleSignInButton);
+      await tester.tap(googleSignInButton);
 
-    verify(mockSignInManager.signInWithGoogle()).called(1);
+      verify(mockSignInManager.signInWithGoogle()).called(1);
 
-    stubSignInWithGoogleSucceeds();
+      stubSignInWithGoogleSucceeds();
 
-    var user = await mockAuth.signInWithGoogle();
+      var user = await mockAuth.signInWithGoogle();
 
-    expect(user, mockUser);
+      expect(user, mockUser);
+    }
+    else {
+      print('kIsWeb: $kIsWeb');
 
+      stubSignInWithGoogleWebSucceeds();
+
+      var user = await mockAuth.signInWithGoogleWeb();
+
+      expect(user, mockUser);
+    }
   });
+  //Test google signInWithGoogleWeb(). Fails unless you run
 
-  /* Test google signInWithGoogleWeb(). Fails unless you run
- flutter test --platform chrome
   testWidgets(
       ' GIVEN the user has landed on the SignInPage '
           ' WHEN the user taps the google_sign_in_button '
@@ -139,21 +107,33 @@ void main() {
           ' THEN the user is signed in with google web', (
       WidgetTester tester) async {
 
-    await pumpSignInPage(tester);
+    if(kIsWeb) {
+      await pumpSignInPage(tester);
 
-    final googleSignInButton = find.byKey(const Key('google_sign_in_button'));
-    expect(googleSignInButton, findsOneWidget);
+      final googleSignInButton = find.byKey(const Key('google_sign_in_button'));
+      expect(googleSignInButton, findsOneWidget);
 
-    await tester.tap(googleSignInButton);
+      await tester.tap(googleSignInButton);
 
-    verify(mockSignInManager.signInWithGoogleWeb()).called(1);
+      verify(mockSignInManager.signInWithGoogleWeb()).called(1);
 
-    stubSignInWithGoogleWebSucceeds();
+      stubSignInWithGoogleWebSucceeds();
 
-    var user = await mockAuth.signInWithGoogleWeb();
+      var user = await mockAuth.signInWithGoogleWeb();
 
-    expect(user, mockUser);
+      expect(user, mockUser);
+    } else {
+      print('kIsWeb: $kIsWeb');
 
-  }); */
+      stubSignInWithGoogleWebSucceeds();
+
+      var user = await mockAuth.signInWithGoogle();
+
+      expect(user, mockUser);
+    }
+
+  });
+  });
+
 }
 
