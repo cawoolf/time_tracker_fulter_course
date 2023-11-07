@@ -31,8 +31,6 @@ void main() {
   void stubSignInWithEmailAndPasswordSucceeds() {
     when(mockAuth.signInWithEmailAndPassword(any, any))
         .thenAnswer((_) => Future<User>.value(mockUser));
-
-    expect(mockAuth.signInWithEmailAndPassword(any, any), mockUser);
   }
 
   void stubSignInWithEmailAndPasswordThrows() {
@@ -42,11 +40,8 @@ void main() {
 
   // Stubbbingggg
   test('stub test',() async {
-    when(mockAuth.signInWithEmailAndPassword(any, any))
-        .thenAnswer((_) => Future<User>.value(mockUser));
-
+    stubSignInWithEmailAndPasswordSucceeds();
     var user = await mockAuth.signInWithEmailAndPassword('email', 'password');
-
     expect(user, mockUser);
 
   });
