@@ -7,14 +7,16 @@ import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/home/home_page.dart';
 import 'package:time_tracker_flutter_course/app/landing_page.dart';
-import 'package:time_tracker_flutter_course/app/sign_in/sign_in_page.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
-import 'email_sign_in_form_stateful_test.dart';
+
 import 'email_sign_in_form_stateful_test.mocks.dart';
 
 
+class MockUser extends Mock implements User{}
+
 void main() {
   var mockAuth = MockAuth();
+  final mockUser = MockUser();
   StreamController<User> onAuthStateChangedController = StreamController<User>();
 
   tearDown(() => onAuthStateChangedController.close());
@@ -28,7 +30,6 @@ void main() {
         ),
       ),
     );
-
     await tester.pump();
   }
 
@@ -59,8 +60,18 @@ void main() {
   //   expect(find.byType(SignInPage), findsOneWidget );
   // } );
 
+  void stubSignInWithGoogleSucceeds() {
+    when(mockAuth.signInWithGoogle())
+        .thenAnswer((_) => Future<User>.value(mockUser));
+  }
+
   testWidgets('non-null user', (WidgetTester tester) async {
-    stubOnAuthStateChangedYields(MockUser() as Iterable<User>);
+
+    stubSignInWithGoogleSucceeds();
+    var user = await mockAuth.signInWithGoogle();
+    expect(user, mockUser);
+
+    stubOnAuthStateChangedYields([user as User]); // We are getting a null uid from Firebase, but we're making it to the HomePage()
     await pumpLandingPage(tester);
     expect(find.byType(HomePage), findsOneWidget );
   } );
