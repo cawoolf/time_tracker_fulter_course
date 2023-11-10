@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 395 Section 24: Using Widget tests with StreamBuilder
+Current Section = 396 Section 24: Using StreamController inside tests
 
 ***11/5/23
 You have to rerun
