@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class Entry {
   Entry({
     required this.id,
@@ -37,5 +35,31 @@ class Entry {
       'end': end.millisecondsSinceEpoch,
       'comment': comment,
     };
+  }
+
+  /// Hash codes must be the same for objects that are equal to each other
+  /// according to [operator ==].
+  /// Objects with the same properties don't have the same HashCode by default. Unique instances.
+  /// Good practice to implement these methods to compare objects
+  /// This is the correct way to do it.
+  @override
+  int get hashCode => Object.hash(id, jobId, start, end, comment);
+
+  // int get hashCode => hasValues(id, name, ratePerHour); // Deprecated?
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true; // Checks if the two Objects are the same reference in memory
+    }
+    if (runtimeType != other.runtimeType) {
+      return false; // Checks if the other Object is of the same time as the original. If not return false.
+    }
+    final Entry otherEntry = other as Entry;
+    return id == otherEntry.id &&
+        jobId == otherEntry.jobId &&
+        start == otherEntry.start &&
+        end == otherEntry.end &&
+        comment == otherEntry.comment;
   }
 }

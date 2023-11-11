@@ -7,6 +7,7 @@ import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/home/home_page.dart';
 import 'package:time_tracker_flutter_course/app/landing_page.dart';
+import 'package:time_tracker_flutter_course/app/sign_in/sign_in_page.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
 import 'email_sign_in_form_stateful_test.mocks.dart';
@@ -19,6 +20,7 @@ void main() {
   final mockUser = MockUser();
   StreamController<User> onAuthStateChangedController = StreamController<User>();
 
+  setUp(() => onAuthStateChangedController = StreamController<User>());
   tearDown(() => onAuthStateChangedController.close());
 
   Future<void> pumpLandingPage(WidgetTester tester) async {
@@ -55,7 +57,7 @@ void main() {
   } );
 
   // testWidgets('null user', (WidgetTester tester) async {
-  //   // stubOnAuthStateChangedYields(null);
+  //   stubOnAuthStateChangedYields(null);
   //   await pumpLandingPage(tester);
   //   expect(find.byType(SignInPage), findsOneWidget );
   // } );
@@ -71,7 +73,7 @@ void main() {
     var user = await mockAuth.signInWithGoogle();
     expect(user, mockUser);
 
-    stubOnAuthStateChangedYields([user as User]); // We are getting a null uid from Firebase, but we're making it to the HomePage()
+    stubOnAuthStateChangedYields([user as User]); // We are getting a null uid from Firebase, but we're making it to the HomePage(). JobPage is loaded by the HomePage
     await pumpLandingPage(tester);
     expect(find.byType(HomePage), findsOneWidget );
   } );
