@@ -10,7 +10,8 @@ import 'home/home_page.dart';
 import 'home/jobs/jobs_page.dart';
 
 class LandingPage extends StatelessWidget {
-  const LandingPage({super.key});
+  const LandingPage({super.key, required this.databaseBuilder});
+  final Database Function(String) databaseBuilder;
 
   // Builds the child of the LandingPage as either the SignInPage or the HomePage
   // Depending on if the User is logged in or not.
@@ -32,7 +33,7 @@ class LandingPage extends StatelessWidget {
             return SignInPage.create(context);
           }
           return Provider<Database>(
-              create: (_) => FirestoreDatabase(uid: user.uid), // user.uid comes from the snapshot
+              create: (_) => databaseBuilder(user.uid), // user.uid comes from the snapshot
               child: const HomePage(),
           );
         }

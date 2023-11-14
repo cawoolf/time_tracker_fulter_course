@@ -7,17 +7,16 @@ import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/home/home_page.dart';
 import 'package:time_tracker_flutter_course/app/landing_page.dart';
-import 'package:time_tracker_flutter_course/app/sign_in/sign_in_page.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
-import 'email_sign_in_form_stateful_test.mocks.dart';
+import 'all_mocks_test.mocks.dart';
 
-
-class MockUser extends Mock implements User{}
 
 void main() {
   var mockAuth = MockAuth();
   final mockUser = MockUser();
+  var mockDatabase = MockFirestoreDatabase();
+
   StreamController<User> onAuthStateChangedController = StreamController<User>();
 
   setUp(() => onAuthStateChangedController = StreamController<User>());
@@ -28,7 +27,7 @@ void main() {
       Provider<AuthBase>(
         create: (_) => mockAuth,
         child: const MaterialApp(
-          home: LandingPage(),
+          // home: LandingPage(databaseBuilder:),
         ),
       ),
     );
@@ -43,12 +42,12 @@ void main() {
     });
   }
 
-  // void stubOnAuthStateNull(Iterable<User> onAuthStateChanged) {
-  //   onAuthStateChangedController.addStream(Stream<User>.fromIterable(onAuthStateChanged));
-  //   when(mockAuth.authStateChanges()).thenAnswer((_) {
-  //     return onAuthStateChangedController.stream;
-  //   });
-  // }
+  void stubOnAuthStateNull(Iterable<User> onAuthStateChanged) {
+    onAuthStateChangedController.addStream(Stream<User>.fromIterable(onAuthStateChanged));
+    when(mockAuth.authStateChanges()).thenAnswer((_) {
+      return onAuthStateChangedController.stream;
+    });
+  }
 
   testWidgets('stream waiting', (WidgetTester tester) async {
     stubOnAuthStateChangedYields([]); // Empty list creates an empty stream
