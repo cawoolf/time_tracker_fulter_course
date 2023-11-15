@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/home/account/account_page.dart';
 import 'package:time_tracker_flutter_course/app/home/cupertino_home_scaffold.dart';
 import 'package:time_tracker_flutter_course/app/home/tab_item.dart';
 
+import '../../services/database.dart';
 import 'entries/entries_page.dart';
 import 'jobs/jobs_page.dart';
 
@@ -40,6 +42,7 @@ class _HomePageState extends State<HomePage> {
     else {
       setState(() => _currentTab = tabItem);
     }
+
   }
 
   @override

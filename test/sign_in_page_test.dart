@@ -3,27 +3,47 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_page.dart';
+import 'package:time_tracker_flutter_course/services/auth.dart';
 
 import 'all_mocks_test.mocks.dart';
 
 void main() {
   late MockSignInManager mockSignInManager;
+  late MockNavigatorObserver mockNavigatorObserver;
   late MockAuth mockAuth;
   late MockUser mockUser;
 
   setUp(() {
     mockSignInManager = MockSignInManager();
+    mockNavigatorObserver = MockNavigatorObserver();
     mockAuth = MockAuth();
     mockUser = MockUser();
   });
 
   Future<void> pumpSignInPage(WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
-        home: SignInPage(
-      manager: mockSignInManager,
-      isLoading: false,
-    )));
+      home: SignInPage(
+        manager: mockSignInManager,
+        isLoading: false,
+      ),
+      navigatorObservers: [mockNavigatorObserver],
+    ));
+  }
+
+  // User builder to pass context. From time_tracker_flutter_course
+  // Probably should use Provider<AuthBase> just to be consistent with how the app is set up.
+  Future<void> pumpSignInPage2(WidgetTester tester) async {
+    await tester.pumpWidget(Provider<AuthBase>(
+      create: (_) => mockAuth,
+      child: MaterialApp(
+        home: Builder(builder: (context) => SignInPage.create(context)),
+        navigatorObservers: [mockNavigatorObserver],
+      ),
+    ));
+
+    verify(mockNavigatorObserver.didPush(any, any)).called(1); // Navigator is called once when the SignInPage is pushed. Need to register this so other tests don't see the called count as 2
   }
 
   void stubSignInWithGoogleSucceeds() {
@@ -104,7 +124,6 @@ void main() {
         ' THEN the user is signed in with google web'
         'ELSE the user is signed in with in google',
         (WidgetTester tester) async {
-
       //kisWeb = true so sign in with google web
       if (kIsWeb) {
         await pumpSignInPage(tester);
@@ -132,6 +151,21 @@ void main() {
 
         expect(user, mockUser);
       }
+    });
+  });
+
+  group('navigation tests', () {
+    testWidgets('email & password navigation', (WidgetTester tester) async {
+      await pumpSignInPage2(tester);
+
+      final emailSignInButton = find.byKey(SignInPage.emailSignInKey);
+      expect(emailSignInButton, findsOneWidget);
+
+      await tester.tap(emailSignInButton);
+      await tester
+          .pumpAndSettle(); // called for navigation. Wait for animations to settle
+
+      verify(mockNavigatorObserver.didPush(any, any)).called(1);
     });
   });
 }

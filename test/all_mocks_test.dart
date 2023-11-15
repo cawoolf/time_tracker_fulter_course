@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'all_mocks_test.mocks.dart';
@@ -17,6 +18,9 @@ import 'package:firebase_core/firebase_core.dart';
 @GenerateNiceMocks([MockSpec<FirestoreDatabase>()])
 import 'package:time_tracker_flutter_course/services/database.dart';
 
+@GenerateNiceMocks([MockSpec<NavigatorObserver>()])
+import 'package:flutter/src/widgets/navigator.dart';
+
 
 void main() {
 
@@ -25,6 +29,7 @@ void main() {
     final user = MockUser();
     final signInManager = MockSignInManager();
     final database = MockFirestoreDatabase();
+    final navigatorObserver = MockNavigatorObserver();
 
   });
 

@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart' as _i2;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart'
     as _i6;
 import 'package:firebase_core/firebase_core.dart' as _i8;
+import 'package:flutter/cupertino.dart' as _i12;
 import 'package:flutter/foundation.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:time_tracker_flutter_course/app/home/models/entry.dart' as _i11;
@@ -821,4 +822,99 @@ class MockFirestoreDatabase extends _i1.Mock implements _i9.FirestoreDatabase {
         returnValue: _i5.Stream<List<_i11.Entry>>.empty(),
         returnValueForMissingStub: _i5.Stream<List<_i11.Entry>>.empty(),
       ) as _i5.Stream<List<_i11.Entry>>);
+}
+
+/// A class which mocks [NavigatorObserver].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockNavigatorObserver extends _i1.Mock implements _i12.NavigatorObserver {
+  @override
+  void didPush(
+    _i12.Route<dynamic>? route,
+    _i12.Route<dynamic>? previousRoute,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #didPush,
+          [
+            route,
+            previousRoute,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void didPop(
+    _i12.Route<dynamic>? route,
+    _i12.Route<dynamic>? previousRoute,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #didPop,
+          [
+            route,
+            previousRoute,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void didRemove(
+    _i12.Route<dynamic>? route,
+    _i12.Route<dynamic>? previousRoute,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #didRemove,
+          [
+            route,
+            previousRoute,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void didReplace({
+    _i12.Route<dynamic>? newRoute,
+    _i12.Route<dynamic>? oldRoute,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #didReplace,
+          [],
+          {
+            #newRoute: newRoute,
+            #oldRoute: oldRoute,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void didStartUserGesture(
+    _i12.Route<dynamic>? route,
+    _i12.Route<dynamic>? previousRoute,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #didStartUserGesture,
+          [
+            route,
+            previousRoute,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void didStopUserGesture() => super.noSuchMethod(
+        Invocation.method(
+          #didStopUserGesture,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

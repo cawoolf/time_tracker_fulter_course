@@ -15,6 +15,8 @@ class SignInPage extends StatelessWidget {
   final SignInManager manager;
   final bool isLoading;
 
+  static const emailSignInKey = Key('email_sign_in_button');
+
   // final bloc = Provider.of<SignInBloc>(context, listen: false); Note what assigning bloc looks like
 
   // Creates an instance of the SignInPage with a Provider and SignInBloc
@@ -27,7 +29,8 @@ class SignInPage extends StatelessWidget {
         builder: (_, isLoading, __) => Provider<SignInManager>(
           create: (_) => SignInManager(auth: auth, isLoading: isLoading),
           child: Consumer<SignInManager>(
-            builder: (_, manager, __) => SignInPage(manager: manager, isLoading: isLoading.value),
+            builder: (_, manager, __) =>
+                SignInPage(manager: manager, isLoading: isLoading.value),
           ),
         ),
       ),
@@ -86,7 +89,6 @@ class SignInPage extends StatelessWidget {
   // UI Widgets
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Time Tracker"),
@@ -146,6 +148,7 @@ class SignInPage extends StatelessWidget {
 
           // Email Sign In
           SignInButton(
+              key: emailSignInKey,
               text: "Sign in with Email",
               color: Colors.teal,
               textColor: Colors.white,

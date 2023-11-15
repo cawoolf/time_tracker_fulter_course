@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 397 Section 24: Adding Database builder to the Landing Page -3
+Current Section = 400 Section 24: Testing navigation
 
 ***11/14/23
 Firestore testing issues happens in landing_page_test.dart
