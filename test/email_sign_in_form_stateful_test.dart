@@ -10,8 +10,13 @@ import 'all_mocks_test.mocks.dart';
 
 
 void main() {
-  var mockAuth = MockAuth();
-  var mockUser = MockUser();
+  late MockAuth mockAuth;
+  late MockUser mockUser;
+
+  setUp(() {
+    mockAuth = MockAuth();
+    mockUser = MockUser();
+  });
 
   Future<void> pumpEmailSignInForm(WidgetTester tester) async {
     await tester.pumpWidget(

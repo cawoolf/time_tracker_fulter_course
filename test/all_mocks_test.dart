@@ -1,10 +1,9 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
+import 'all_mocks_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<Auth>()])
 import 'package:time_tracker_flutter_course/services/auth.dart';
-import 'all_mocks_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<User>()])
 import 'package:firebase_auth/firebase_auth.dart';

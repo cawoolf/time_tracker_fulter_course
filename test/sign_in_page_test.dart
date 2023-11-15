@@ -7,11 +7,16 @@ import 'package:time_tracker_flutter_course/app/sign_in/sign_in_page.dart';
 
 import 'all_mocks_test.mocks.dart';
 
-
 void main() {
-  final mockSignInManager = MockSignInManager();
-  final mockAuth = MockAuth();
-  final mockUser = MockUser();
+  late MockSignInManager mockSignInManager;
+  late MockAuth mockAuth;
+  late MockUser mockUser;
+
+  setUp(() {
+    mockSignInManager = MockSignInManager();
+    mockAuth = MockAuth();
+    mockUser = MockUser();
+  });
 
   Future<void> pumpSignInPage(WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
@@ -96,8 +101,11 @@ void main() {
         ' GIVEN the user has landed on the SignInPage '
         ' WHEN the user taps the google_sign_in_button '
         ' AND the user is on a web platform '
-        ' THEN the user is signed in with google web',
+        ' THEN the user is signed in with google web'
+        'ELSE the user is signed in with in google',
         (WidgetTester tester) async {
+
+      //kisWeb = true so sign in with google web
       if (kIsWeb) {
         await pumpSignInPage(tester);
 
@@ -114,11 +122,11 @@ void main() {
         var user = await mockAuth.signInWithGoogleWeb();
 
         expect(user, mockUser);
-
       } else {
+        //kIsWeb = false, so sign in with google
         print('kIsWeb: $kIsWeb');
 
-        stubSignInWithGoogleWebSucceeds();
+        stubSignInWithGoogleSucceeds();
 
         var user = await mockAuth.signInWithGoogle();
 
