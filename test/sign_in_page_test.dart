@@ -155,16 +155,21 @@ void main() {
   });
 
   group('navigation tests', () {
-    testWidgets('email & password navigation', (WidgetTester tester) async {
-      await pumpSignInPage2(tester);
+    testWidgets(' GIVEN the user has landed on the SignInPage '
+        ' WHEN the user taps the sign_with_email_button '
+        ' THEN the user is navigated to the EmailSignInPage', (WidgetTester tester) async {
 
+      // ARRANGE
+      await pumpSignInPage2(tester);
       final emailSignInButton = find.byKey(SignInPage.emailSignInKey);
       expect(emailSignInButton, findsOneWidget);
 
+      // ACT
       await tester.tap(emailSignInButton);
       await tester
           .pumpAndSettle(); // called for navigation. Wait for animations to settle
 
+      // ASSERT
       verify(mockNavigatorObserver.didPush(any, any)).called(1);
     });
   });
