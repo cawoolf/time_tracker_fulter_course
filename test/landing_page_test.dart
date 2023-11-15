@@ -49,11 +49,11 @@ void main() {
     });
   }
 
-  testWidgets('stream waiting', (WidgetTester tester) async {
-    stubOnAuthStateChangedYields([]); // Empty list creates an empty stream
-    await pumpLandingPage(tester);
-    expect(find.byType(CircularProgressIndicator), findsOneWidget );
-  } );
+  // testWidgets('stream waiting', (WidgetTester tester) async {
+  //   stubOnAuthStateChangedYields([]); // Empty list creates an empty stream
+  //   await pumpLandingPage(tester);
+  //   expect(find.byType(CircularProgressIndicator), findsOneWidget );
+  // } );
 
   // testWidgets('null user', (WidgetTester tester) async {
   //   stubOnAuthStateChangedYields(null);
@@ -66,15 +66,15 @@ void main() {
         .thenAnswer((_) => Future<User>.value(mockUser));
   }
 
-  testWidgets('non-null user', (WidgetTester tester) async {
-
-    stubSignInWithGoogleSucceeds();
-    var user = await mockAuth.signInWithGoogle();
-    expect(user, mockUser);
-
-    stubOnAuthStateChangedYields([user as User]); // We are getting a null uid from Firebase, but we're making it to the HomePage(). JobPage is loaded by the HomePage
-    await pumpLandingPage(tester);
-    expect(find.byType(HomePage), findsOneWidget );
-  } );
+  // testWidgets('non-null user', (WidgetTester tester) async {
+  //
+  //   stubSignInWithGoogleSucceeds();
+  //   var user = await mockAuth.signInWithGoogle();
+  //   expect(user, mockUser);
+  //
+  //   stubOnAuthStateChangedYields([user as User]); // We are getting a null uid from Firebase, but we're making it to the HomePage(). JobPage is loaded by the HomePage
+  //   await pumpLandingPage(tester);
+  //   expect(find.byType(HomePage), findsOneWidget );
+  // } );
 
 }

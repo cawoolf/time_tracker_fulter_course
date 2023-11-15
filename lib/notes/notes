@@ -42,7 +42,17 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 397 Section 24: Adding Database builder to the Landing Page -1
+Current Section = 397 Section 24: Adding Database builder to the Landing Page -2
+
+***11/14/23
+Firestore testing issues happens in landing_page_test.dart
+
+Just move on from section 397 for now. Testing Firestore is difficult and wierd on this version
+of flutter. Need to research it and try a different approach. Maybe start a separate project just
+to practice TTD and Firestore testing.
+
+Did add entity_test and some more signin methods though
+
 
 ***11/5/23
 You have to rerun
