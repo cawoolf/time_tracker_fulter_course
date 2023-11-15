@@ -11,7 +11,11 @@ import 'package:time_tracker_flutter_course/services/auth.dart';
 
 import 'all_mocks_test.mocks.dart';
 
-
+/*
+Just move on from section 397 for now. Testing Firestore is difficult and wierd on this version
+of flutter. Need to research it and try a different approach. Maybe start a separate project just
+to practice TTD and Firestore testing.
+ */
 void main() {
   var mockAuth = MockAuth();
   final mockUser = MockUser();

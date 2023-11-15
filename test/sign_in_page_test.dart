@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
+import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_page.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/sign_in_page.dart';
 import 'package:time_tracker_flutter_course/services/auth.dart';
 
@@ -170,7 +171,11 @@ void main() {
           .pumpAndSettle(); // called for navigation. Wait for animations to settle
 
       // ASSERT
-      verify(mockNavigatorObserver.didPush(any, any)).called(1);
+      verify(mockNavigatorObserver.didPush(any, any)).called(1); // Navigation was called
+      expect(find.byType(EmailSignInPage), findsOneWidget); // EmailSignInPage was loaded
+
+      // Could continue to write navigation tests now that we are on the EmailSignInPage.
+      // Find the sign in button, login, land on the home page, and go from there
     });
   });
 }
