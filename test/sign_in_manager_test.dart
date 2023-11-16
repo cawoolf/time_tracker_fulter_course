@@ -6,19 +6,17 @@ import 'package:time_tracker_flutter_course/app/sign_in/sign_in_manager.dart';
 
 import 'all_mocks_test.mocks.dart';
 
-
 // 402: Custom class to store values from the ValueNotifier
 class MockValueNotifier<T> extends ValueNotifier<bool> {
-  MockValueNotifier(T value) :  super(value as bool);
+  MockValueNotifier(T value) : super(value as bool);
 
-  List<T>values = [];
+  List<T> values = [];
 
   @override
   set value(dynamic newValue) {
     values.add(newValue);
     super.value = newValue;
   }
-
 }
 
 void main() {
@@ -31,37 +29,32 @@ void main() {
     mockUser = MockUser();
     mockAuth = MockAuth();
     isLoading = MockValueNotifier<bool>(false);
-    signInManager = SignInManager(auth: mockAuth, isLoading: isLoading as ValueNotifier<bool>);
+    signInManager = SignInManager(auth: mockAuth, isLoading: isLoading);
   });
 
   test('sign-in- success', () async {
     // ARRANGE
-    when(mockAuth.signInAnonymously()).thenAnswer((_) => Future.value(mockUser));
+    when(mockAuth.signInAnonymously())
+        .thenAnswer((_) => Future.value(mockUser));
 
     // ACT
     await signInManager.signInAnonymously();
 
     // ASSERT
     expect(isLoading.values, [true]);
-
   });
 
   test('sign-in- failure', () async {
     // ARRANGE
-    when(mockAuth.signInAnonymously()).thenThrow(PlatformException(code: 'ERROR', message: 'sign-in-failed'));
+    when(mockAuth.signInAnonymously())
+        .thenThrow(PlatformException(code: 'ERROR', message: 'sign-in-failed'));
 
     // ACT
     try {
       await signInManager.signInAnonymously();
-    } catch(e) {
-    // ASSERT
-    expect(isLoading.values, [true,false]);
-
+    } catch (e) {
+      // ASSERT
+      expect(isLoading.values, [true, false]);
     }
-
-
   });
-
-
-
 }

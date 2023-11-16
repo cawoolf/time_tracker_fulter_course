@@ -81,7 +81,7 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
 
   }
 
-  // Convience methods for just updating password or email
+  // Convenience methods for just updating password or email
   void updatePassword(String password) => updateWith(password: password);
   void updateEmail(String email) => updateWith(email: email);
 
@@ -98,6 +98,7 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
       this.formType  = formType?? this.formType;
       this.isLoading = isLoading ?? this.isLoading;
       this.submitted  = submitted?? this.submitted;
+      notifyListeners();
 
   }
 }

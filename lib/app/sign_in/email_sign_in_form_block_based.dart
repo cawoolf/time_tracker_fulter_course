@@ -13,7 +13,7 @@ import 'email_sign_in_model.dart';
 
 //'with' mixin, Extends to functionality of the class.
 class EmailSignInFormBlocBased extends StatefulWidget {
-  EmailSignInFormBlocBased({super.key, required this.bloc});
+  const EmailSignInFormBlocBased({super.key, required this.bloc});
 
   final EmailSignInBloc bloc;
 

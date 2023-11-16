@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 402 Section 24: Testing ValueNotifier models
+Current Section = 403 Section 24: Testing Change Notifier Models
 
 ***11/14/23
 Firestore testing issues happens in landing_page_test.dart

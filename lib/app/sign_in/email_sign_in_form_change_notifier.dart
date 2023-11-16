@@ -10,7 +10,7 @@ import 'email_sign_in_change_model.dart';
 
 //'with' mixin, Extends to functionality of the class.
 class EmailSignInFormChangeNotifier extends StatefulWidget {
-  EmailSignInFormChangeNotifier({super.key, required this.model});
+  const EmailSignInFormChangeNotifier({super.key, required this.model});
 
   final EmailSignInChangeModel model;
 
