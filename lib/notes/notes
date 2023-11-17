@@ -42,10 +42,16 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 406 Section 24: Testing streams in BloCs
+Current Section = 410 Section 24: Conclusion
 
 ***11/16/23
 Remember to over ride hashCode, ==, and toString to test models
+
+Use animations! Flutter is good at it
+
+Also look into Platform Channels
+
+A lot of extra resources at the end of the video
 
 ***11/14/23
 Firestore testing issues happens in landing_page_test.dart
