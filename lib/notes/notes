@@ -42,7 +42,7 @@ EmailSignInFormType register is not working. Can't create a new account with ema
 ***&&&***
 
 *********************************************Daily Notes********************************************
-Current Section = 405 Section 24: Comparing EmailSignInModel objects
+Current Section = 406 Section 24: Testing streams in BloCs
 
 ***11/16/23
 Remember to over ride hashCode, ==, and toString to test models
